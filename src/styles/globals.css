@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --xuan-black: #0a0a0a;
+    --ink: #1a1a2e;
+    --ink-light: #252542;
+    --chi-gold: #c9a227;
+    --amber: #d4a574;
+    --gold-light: #e8c547;
+    --jade: #2d5a4a;
+    --cinnabar: #8b2942;
+    --cinnabar-light: #a83350;
+    --xuan-paper: #f5f0e6;
+    --xuan-dark: #e8e0d0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-xuan-black text-xuan-paper antialiased;
+    font-family: 'Noto Sans SC', 'Noto Serif SC', sans-serif;
+  }
+
+  /* 自定义滚动条 */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-ink;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-chi-gold/50 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-chi-gold;
+  }
+}
+
+@layer components {
+  /* 玄黑渐变背景 */
+  .bg-xuan-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--xuan-black) 0%,
+      var(--ink) 50%,
+      var(--xuan-black) 100%
+    );
+  }
+
+  /* 金色光晕 */
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(201, 162, 39, 0.3),
+      0 0 40px rgba(201, 162, 39, 0.2),
+      0 0 60px rgba(201, 162, 39, 0.1);
+  }
+
+  /* 墨色边框 */
+  .border-ink {
+    border-color: var(--ink);
+  }
+
+  /* 宣纸纹理 */
+  .paper-texture {
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  /* 八卦阵旋转容器 */
+  .bagua-container {
+    perspective: 1000px;
+  }
+
+  /* 爻线动画 */
+  .yao-line {
+    transform-origin: center;
+  }
+
+  .yao-yin {
+    @apply bg-xuan-paper;
+  }
+
+  .yao-yang {
+    @apply bg-chi-gold;
+  }
+
+  /* 墨水晕染效果 */
+  .ink-blob {
+    filter: url(#ink-filter);
+  }
+}
+
+@layer utilities {
+  /* 文字渐变 */
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      var(--chi-gold) 0%,
+      var(--amber) 50%,
+      var(--gold-light) 100%
+    );
+  }
+
+  /* 呼吸动画 */
+  .animate-breathe {
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+
+  /* 粒子漂浮 */
+  .animate-particles {
+    animation: particles 20s linear infinite;
+  }
+
+  @keyframes particles {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+}
+
+/* Three.js Canvas 容器 */
+.three-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
