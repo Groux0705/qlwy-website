@@ -1,6 +1,6 @@
-import { PropsWithChildren, useState, useRef } from 'react'
-import { ArrowUpRight, Sparkles, Sword, Gift, ShoppingBag, Users, Lock, TrendingUp, X } from 'lucide-react'
-import { motion, AnimatePresence } from 'motion/react'
+import { PropsWithChildren, useState } from 'react'
+import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp } from 'lucide-react'
+import { motion } from 'motion/react'
 import { BlurText } from '@/components/BlurText'
 import { VideoBackground } from '@/components/VideoBackground'
 import { Button } from '@/components/ui/button'
@@ -361,48 +361,277 @@ function ModuleDetailModal({ module, onClose }: { module: typeof modules[0]; onC
   )
 }
 
-function ModulesSection() {
-  const [selectedModule, setSelectedModule] = useState<typeof modules[0] | null>(null)
-
+function ModuleSection({ id, title, subtitle, description, modules: sectionModules, bgColor = '#F5F3EB', textColor = '#333333' }: {
+  id: string
+  title: string
+  subtitle: string
+  description: string
+  modules: typeof modules
+  bgColor?: string
+  textColor?: string
+}) {
   return (
-    <section id="modules" className="px-6 py-24 md:px-16 lg:px-24" style={{ background: '#F5F3EB' }}>
+    <section id={id} className="relative py-24 px-6 md:px-16 lg:px-24" style={{ background: bgColor }}>
       <div className="mx-auto max-w-7xl">
-        <div className="mb-16 text-center">
-          <SectionBadge className="mb-6">核心玩法</SectionBadge>
-          <SectionHeading>六大功能</SectionHeading>
+        <div className="mb-12 text-center">
+          <SectionBadge className="mb-4">{subtitle}</SectionBadge>
+          <SectionHeading style={{ color: textColor }}>{title}</SectionHeading>
           <motion.p
-            className="mt-4 text-sm"
-            style={{ color: '#333333', opacity: 0.6 }}
+            className="mt-4 max-w-2xl mx-auto text-sm leading-relaxed"
+            style={{ color: textColor, opacity: 0.7 }}
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.2 }}
           >
-            点击任意模块了解更多详情
+            {description}
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6">
-          {modules.map((module, index) => (
-            <ModuleCard
-              key={module.id}
-              module={module}
-              index={index}
-              onClick={() => setSelectedModule(module)}
-            />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {sectionModules.map((mod) => (
+            <motion.div
+              key={mod.id}
+              className="rounded-2xl p-8 text-center"
+              style={{
+                background: bgColor === '#333333' ? 'rgba(245, 243, 235, 0.1)' : 'rgba(196, 154, 108, 0.1)',
+                border: `1px solid rgba(196, 154, 108, 0.3)`,
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div
+                className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl"
+                style={{ background: mod.accent ? '#C49A6C' : 'rgba(196, 154, 108, 0.2)' }}
+              >
+                <mod.icon className="h-7 w-7" style={{ color: mod.accent ? '#F5F3EB' : '#C49A6C' }} />
+              </div>
+              <h3 className="mb-2 font-heading text-xl italic" style={{ color: textColor }}>
+                {mod.title}
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: textColor, opacity: 0.6 }}>
+                {mod.shortDesc}
+              </p>
+            </motion.div>
           ))}
         </div>
       </div>
-
-      <AnimatePresence>
-        {selectedModule && (
-          <ModuleDetailModal
-            module={selectedModule}
-            onClose={() => setSelectedModule(null)}
-          />
-        )}
-      </AnimatePresence>
     </section>
+  )
+}
+
+function DivinationSection() {
+  return (
+    <section id="divination" className="relative min-h-screen py-24 overflow-hidden" style={{ background: '#F5F3EB' }}>
+      <div className="mx-auto max-w-7xl px-6">
+        {/* Header */}
+        <div className="mb-16 text-center">
+          <SectionHeading>卜卦</SectionHeading>
+          <div className="mt-4 max-w-2xl mx-auto relative">
+            <motion.p
+              className="text-sm leading-relaxed px-10 py-3 text-center rounded-full border"
+              style={{ color: '#333333', opacity: 0.7, borderColor: 'rgba(196, 154, 108, 0.4)' }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              摇签问卦，得天指引。易经六十四卦，洞悉万事万物之理。
+            </motion.p>
+          </div>
+        </div>
+
+        {/* Main visual + content */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+          {/* Left: Visual with guijia as main, luopan as background */}
+          <div className="relative flex flex-col items-center">
+            {/* Luopan as background */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative w-full max-w-md aspect-square"
+            >
+              <img
+                src="/images/section1/luopan.png"
+                alt="罗盘"
+                className="absolute inset-0 w-full h-full object-contain opacity-20"
+              />
+
+              {/* Guijia as foreground image centered on luopan */}
+              <motion.img
+                src="/images/section1/guijia.png"
+                alt="卦象"
+                className="absolute inset-0 m-auto w-[75%] h-[75%] object-contain"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+              />
+
+              {/* Three coins positioned in semi-circle at bottom */}
+              <motion.img
+                src="/images/section1/coin1.png"
+                alt="铜钱"
+                className="absolute w-12 h-12"
+                style={{ bottom: '0%', left: '10%' }}
+                animate={{ rotate: [0, 10, 0], y: [0, -4, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+              <motion.img
+                src="/images/section1/coin2.png"
+                alt="铜钱"
+                className="absolute w-12 h-12"
+                style={{ bottom: '-10%', left: '44%' }}
+                animate={{ rotate: [0, -8, 0], y: [0, 4, 0] }}
+                transition={{ duration: 4, repeat: Infinity }}
+              />
+              <motion.img
+                src="/images/section1/coin3.png"
+                alt="铜钱"
+                className="absolute w-12 h-12"
+                style={{ bottom: '0%', right: '10%' }}
+                animate={{ rotate: [0, 12, 0], y: [0, -5, 0] }}
+                transition={{ duration: 3.5, repeat: Infinity }}
+              />
+            </motion.div>
+          </div>
+
+          {/* Right: Content */}
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <h3 className="font-heading text-3xl italic mb-4" style={{ color: '#333333' }}>
+                蓍草占卜
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: '#333333', opacity: 0.7 }}>
+                运用古老的蓍草占卜法，五十根蓍草经过十八变而成卦。每一次占卜都是与天地对话的过程，卦象蕴含宇宙运行之理，指引迷津。
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="flex items-start gap-4 p-6 rounded-2xl"
+              style={{ background: 'rgba(196, 154, 108, 0.1)', border: '1px solid rgba(196, 154, 108, 0.2)' }}
+            >
+              <img src="/images/section1/guijia.png" alt="卦象" className="w-16 h-16 shrink-0" />
+              <div>
+                <h4 className="font-heading text-xl italic mb-2" style={{ color: '#333333' }}>六十四卦</h4>
+                <p className="text-xs leading-relaxed" style={{ color: '#333333', opacity: 0.6 }}>
+                  从乾为天到火水未济，六十四卦涵盖世间万事万物。每一卦皆有象、数、理、占四义，助您洞悉先机。
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.a
+              href="#"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+              whileHover={{ scale: 1.02 }}
+              className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-medium"
+              style={{ background: '#C49A6C', color: '#F5F3EB' }}
+            >
+              开始占卜
+              <ArrowUpRight className="h-4 w-4" />
+            </motion.a>
+          </div>
+        </div>
+
+        {/* Bottom features: 奖池 + 质押 */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* 奖池 */}
+          <motion.div
+            className="relative rounded-3xl overflow-hidden p-8"
+            style={{ background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.15), rgba(196, 154, 108, 0.05))', border: '1px solid rgba(196, 154, 108, 0.3)' }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-start gap-6">
+              <div className="shrink-0">
+                <img src="/images/section1/pool.png" alt="奖池" className="w-20 h-20" />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-heading text-2xl italic mb-2" style={{ color: '#333333' }}>奖池开奖</h4>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: '#333333', opacity: 0.6 }}>
+                  每日开奖，福运临门。丰厚奖池，惊喜不断。每晚八点准时开奖，众多奖项等待有缘人。
+                </p>
+                <a href="#" className="inline-flex items-center gap-1 text-sm font-medium" style={{ color: '#C49A6C' }}>
+                  查看详情 <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 质押 */}
+          <motion.div
+            className="relative rounded-3xl overflow-hidden p-8"
+            style={{ background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.15), rgba(196, 154, 108, 0.05))', border: '1px solid rgba(196, 154, 108, 0.3)' }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            whileHover={{ y: -4 }}
+          >
+            <div className="flex items-start gap-6">
+              <div className="shrink-0 w-20 h-20 rounded-xl flex items-center justify-center" style={{ background: 'rgba(196, 154, 108, 0.2)' }}>
+                <Lock className="w-8 h-8" style={{ color: '#C49A6C' }} />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-heading text-2xl italic mb-2" style={{ color: '#333333' }}>质押生息</h4>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: '#333333', opacity: 0.6 }}>
+                  质押生息，稳中求进。让您的资产静默增值。质押时间越长，收益率越高。
+                </p>
+                <a href="#" className="inline-flex items-center gap-1 text-sm font-medium" style={{ color: '#C49A6C' }}>
+                  查看详情 <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function BattleSection() {
+  return (
+    <ModuleSection
+      id="battle"
+      title="签灵·对战"
+      subtitle="博弈之争"
+      description="每日签到凝聚灵力，灵兽对决以智取胜。收集和培养你的灵兽，在竞技场中与其他玩家对战，夺取荣耀和奖励。"
+      modules={modules.filter(m => ['signin', 'battle'].includes(m.id))}
+      bgColor="#333333"
+      textColor="#F5F3EB"
+    />
+  )
+}
+
+function PredictionSection() {
+  return (
+    <ModuleSection
+      id="prediction"
+      title="预测市场"
+      subtitle="预见未来"
+      description="预知未来，把握机遇。通过预测市场，用户可以对未来事件的结果进行投注。准确预判趋势的用户将获得丰厚奖励。"
+      modules={modules.filter(m => ['market'].includes(m.id))}
+    />
   )
 }
 
@@ -628,7 +857,9 @@ function App() {
     <div className="overflow-visible" style={{ background: '#F5F3EB' }}>
       <Navbar />
       <HeroSection />
-      <ModulesSection />
+      <DivinationSection />
+      <BattleSection />
+      <PredictionSection />
       <FeaturedNFTSection />
       <StatsSection />
       <HowItWorksSection />
