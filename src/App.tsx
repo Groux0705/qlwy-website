@@ -1,6 +1,6 @@
-import { PropsWithChildren, useState } from 'react'
-import { ArrowUpRight, Sparkles, Sword, Gift, ShoppingBag, Users, Lock, TrendingUp, ChevronDown } from 'lucide-react'
-import { motion } from 'motion/react'
+import { PropsWithChildren, useState, useRef } from 'react'
+import { ArrowUpRight, Sparkles, Sword, Gift, ShoppingBag, Users, Lock, TrendingUp, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'motion/react'
 import { BlurText } from '@/components/BlurText'
 import { VideoBackground } from '@/components/VideoBackground'
 import { Button } from '@/components/ui/button'
@@ -8,62 +8,58 @@ import { cn } from '@/lib/utils'
 
 const navLinks = [
   { label: '首页', href: '#home' },
-  { label: '模块', href: '#modules', hasDropdown: true },
   { label: '文档', href: '#docs' },
-  { label: 'NFT 市场', href: '#market' },
+  { label: '预测市场', href: '#market' },
   { label: '联系', href: '#contact' },
-]
-
-const moduleSubItems = [
-  { label: '卜卦', href: '#divination', icon: Sparkles },
-  { label: '奖池', href: '#lottery', icon: Gift },
-  { label: '对战', href: '#battle', icon: Sword },
-  { label: '签灵', href: '#signin', icon: Users },
-  { label: '质押', href: '#staking', icon: Lock },
-  { label: '预测市场', href: '#prediction', icon: TrendingUp },
 ]
 
 const modules = [
   {
+    id: 'divination',
     icon: Sparkles,
     title: '卜卦',
-    description: '摇签问卦，得天指引。易经六十四卦，洞悉万事万物之理。',
+    shortDesc: '摇签问卦，得天指引',
+    fullDesc: '摇签问卦，得天指引。易经六十四卦，洞悉万事万物之理。每一卦都蕴含着宇宙运行的奥秘，通过古老的蓍草占卜法或硬币占卜法，寻求天人之际的智慧指引。',
     accent: true,
   },
   {
+    id: 'lottery',
     icon: Gift,
     title: '奖池开奖',
-    description: '每日开奖，福运临门。丰厚奖池，惊喜不断。',
+    shortDesc: '每日开奖，福运临门',
+    fullDesc: '每日开奖，福运临门。丰厚奖池，惊喜不断。每晚八点准时开奖，众多奖项等待有缘人。参与方式简单，中奖概率透明，公平公正公开。',
     accent: false,
   },
   {
-    icon: ShoppingBag,
-    title: 'NFT 市场',
-    description: '收藏灵兽 NFT，独特编号，永久铭刻，传承易道智慧。',
+    id: 'market',
+    icon: TrendingUp,
+    title: '预测市场',
+    shortDesc: '预知未来，把握机遇',
+    fullDesc: '预知未来，把握机遇。洞察趋势，先人一步。通过预测市场，用户可以对未来事件的结果进行投注。准确预判趋势的用户将获得丰厚奖励，让知识与洞察转化为收益。',
     accent: false,
   },
   {
+    id: 'battle',
     icon: Sword,
     title: 'NFT 对战',
-    description: '灵兽对决，策略博弈。以智取胜，以巧夺魁。',
+    shortDesc: '灵兽对决，策略博弈',
+    fullDesc: '灵兽对决，策略博弈。以智取胜，以巧夺魁。收集和培养你的灵兽，在竞技场中与其他玩家对战。根据灵兽的属性和技能，制定最优策略，夺取荣耀和奖励。',
     accent: true,
   },
   {
+    id: 'signin',
     icon: Users,
     title: '签灵',
-    description: '每日签到，凝聚灵力。签满七日，召唤神秘灵兽。',
+    shortDesc: '每日签到，凝聚灵力',
+    fullDesc: '每日签到，凝聚灵力。签满七日，召唤神秘灵兽。坚持每日签到可积累灵力值，连续签到七天即可召唤一只随机灵兽 NFT。断签会清零，重新计算。',
     accent: false,
   },
   {
+    id: 'staking',
     icon: Lock,
     title: '质押',
-    description: '质押生息，稳中求进。让您的资产静默增值。',
-    accent: false,
-  },
-  {
-    icon: TrendingUp,
-    title: '预测市场',
-    description: '预知未来，把握机遇。洞察趋势，先人一步。',
+    shortDesc: '质押生息，稳中求进',
+    fullDesc: '质押生息，稳中求进。让您的资产静默增值。将您的代币质押在合约中，即可获得每日利息收益。质押时间越长，收益率越高。随时可取，灵活便捷。',
     accent: false,
   },
 ]
@@ -93,11 +89,12 @@ function VideoFades() {
 }
 
 function Navbar() {
-  const [dropdownOpen, setDropdownOpen] = useState(false)
-
   return (
     <nav className="fixed inset-x-0 top-4 z-50 px-4 sm:px-6">
-      <div
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
         className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 rounded-full px-6 py-3"
         style={{ background: 'rgba(245, 243, 235, 0.95)', backdropFilter: 'blur(20px)', border: '1px solid rgba(196, 154, 108, 0.3)' }}
       >
@@ -106,70 +103,40 @@ function Navbar() {
         </a>
 
         <div className="hidden md:flex justify-center">
-          <div className="flex items-center gap-10">
-            {navLinks.map((link) => (
-              <div key={link.label} className="relative">
-                {link.hasDropdown ? (
-                  <button
-                    onMouseEnter={() => setDropdownOpen(true)}
-                    onMouseLeave={() => setDropdownOpen(false)}
-                    className="flex items-center gap-1 font-body text-sm font-medium transition-colors hover:opacity-70"
-                    style={{ color: '#333333' }}
-                  >
-                    {link.label}
-                    <ChevronDown className="h-3 w-3" style={{ color: '#C49A6C' }} />
-                  </button>
-                ) : (
-                  <a
-                    href={link.href}
-                    className="font-body text-sm font-medium transition-colors hover:opacity-70"
-                    style={{ color: '#333333' }}
-                  >
-                    {link.label}
-                  </a>
-                )}
-
-                {link.hasDropdown && dropdownOpen && (
-                  <div
-                    onMouseEnter={() => setDropdownOpen(true)}
-                    onMouseLeave={() => setDropdownOpen(false)}
-                    className="absolute left-1/2 top-full mt-2 -translate-x-1/2 rounded-2xl p-3 whitespace-nowrap"
-                    style={{ background: 'rgba(245, 243, 235, 0.98)', backdropFilter: 'blur(20px)', border: '1px solid rgba(196, 154, 108, 0.3)', boxShadow: '0 4px 24px rgba(0,0,0,0.1)' }}
-                  >
-                    <div className="grid grid-cols-2 gap-2">
-                      {moduleSubItems.map((item) => {
-                        const Icon = item.icon
-                        return (
-                          <a
-                            key={item.label}
-                            href={item.href}
-                            className="flex items-center gap-2 rounded-xl px-4 py-3 transition-colors hover:bg-[rgba(196,154,108,0.1)]"
-                            style={{ color: '#333333' }}
-                          >
-                            <Icon className="h-4 w-4" style={{ color: '#C49A6C' }} />
-                            <span className="text-sm">{item.label}</span>
-                          </a>
-                        )
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
+          <div className="flex items-center gap-12">
+            {navLinks.map((link, index) => (
+              <motion.a
+                key={link.label}
+                href={link.href}
+                initial={{ y: -10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: index * 0.05, duration: 0.3 }}
+                className="relative font-body text-sm font-medium transition-all duration-200 hover:scale-105 group"
+                style={{ color: '#333333' }}
+              >
+                {link.label}
+                <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-[#C49A6C] transition-all duration-300 group-hover:w-full" />
+              </motion.a>
             ))}
           </div>
         </div>
 
-        <a
+        <motion.a
           href="https://your-dapp-link.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 0.3 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium"
           style={{ background: '#C49A6C', color: '#F5F3EB' }}
         >
           立即开始
           <ArrowUpRight className="h-4 w-4" />
-        </a>
-      </div>
+        </motion.a>
+      </motion.div>
     </nav>
   )
 }
@@ -263,52 +230,178 @@ function HeroSection() {
   )
 }
 
-function ModulesSection() {
+function ModuleCard({ module, index, onClick }: { module: typeof modules[0]; index: number; onClick: () => void }) {
+  const Icon = module.icon
+
   return (
-    <section className="px-6 py-24 md:px-16 lg:px-24" style={{ background: '#F5F3EB' }}>
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-16 text-center">
-          <SectionBadge className="mb-6">核心功能</SectionBadge>
-          <SectionHeading>潜龙七式</SectionHeading>
+    <motion.div
+      className="relative cursor-pointer"
+      initial={{
+        opacity: 0,
+        scale: 0.3,
+        rotate: -180,
+        x: 0,
+        y: 0,
+      }}
+      whileInView={{
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        x: 0,
+        y: 0,
+      }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        delay: index * 0.1,
+      }}
+      whileHover={{
+        scale: 1.05,
+        y: -8,
+        transition: { duration: 0.2 },
+      }}
+      onClick={onClick}
+    >
+      <div
+        className="rounded-2xl p-6 transition-all duration-300"
+        style={{
+          background: 'rgba(245, 243, 235, 0.9)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(196, 154, 108, 0.3)',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        }}
+      >
+        <div
+          className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
+          style={{
+            background: module.accent ? '#C49A6C' : 'rgba(196, 154, 108, 0.15)',
+          }}
+        >
+          <Icon className="h-6 w-6" style={{ color: module.accent ? '#F5F3EB' : '#C49A6C' }} />
+        </div>
+        <h3 className="mb-2 font-heading text-lg italic" style={{ color: '#333333' }}>
+          {module.title}
+        </h3>
+        <p className="text-xs leading-relaxed" style={{ color: '#333333', opacity: 0.6 }}>
+          {module.shortDesc}
+        </p>
+      </div>
+    </motion.div>
+  )
+}
+
+function ModuleDetailModal({ module, onClose }: { module: typeof modules[0]; onClose: () => void }) {
+  const Icon = module.icon
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+
+      <motion.div
+        className="relative w-full max-w-lg rounded-3xl p-8"
+        style={{ background: '#F5F3EB', border: '1px solid rgba(196, 154, 108, 0.4)' }}
+        initial={{ scale: 0.8, opacity: 0, y: 50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.8, opacity: 0, y: 50 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 rounded-full p-2 transition-colors hover:bg-black/5"
+          style={{ color: '#333333' }}
+        >
+          <X className="h-5 w-5" />
+        </button>
+
+        <div
+          className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl"
+          style={{ background: module.accent ? '#C49A6C' : 'rgba(196, 154, 108, 0.15)' }}
+        >
+          <Icon className="h-10 w-10" style={{ color: module.accent ? '#F5F3EB' : '#C49A6C' }} />
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {modules.map((module) => {
-            const Icon = module.icon
-            return (
-              <motion.div
-                key={module.title}
-                whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className="cursor-pointer rounded-2xl p-8 transition-all"
-                style={{
-                  background: 'rgba(245, 243, 235, 0.9)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(196, 154, 108, 0.3)',
-                  boxShadow: '0 4px 24px rgba(0,0,0,0.05)',
-                }}
-              >
-                <div
-                  className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl"
-                  style={{
-                    background: module.accent ? '#C49A6C' : 'rgba(196, 154, 108, 0.15)',
-                  }}
-                >
-                  <Icon
-                    className="h-7 w-7"
-                    style={{ color: module.accent ? '#F5F3EB' : '#C49A6C' }}
-                  />
-                </div>
-                <h3 className="mb-3 font-heading text-xl italic" style={{ color: '#333333' }}>
-                  {module.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: '#333333', opacity: 0.6 }}>
-                  {module.description}
-                </p>
-              </motion.div>
-            )
-          })}
+        <h2 className="mb-4 font-heading text-3xl italic" style={{ color: '#333333' }}>
+          {module.title}
+        </h2>
+
+        <p className="mb-8 text-sm leading-relaxed" style={{ color: '#333333', opacity: 0.8 }}>
+          {module.fullDesc}
+        </p>
+
+        <div className="flex gap-4">
+          <a
+            href={`https://your-dapp-link.com/${module.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium"
+            style={{ background: '#C49A6C', color: '#F5F3EB' }}
+          >
+            进入功能
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+          <button
+            onClick={onClose}
+            className="inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-medium"
+            style={{ borderColor: 'rgba(196, 154, 108, 0.5)', color: '#333333' }}
+          >
+            关闭
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
+
+function ModulesSection() {
+  const [selectedModule, setSelectedModule] = useState<typeof modules[0] | null>(null)
+
+  return (
+    <section id="modules" className="px-6 py-24 md:px-16 lg:px-24" style={{ background: '#F5F3EB' }}>
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-16 text-center">
+          <SectionBadge className="mb-6">核心玩法</SectionBadge>
+          <SectionHeading>六大功能</SectionHeading>
+          <motion.p
+            className="mt-4 text-sm"
+            style={{ color: '#333333', opacity: 0.6 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            点击任意模块了解更多详情
+          </motion.p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6">
+          {modules.map((module, index) => (
+            <ModuleCard
+              key={module.id}
+              module={module}
+              index={index}
+              onClick={() => setSelectedModule(module)}
+            />
+          ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedModule && (
+          <ModuleDetailModal
+            module={selectedModule}
+            onClose={() => setSelectedModule(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   )
 }
