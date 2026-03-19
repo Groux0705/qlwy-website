@@ -502,36 +502,19 @@ function DivinationSection() {
           </div>
 
           {/* Right: Content */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <h3 className="font-heading text-3xl italic mb-4" style={{ color: '#333333' }}>
+              <h3 className="font-heading text-3xl italic mb-3" style={{ color: '#333333' }}>
                 蓍草占卜
               </h3>
               <p className="text-sm leading-relaxed" style={{ color: '#333333', opacity: 0.7 }}>
-                运用古老的蓍草占卜法，五十根蓍草经过十八变而成卦。每一次占卜都是与天地对话的过程，卦象蕴含宇宙运行之理，指引迷津。
+                卜卦费用分配至奖池，部分注入质押池，质押收益持续增值。
               </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="flex items-start gap-4 p-6 rounded-2xl"
-              style={{ background: 'rgba(196, 154, 108, 0.1)', border: '1px solid rgba(196, 154, 108, 0.2)' }}
-            >
-              <img src="/images/section1/guijia.png" alt="卦象" className="w-16 h-16 shrink-0" />
-              <div>
-                <h4 className="font-heading text-xl italic mb-2" style={{ color: '#333333' }}>六十四卦</h4>
-                <p className="text-xs leading-relaxed" style={{ color: '#333333', opacity: 0.6 }}>
-                  从乾为天到火水未济，六十四卦涵盖世间万事万物。每一卦皆有象、数、理、占四义，助您洞悉先机。
-                </p>
-              </div>
             </motion.div>
 
             <motion.a
@@ -539,12 +522,12 @@ function DivinationSection() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.4 }}
               whileHover={{ scale: 1.02 }}
               className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-medium"
               style={{ background: '#C49A6C', color: '#F5F3EB' }}
             >
-              开始占卜
+              开始卜卦
               <ArrowUpRight className="h-4 w-4" />
             </motion.a>
           </div>
@@ -564,7 +547,7 @@ function DivinationSection() {
           >
             <div className="flex items-start gap-6">
               <div className="shrink-0">
-                <img src="/images/section1/pool.png" alt="奖池" className="w-20 h-20" />
+                <img src="/images/section1/ding.png" alt="奖池" className="w-20 h-20" />
               </div>
               <div className="flex-1">
                 <h4 className="font-heading text-2xl italic mb-2" style={{ color: '#333333' }}>奖池开奖</h4>
@@ -589,8 +572,8 @@ function DivinationSection() {
             whileHover={{ y: -4 }}
           >
             <div className="flex items-start gap-6">
-              <div className="shrink-0 w-20 h-20 rounded-xl flex items-center justify-center" style={{ background: 'rgba(196, 154, 108, 0.2)' }}>
-                <Lock className="w-8 h-8" style={{ color: '#C49A6C' }} />
+              <div className="shrink-0">
+                <img src="/images/section1/pool.png" alt="质押" className="w-20 h-20" />
               </div>
               <div className="flex-1">
                 <h4 className="font-heading text-2xl italic mb-2" style={{ color: '#333333' }}>质押生息</h4>
@@ -610,16 +593,138 @@ function DivinationSection() {
 }
 
 function BattleSection() {
+  const rarities = [
+    { name: '普通卦', img: '/images/section2/rank/普通卦.png', rate: '基础' },
+    { name: '稀有卦', img: '/images/section2/rank/稀有卦.png', rate: '45%' },
+    { name: '史诗卦', img: '/images/section2/rank/史诗卦.png', rate: '20%' },
+    { name: '传奇卦', img: '/images/section2/rank/传奇卦.png', rate: '8%' },
+    { name: '神话卦', img: '/images/section2/rank/神话卦.avif', rate: '顶级' },
+  ]
+
+  const features = [
+    { img: '/images/section2/炼签炉.png', title: '炼签炉', desc: '3个同等级卦象+手续费，概率升至更高等级', tags: ['稀有45%', '史诗20%', '传奇8%'] },
+    { img: '/images/section2/战斗下注.png', title: '3v3 对战', desc: '灵力值+运气综合决胜，等级越高幸运加成越多', tags: ['胜利奖励', '参与经验'] },
+    { img: '/images/section2/等级系统.png', title: '签灵觉醒', desc: '升级为签灵解锁等级，等级÷2=幸运加成', tags: ['上限99级', 'QLWY升级'] },
+    { img: '/images/section2/签灵自动对战设置.png', title: '自动作战', desc: '设置后签灵自动对战/下注/卜卦/mint', tags: ['自动对战', '自动下注', '自动mint'] },
+  ]
+
   return (
-    <ModuleSection
-      id="battle"
-      title="签灵·对战"
-      subtitle="博弈之争"
-      description="每日签到凝聚灵力，灵兽对决以智取胜。收集和培养你的灵兽，在竞技场中与其他玩家对战，夺取荣耀和奖励。"
-      modules={modules.filter(m => ['signin', 'battle'].includes(m.id))}
-      bgColor="#333333"
-      textColor="#F5F3EB"
-    />
+    <section id="battle" className="relative py-24 px-6 md:px-16 lg:px-24" style={{ background: '#333333' }}>
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-16 text-center">
+          <SectionBadge className="mb-4">博弈之争</SectionBadge>
+          <SectionHeading style={{ color: '#F5F3EB' }}>签灵·对战</SectionHeading>
+          <motion.p
+            className="mt-4 max-w-xl mx-auto text-sm leading-relaxed"
+            style={{ color: 'rgba(245, 243, 235, 0.7)' }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            卦象五重进化，炼签升级。签灵觉醒，自动为我作战。
+          </motion.p>
+        </div>
+
+        <div className="mb-12">
+          <h3 className="text-center font-heading text-xl italic mb-6" style={{ color: '#C49A6C' }}>卦象进化之路</h3>
+          <div className="flex items-center justify-center gap-3">
+            {rarities.map((r, i) => (
+              <motion.div
+                key={r.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="relative group"
+              >
+                <div
+                  className="w-20 h-20 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.2), rgba(196, 154, 108, 0.05))',
+                    border: '1px solid rgba(196, 154, 108, 0.3)',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                  }}
+                >
+                  <img src={r.img} alt={r.name} className="w-14 h-14 object-contain" />
+                </div>
+                <p className="text-xs text-center mt-2" style={{ color: '#F5F3EB', opacity: 0.8 }}>{r.name}</p>
+                {i < rarities.length - 1 && (
+                  <span className="absolute -right-2 top-1/2 -translate-y-1/2 text-lg" style={{ color: '#C49A6C' }}>→</span>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {features.map((f, i) => (
+            <motion.div
+              key={f.title}
+              className="relative rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.12), rgba(196, 154, 108, 0.04))',
+                border: '1px solid rgba(196, 154, 108, 0.25)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+              }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+            >
+              <div className="flex gap-5">
+                <div
+                  className="w-24 h-24 rounded-2xl shrink-0 flex items-center justify-center"
+                  style={{ background: 'rgba(196, 154, 108, 0.15)' }}
+                >
+                  <img src={f.img} alt={f.title} className="w-16 h-16 object-contain" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-heading text-xl italic mb-2" style={{ color: '#F5F3EB' }}>{f.title}</h4>
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: 'rgba(245, 243, 235, 0.6)' }}>
+                    {f.desc}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {f.tags.map(tag => (
+                      <span
+                        key={tag}
+                        className="text-xs px-2 py-1 rounded-full"
+                        style={{ background: 'rgba(196, 154, 108, 0.25)', color: '#C49A6C' }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          className="mt-10 rounded-3xl overflow-hidden"
+          style={{ border: '1px solid rgba(196, 154, 108, 0.2)' }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <img src="/images/section2/签灵对话.png" alt="签灵对话" className="w-full object-cover" style={{ maxHeight: '200px' }} />
+        </motion.div>
+
+        <motion.div className="mt-10 text-center">
+          <motion.a
+            href="#"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-2 rounded-full px-10 py-4 text-sm font-medium"
+            style={{ background: '#C49A6C', color: '#F5F3EB' }}
+          >
+            进入对战
+            <ArrowUpRight className="h-5 w-5" />
+          </motion.a>
+        </motion.div>
+      </div>
+    </section>
   )
 }
 
