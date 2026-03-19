@@ -1,6 +1,6 @@
 import { PropsWithChildren, useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp, ArrowUp, FileText, Zap, X, BookOpen, Coins, Shield, Zap as Zap2, BarChart3, Users as Users2, Twitter, MessageCircle, Github, ExternalLink, ChevronDown } from 'lucide-react'
+import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp, ArrowUp, FileText, Zap, X, BookOpen, Coins, Shield, Zap as Zap2, BarChart3, Users as Users2, Twitter, Send, Github, ExternalLink, ChevronDown } from 'lucide-react'
 import { motion } from 'motion/react'
 import { BlurText } from '@/components/BlurText'
 import { VideoBackground } from '@/components/VideoBackground'
@@ -11,7 +11,7 @@ import DocsPage from './pages/DocsPage'
 const navLinks = [
   { label: '首页', href: '/' },
   { label: '文档', href: '/docs' },
-  { label: '预测市场', href: '#prediction' },
+  { label: '预测市场', href: 'https://yc.qlwy.xyz/' },
   { label: 'NFT市场', href: '#nft' },
 ]
 
@@ -22,6 +22,7 @@ const modules = [
     title: '卜卦',
     shortDesc: '摇签问卦，得天指引',
     fullDesc: '摇签问卦，得天指引。易经六十四卦，洞悉万事万物之理。每一卦都蕴含着宇宙运行的奥秘，通过古老的蓍草占卜法或硬币占卜法，寻求天人之际的智慧指引。',
+    href: 'https://www.qlwy.xyz/fortune',
     accent: true,
   },
   {
@@ -30,6 +31,7 @@ const modules = [
     title: '奖池开奖',
     shortDesc: '每日开奖，福运临门',
     fullDesc: '每日开奖，福运临门。丰厚奖池，惊喜不断。每晚八点准时开奖，众多奖项等待有缘人。参与方式简单，中奖概率透明，公平公正公开。',
+    href: 'https://www.qlwy.xyz/jackpot',
     accent: false,
   },
   {
@@ -38,6 +40,7 @@ const modules = [
     title: '预测市场',
     shortDesc: '预知未来，把握机遇',
     fullDesc: '预知未来，把握机遇。洞察趋势，先人一步。通过预测市场，用户可以对未来事件的结果进行投注。准确预判趋势的用户将获得丰厚奖励，让知识与洞察转化为收益。',
+    href: 'https://yc.qlwy.xyz/',
     accent: false,
   },
   {
@@ -46,6 +49,7 @@ const modules = [
     title: 'NFT 对战',
     shortDesc: '灵兽对决，策略博弈',
     fullDesc: '灵兽对决，策略博弈。以智取胜，以巧夺魁。收集和培养你的灵兽，在竞技场中与其他玩家对战。根据灵兽的属性和技能，制定最优策略，夺取荣耀和奖励。',
+    href: 'https://www.qlwy.xyz/battle',
     accent: true,
   },
   {
@@ -54,6 +58,7 @@ const modules = [
     title: '签灵',
     shortDesc: '每日签到，凝聚灵力',
     fullDesc: '每日签到，凝聚灵力。签满七日，召唤神秘灵兽。坚持每日签到可积累灵力值，连续签到七天即可召唤一只随机灵兽 NFT。断签会清零，重新计算。',
+    href: 'https://www.qlwy.xyz/spirit',
     accent: false,
   },
   {
@@ -62,6 +67,7 @@ const modules = [
     title: '质押',
     shortDesc: '质押生息，稳中求进',
     fullDesc: '质押生息，稳中求进。让您的资产静默增值。将您的代币质押在合约中，即可获得每日利息收益。质押时间越长，收益率越高。随时可取，灵活便捷。',
+    href: 'https://www.qlwy.xyz/staking',
     accent: false,
   },
 ]
@@ -105,7 +111,7 @@ function Navbar() {
         </Link>
 
         <div className="hidden md:flex justify-center">
-          <div className="flex items-center gap-12">
+          <div className="flex items-center gap-8">
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.label}
@@ -123,11 +129,30 @@ function Navbar() {
                 </Link>
               </motion.div>
             ))}
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-2 ml-4 pl-4" style={{ borderLeft: '1px solid rgba(196, 154, 108, 0.3)' }}>
+              <a href="https://x.com/wwwqlwyxyz" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }} title="项目推特">
+                <Twitter className="w-4 h-4" style={{ color: '#C49A6C' }} />
+              </a>
+              <a href="https://x.com/drag0ooon?s=21" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }} title="开发者推特">
+                <X className="w-4 h-4" style={{ color: '#C49A6C' }} />
+              </a>
+              <a href="https://t.me/qlwyxyz" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
+                <Send className="w-4 h-4" style={{ color: '#C49A6C' }} />
+              </a>
+              <a href="https://github.com/qlwy" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
+                <Github className="w-4 h-4" style={{ color: '#C49A6C' }} />
+              </a>
+              <a href="https://four.meme/qlwy" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
+                <ExternalLink className="w-4 h-4" style={{ color: '#C49A6C' }} />
+              </a>
+            </div>
           </div>
         </div>
 
         <motion.a
-          href="https://your-dapp-link.com"
+          href="https://www.qlwy.xyz/fortune"
           target="_blank"
           rel="noopener noreferrer"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -1046,7 +1071,9 @@ function FeaturedNFTSection() {
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
               <a
-                href="#market"
+                href="https://www.qlwy.xyz/fortune"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full px-8 py-4 font-medium transition-all hover:scale-105"
                 style={{ background: '#C49A6C', color: '#F5F3EB' }}
               >
@@ -1054,7 +1081,7 @@ function FeaturedNFTSection() {
                 <ArrowUpRight className="h-5 w-5" />
               </a>
               <a
-                href="#docs"
+                href="/docs"
                 className="inline-flex items-center gap-2 rounded-full border-2 px-8 py-4 font-medium transition-all hover:scale-105"
                 style={{ borderColor: 'rgba(196, 154, 108, 0.6)', color: '#C49A6C' }}
               >
@@ -1445,17 +1472,21 @@ function Footer() {
   const footerLinks = {
     '产品': [
       { label: '首页', href: '/' },
-      { label: '预测市场', href: '#prediction' },
-      { label: 'NFT市场', href: '#nft' },
+      { label: '预测市场', href: 'https://yc.qlwy.xyz/' },
+      { label: '卜卦', href: 'https://www.qlwy.xyz/fortune' },
+      { label: '奖池', href: 'https://www.qlwy.xyz/jackpot' },
+      { label: '对战', href: 'https://www.qlwy.xyz/battle' },
+      { label: '签灵', href: 'https://www.qlwy.xyz/spirit' },
+      { label: '炼签', href: 'https://www.qlwy.xyz/refinery' },
+      { label: '质押', href: 'https://www.qlwy.xyz/staking' },
     ],
     '文档': [
       { label: '技术文档', href: '/docs' },
-      { label: '白皮书', href: '#' },
       { label: '入门指南', href: '/docs' },
     ],
     '社区': [
-      { label: '关于我们', href: '#' },
-      { label: '加入社区', href: '#' },
+      { label: '关于我们', href: 'https://x.com/wwwqlwyxyz' },
+      { label: '加入社区', href: 'https://t.me/qlwyxyz' },
       { label: '联系方式', href: '#' },
     ],
   }
@@ -1476,22 +1507,33 @@ function Footer() {
             {/* Social Icons */}
             <div className="flex gap-3">
               <a
-                href="https://twitter.com/qlwy"
+                href="https://x.com/wwwqlwyxyz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
                 style={{ background: 'rgba(196, 154, 108, 0.2)' }}
+                title="项目推特"
               >
                 <Twitter className="w-5 h-5" style={{ color: '#C49A6C' }} />
               </a>
               <a
-                href="https://t.me/qlwy"
+                href="https://x.com/drag0ooon?s=21"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
+                style={{ background: 'rgba(196, 154, 108, 0.2)' }}
+                title="开发者推特"
+              >
+                <X className="w-5 h-5" style={{ color: '#C49A6C' }} />
+              </a>
+              <a
+                href="https://t.me/qlwyxyz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
                 style={{ background: 'rgba(196, 154, 108, 0.2)' }}
               >
-                <MessageCircle className="w-5 h-5" style={{ color: '#C49A6C' }} />
+                <Send className="w-5 h-5" style={{ color: '#C49A6C' }} />
               </a>
               <a
                 href="https://github.com/qlwy"

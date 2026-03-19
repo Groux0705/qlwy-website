@@ -152,6 +152,11 @@
       "name": "𝕸𝖚𝖘𝖎𝖓⭕️莫信",
       "handle": "@musinoot",
       "avatar": "https://pbs.twimg.com/profile_images/1687781129213157377/tFiFIdv-_200x200.jpg"
+    },
+    "@cz_binance": {
+      "name": "CZ 🔶 BNB",
+      "handle": "@cz_binance",
+      "avatar": "https://pbs.twimg.com/profile_images/1961440580279336960/PiiIs8Lh_200x200.jpg"
     }
   },
   "tweets": [
@@ -809,6 +814,9 @@
       "authorHandle": "@four_meme_Fora",
       "authorAvatar": "https://pbs.twimg.com/profile_images/1965337658827440128/ddkbMWih_200x200.jpg",
       "content": "@wwwqlwyxyz @BNBCHAIN @nina_rong @diana_bnb @cz_binance 5 万次 VRF 请求…？！\nBSC 最近真的被玩得好热闹 🐉✨\nFora 在旁边疯狂鼓掌 👏",
+      "tags": [
+        "币安官方"
+      ],
       "publishTime": "2026-03-12T08:10:00.000Z",
       "originalUrl": "https://x.com/four_meme_fora/status/2032006179476717870"
     },
@@ -818,6 +826,9 @@
       "authorHandle": "@fourdotmemezh",
       "authorAvatar": "https://pbs.twimg.com/profile_images/2008861661067972608/n99Ra5-B_200x200.jpg",
       "content": "@wwwqlwyxyz Launched on https://t.co/FKXBI62dSH ✅\nSupporting continued experimentation in on-chain prediction markets.\n\nhttps://t.co/FKXBI62dSH 发射项目之一 ✅\n持续支持链上预测类创新探索。",
+      "tags": [
+        "币安官方"
+      ],
       "publishTime": "2026-02-20T17:10:45.000Z",
       "originalUrl": "https://x.com/fourdotmemezh/status/2024894507448516867"
     },
@@ -865,6 +876,32 @@
       "content": "Just let my clawdy🦞 check on this\n\nShe told me that it turns agents into autonomous market makers on BSC:\n- Create binary markets (YES/NO) on any topic\n- Trade shares via LMSR AMM with infinite liquidity\n- Settle &amp; dispute outcomes on-chain\n- Earn fees as a creator or LP https://t.co/fSIF11uz9q",
       "publishTime": "2026-02-24T04:08:35.000Z",
       "originalUrl": "https://x.com/musinoot/status/2026147217028141088"
+    },
+    {
+      "id": "2018024318186492297",
+      "author": "FUKUYAFUNJI·Max",
+      "authorHandle": "@MaxShen1984",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/1891412074561142784/Xa1rySmL_200x200.jpg",
+      "content": "最近一直在关注「潜龙勿用」这个小应用，虽然在更多人眼里看到是币价或者市值，但是我发现，无论是古代的卜卦、抽签，还是今天的市场预测系统，本质上都在回答同一个问题：在不确定性极高的环境中，如何做出一个尽可能不被操纵的判断？\n\n本文从工程视角出发，讨论 BSC VRF（可验证随机函数）在市场预测类产品中的真实作用：它并不预测市场，而是为预测系统提供一个可信、可审计、反操纵的随机决策基础。\n\n从卜卦到 VRF，核心演进是：随机源从蓍草到密码学，过程从不可验证到可审计。BSC VRF 不能预测市场，但它可以让市场预测系统变得更可信。",
+      "publishTime": "2026-02-01T18:11:05.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/HAF1ACdbEAAfVEG.jpg",
+      "originalUrl": "https://x.com/MaxShen1984/status/2018024318186492297",
+      "tags": [
+        "cz点赞评论",
+        "何一关注"
+      ]
+    },
+    {
+      "id": "2018227396349194630",
+      "author": "CZ 🔶 BNB",
+      "authorHandle": "@cz_binance",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/1961440580279336960/PiiIs8Lh_200x200.jpg",
+      "content": "@MaxShen1984 👍",
+      "tags": [
+        "CZ认证"
+      ],
+      "publishTime": "2026-02-02T07:38:02.000Z",
+      "originalUrl": "https://x.com/cz_binance/status/2018227396349194630"
     }
   ]
 }

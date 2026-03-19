@@ -139,6 +139,7 @@ interface Tweet {
   publishTime: string
   mediaUrl?: string
   originalUrl: string
+  tags?: string[]
 }
 
 interface Author {
@@ -181,15 +182,25 @@ function formatTime(isoString: string): string {
 }
 
 function TweetCard({ tweet, onClick }: { tweet: Tweet; onClick: () => void }) {
+  const hasTags = tweet.tags && tweet.tags.length > 0
+
   return (
     <button
       onClick={onClick}
       className="block w-full text-left p-4 rounded-xl transition-all hover:scale-[1.01] hover:shadow-md"
       style={{
-        background: '#fff',
-        border: '1px solid rgba(196, 154, 108, 0.2)',
+        background: hasTags ? 'linear-gradient(135deg, rgba(196, 154, 108, 0.12), rgba(196, 154, 108, 0.05))' : '#fff',
+        border: hasTags ? '2px solid #C49A6C' : '1px solid rgba(196, 154, 108, 0.2)',
+        position: 'relative',
       }}
     >
+      {/* Tags indicator for pinned articles */}
+      {hasTags && (
+        <div className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full text-xs font-medium" style={{ background: '#C49A6C', color: '#fff' }}>
+          置顶
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex items-center gap-3 mb-3">
         {tweet.authorAvatar ? (
@@ -217,6 +228,21 @@ function TweetCard({ tweet, onClick }: { tweet: Tweet; onClick: () => void }) {
         </div>
         <Twitter className="w-4 h-4 shrink-0" style={{ color: '#C49A6C' }} />
       </div>
+
+      {/* Tags */}
+      {hasTags && (
+        <div className="flex flex-wrap gap-1 mb-3">
+          {tweet.tags?.map((tag) => (
+            <span
+              key={tag}
+              className="px-2 py-0.5 rounded-full text-xs font-medium"
+              style={{ background: 'rgba(196, 154, 108, 0.2)', color: '#C49A6C' }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* Content */}
       <p className="text-sm leading-relaxed mb-3 line-clamp-4" style={{ color: '#333333' }}>
@@ -314,6 +340,23 @@ function TweetModal({ tweet, onClose }: { tweet: Tweet; onClose: () => void }) {
           </div>
         )}
 
+        {/* Tags */}
+        {tweet.tags && tweet.tags.length > 0 && (
+          <div className="px-6 pt-4">
+            <div className="flex flex-wrap gap-2">
+              {tweet.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 rounded-full text-xs font-medium"
+                  style={{ background: 'rgba(196, 154, 108, 0.2)', color: '#C49A6C' }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Content */}
         <div className="p-6">
           <p className="text-base leading-relaxed whitespace-pre-wrap" style={{ color: '#333333' }}>
@@ -344,27 +387,52 @@ function TweetModal({ tweet, onClose }: { tweet: Tweet; onClose: () => void }) {
 }
 
 function CommunityArticles({ onAuthorClick, onTweetClick }: { onAuthorClick?: (author: string) => void; onTweetClick?: (tweet: Tweet) => void }) {
+  // Sort tweets: those with tags first, then by publish time (newest first)
+  const sortedAuthors = Object.entries(tweetsByAuthor).sort(([, tweetsA], [, tweetsB]) => {
+    const hasTagsA = tweetsA.some(t => t.tags && t.tags.length > 0)
+    const hasTagsB = tweetsB.some(t => t.tags && t.tags.length > 0)
+    if (hasTagsA && !hasTagsB) return -1
+    if (!hasTagsA && hasTagsB) return 1
+    return 0
+  })
+
   return (
     <div className="space-y-6">
-      {Object.entries(tweetsByAuthor).map(([authorHandle, tweets]) => (
-        <div key={authorHandle} id={`author-${authorHandle.replace('@', '')}`} className="space-y-3">
-          <div className="flex items-center gap-3">
-            <h4 className="font-heading text-sm italic" style={{ color: '#C49A6C' }}>社区成员文章</h4>
-            <button
-              onClick={() => onAuthorClick?.(authorHandle)}
-              className="px-2 py-1 rounded-full text-xs font-medium transition-all hover:scale-105"
-              style={{ background: 'rgba(196, 154, 108, 0.2)', color: '#C49A6C' }}
-            >
-              {authorHandle}
-            </button>
+      {sortedAuthors.map(([authorHandle, tweets]) => {
+        // Sort tweets within each author: tagged first, then by time
+        const sortedTweets = [...tweets].sort((a, b) => {
+          const hasTagsA = a.tags && a.tags.length > 0
+          const hasTagsB = b.tags && b.tags.length > 0
+          if (hasTagsA && !hasTagsB) return -1
+          if (!hasTagsA && hasTagsB) return 1
+          return new Date(b.publishTime).getTime() - new Date(a.publishTime).getTime()
+        })
+        const hasTaggedTweets = tweets.some(t => t.tags && t.tags.length > 0)
+
+        return (
+          <div key={authorHandle} id={`author-${authorHandle.replace('@', '')}`} className="space-y-3">
+            <div className="flex items-center gap-3">
+              <h4 className="font-heading text-sm italic" style={{ color: '#C49A6C' }}>社区成员文章</h4>
+              <button
+                onClick={() => onAuthorClick?.(authorHandle)}
+                className="px-2 py-1 rounded-full text-xs font-medium transition-all hover:scale-105"
+                style={{ background: hasTaggedTweets ? '#C49A6C' : 'rgba(196, 154, 108, 0.2)', color: hasTaggedTweets ? '#fff' : '#C49A6C' }}
+              >
+                {sortedTweets[0]?.author || authorHandle.replace('@', '')}
+                {hasTaggedTweets && ' ★'}
+              </button>
+              {hasTaggedTweets && (
+                <span className="text-xs" style={{ color: '#C49A6C' }}>置顶</span>
+              )}
+            </div>
+            <div className="grid gap-4">
+              {sortedTweets.map((tweet) => (
+                <TweetCard key={tweet.id} tweet={tweet} onClick={() => onTweetClick?.(tweet)} />
+              ))}
+            </div>
           </div>
-          <div className="grid gap-4">
-            {tweets.map((tweet) => (
-              <TweetCard key={tweet.id} tweet={tweet} onClick={() => onTweetClick?.(tweet)} />
-            ))}
-          </div>
-        </div>
-      ))}
+        )
+      })}
       <p className="text-xs mt-4" style={{ color: '#333333', opacity: 0.5 }}>
         * 文章来源于社区成员分享，点击查看全文
       </p>
@@ -380,7 +448,16 @@ function DocsPage() {
   const currentDoc = docSections.find(d => d.id === activeSection) || docSections[0]
   const CurrentIcon = currentDoc.icon
 
-  const authorHandles = Object.keys(tweetsByAuthor)
+  // Sort authors: those with tagged tweets first, then alphabetically
+  const authorHandles = Object.keys(tweetsByAuthor).sort((a, b) => {
+    const tweetsA = tweetsByAuthor[a] || []
+    const tweetsB = tweetsByAuthor[b] || []
+    const hasTagsA = tweetsA.some(t => t.tags && t.tags.length > 0)
+    const hasTagsB = tweetsB.some(t => t.tags && t.tags.length > 0)
+    if (hasTagsA && !hasTagsB) return -1
+    if (!hasTagsA && hasTagsB) return 1
+    return a.localeCompare(b)
+  })
 
   const scrollToAuthor = (authorHandle: string) => {
     setActiveAuthor(authorHandle)
@@ -489,6 +566,8 @@ function DocsPage() {
                               const avatar = author?.avatar
                               const firstTweet = tweetsByAuthor[authorHandle]?.[0]
                               const tweetAvatar = firstTweet?.authorAvatar
+                              const authorName = firstTweet?.author || author?.name || authorHandle.replace('@', '')
+                              const hasTaggedTweets = (tweetsByAuthor[authorHandle] || []).some(t => t.tags && t.tags.length > 0)
 
                               return (
                                 <button
@@ -496,15 +575,16 @@ function DocsPage() {
                                   onClick={() => handleAuthorClick(authorHandle)}
                                   className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-left text-xs transition-all duration-200"
                                   style={{
-                                    background: activeAuthor === authorHandle ? 'rgba(196, 154, 108, 0.1)' : 'transparent',
-                                    color: activeAuthor === authorHandle ? '#C49A6C' : '#666666',
+                                    background: activeAuthor === authorHandle ? 'rgba(196, 154, 108, 0.1)' : hasTaggedTweets ? 'rgba(196, 154, 108, 0.05)' : 'transparent',
+                                    color: activeAuthor === authorHandle ? '#C49A6C' : hasTaggedTweets ? '#C49A6C' : '#666666',
                                   }}
                                 >
                                   {avatar || tweetAvatar ? (
                                     <img
                                       src={avatar || tweetAvatar}
-                                      alt={authorHandle}
+                                      alt={authorName}
                                       className="w-5 h-5 rounded-full shrink-0 object-cover"
+                                      style={{ border: hasTaggedTweets ? '1.5px solid #C49A6C' : 'none' }}
                                     />
                                   ) : (
                                     <div
@@ -514,7 +594,10 @@ function DocsPage() {
                                       <User className="w-3 h-3" style={{ color: '#C49A6C' }} />
                                     </div>
                                   )}
-                                  <span className="truncate">{authorHandle}</span>
+                                  <span className="truncate">{authorName}</span>
+                                  {hasTaggedTweets && (
+                                    <span className="text-xs" style={{ color: '#C49A6C' }}>★</span>
+                                  )}
                                   <span className="ml-auto text-xs opacity-50 shrink-0">
                                     {tweetsByAuthor[authorHandle]?.length || 0}篇
                                   </span>
