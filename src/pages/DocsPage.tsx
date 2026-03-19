@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { ArrowUpRight, ArrowLeft, FileText, Sparkles, Sword, Users, TrendingUp, Coins, Shield, BarChart3, Twitter, Clock, User, X } from 'lucide-react'
+import { ArrowUpRight, FileText, Sparkles, Sword, Users, TrendingUp, Coins, Shield, BarChart3, Twitter, Clock, User, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { cn } from '@/lib/utils'
+import { Navbar } from '@/components/Navbar'
 import communityTweetsData from '@/data/communityTweets.json'
 
 const docSections = [
@@ -10,7 +11,7 @@ const docSections = [
     id: 'core',
     title: '核心NFT系统',
     icon: Shield,
-    content: 'QLWYFortuneCore是整个生态系统的基础协议，负责生成和管理具有运势属性的NFT。每个NFT代表一条"龙"，拥有独特的六爻卦象和运气值。',
+    content: '潜龙勿用FortuneCore是整个生态系统的基础协议，负责生成和管理具有运势属性的NFT。每个NFT代表一条"龙"，拥有独特的六爻卦象和运气值。',
     details: [
       '基于易经六十四卦设计',
       '5级稀有度：普通/稀有/史诗/传奇/神话',
@@ -26,7 +27,7 @@ const docSections = [
     details: [
       '占卜费用：0.005 BNB',
       '三阶段流程：请求→等待结果→铸造NFT',
-      '铸造费用：稀有50 / 史诗100 / 传奇500 / 神话2000 QLWY',
+      '铸造费用：稀有50 / 史诗100 / 传奇500 / 神话2000 $潜龙勿用',
       '占卜费用70%注入Jackpot奖池',
     ],
   },
@@ -82,7 +83,7 @@ const docSections = [
     id: 'token',
     title: '代币系统',
     icon: Coins,
-    content: 'QLWY是生态系统的ERC-20治理和实用代币，用于铸造、升级、精炼等功能。',
+    content: '$潜龙勿用是生态系统的ERC-20治理和实用代币，用于铸造、升级、精炼等功能。',
     details: [
       '标准ERC-20代币',
       '用于NFT铸造和升级',
@@ -482,29 +483,10 @@ function DocsPage() {
 
   return (
     <div className="min-h-screen" style={{ background: '#F5F3EB' }}>
-      {/* Header */}
-      <header
-        className="sticky top-0 z-50 px-6 py-4"
-        style={{ background: 'rgba(245, 243, 235, 0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(196, 154, 108, 0.2)' }}
-      >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/images/logo.png" alt="潜龙勿用" className="h-10 w-auto" />
-            <span className="font-heading italic text-lg" style={{ color: '#333333' }}>潜龙勿用</span>
-          </Link>
-          <Link
-            to="/"
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105"
-            style={{ background: 'rgba(196, 154, 108, 0.15)', color: '#C49A6C' }}
-          >
-            <ArrowLeft className="w-4 h-4" />
-            返回首页
-          </Link>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Main Content */}
-      <main className="px-6 py-12 md:px-16 lg:px-24">
+      <main className="px-6 py-12 md:px-16 lg:px-24" style={{ paddingTop: '6rem' }}>
         <div className="mx-auto max-w-7xl">
           {/* Page Header */}
           <div className="mb-12 text-center">
@@ -639,7 +621,7 @@ function DocsPage() {
                   </div>
                   <div>
                     <h2 className="font-heading text-2xl italic" style={{ color: '#333333' }}>{currentDoc.title}</h2>
-                    <p className="text-sm mt-1" style={{ color: '#333333', opacity: 0.6 }}>QLWY {currentDoc.title}</p>
+                    <p className="text-sm mt-1" style={{ color: '#333333', opacity: 0.6 }}>潜龙勿用 {currentDoc.title}</p>
                   </div>
                 </div>
 

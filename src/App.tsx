@@ -6,14 +6,8 @@ import { BlurText } from '@/components/BlurText'
 import { VideoBackground } from '@/components/VideoBackground'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Navbar } from '@/components/Navbar'
 import DocsPage from './pages/DocsPage'
-
-const navLinks = [
-  { label: '首页', href: '/' },
-  { label: '文档', href: '/docs' },
-  { label: '预测市场', href: 'https://yc.qlwy.xyz/' },
-  { label: 'NFT市场', href: '#nft' },
-]
 
 const modules = [
   {
@@ -93,81 +87,6 @@ function VideoFades() {
       <div className="pointer-events-none absolute left-0 right-0 top-0 z-[1] h-[200px] bg-gradient-to-b from-black to-transparent" />
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-[1] h-[200px] bg-gradient-to-t from-black to-transparent" />
     </>
-  )
-}
-
-function Navbar() {
-  return (
-    <nav className="fixed inset-x-0 top-4 z-50 px-4 sm:px-6">
-      <motion.div
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 rounded-full px-6 py-3"
-        style={{ background: 'rgba(245, 243, 235, 0.95)', backdropFilter: 'blur(20px)', border: '1px solid rgba(196, 154, 108, 0.3)' }}
-      >
-        <Link to="/" className="flex items-center gap-2">
-          <img src="/images/logo.png" alt="潜龙勿用" className="h-10 w-auto" />
-        </Link>
-
-        <div className="hidden md:flex justify-center">
-          <div className="flex items-center gap-8">
-            {navLinks.map((link, index) => (
-              <motion.div
-                key={link.label}
-                initial={{ y: -10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.05, duration: 0.3 }}
-              >
-                <Link
-                  to={link.href}
-                  className="relative font-body text-sm font-medium transition-all duration-200 hover:scale-105 group"
-                  style={{ color: '#333333' }}
-                >
-                  {link.label}
-                  <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-[#C49A6C] transition-all duration-300 group-hover:w-full" />
-                </Link>
-              </motion.div>
-            ))}
-
-            {/* Social Icons */}
-            <div className="flex items-center gap-2 ml-4 pl-4" style={{ borderLeft: '1px solid rgba(196, 154, 108, 0.3)' }}>
-              <a href="https://x.com/wwwqlwyxyz" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }} title="项目推特">
-                <Twitter className="w-4 h-4" style={{ color: '#C49A6C' }} />
-              </a>
-              <a href="https://x.com/drag0ooon?s=21" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }} title="开发者推特">
-                <X className="w-4 h-4" style={{ color: '#C49A6C' }} />
-              </a>
-              <a href="https://t.me/qlwyxyz" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
-                <Send className="w-4 h-4" style={{ color: '#C49A6C' }} />
-              </a>
-              <a href="https://github.com/qlwy" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
-                <Github className="w-4 h-4" style={{ color: '#C49A6C' }} />
-              </a>
-              <a href="https://four.meme/qlwy" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
-                <ExternalLink className="w-4 h-4" style={{ color: '#C49A6C' }} />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <motion.a
-          href="https://www.qlwy.xyz/fortune"
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 0.3 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium"
-          style={{ background: '#C49A6C', color: '#F5F3EB' }}
-        >
-          立即开始
-          <ArrowUpRight className="h-4 w-4" />
-        </motion.a>
-      </motion.div>
-    </nav>
   )
 }
 
@@ -747,7 +666,7 @@ function BattleSection() {
   const features = [
     { img: '/images/section2/炼签炉.png', title: '炼签炉', desc: '3个同等级卦象+手续费，概率升至更高等级', tags: ['稀有45%', '史诗20%', '传奇8%'] },
     { img: '/images/section2/战斗下注.png', title: '3v3 对战', desc: '灵力值+运气综合决胜，等级越高幸运加成越多', tags: ['胜利奖励', '参与经验'] },
-    { img: '/images/section2/等级系统.png', title: '签灵觉醒', desc: '升级为签灵解锁等级，等级÷2=幸运加成', tags: ['上限99级', 'QLWY升级'] },
+    { img: '/images/section2/等级系统.png', title: '签灵觉醒', desc: '升级为签灵解锁等级，等级÷2=幸运加成', tags: ['上限99级', '$潜龙勿用升级'] },
     { img: '/images/section2/签灵自动对战设置.png', title: '自动作战', desc: '设置后签灵自动对战/下注/卜卦/mint', tags: ['自动对战', '自动下注', '自动mint'] },
   ]
 
@@ -1257,7 +1176,7 @@ const docSections = [
     id: 'core',
     title: '核心NFT系统',
     icon: Shield,
-    content: 'QLWYFortuneCore是整个生态系统的基础协议，负责生成和管理具有运势属性的NFT。每个NFT代表一条"龙"，拥有独特的六爻卦象和运气值。',
+    content: '潜龙勿用FortuneCore是整个生态系统的基础协议，负责生成和管理具有运势属性的NFT。每个NFT代表一条"龙"，拥有独特的六爻卦象和运气值。',
     details: [
       '基于易经六十四卦设计',
       '5级稀有度：普通/稀有/史诗/传奇/神话',
@@ -1273,7 +1192,7 @@ const docSections = [
     details: [
       '占卜费用：0.005 BNB',
       '三阶段流程：请求→等待结果→铸造NFT',
-      '铸造费用：稀有50 / 史诗100 / 传奇500 / 神话2000 QLWY',
+      '铸造费用：稀有50 / 史诗100 / 传奇500 / 神话2000 $潜龙勿用',
       '占卜费用70%注入Jackpot奖池',
     ],
   },
@@ -1329,7 +1248,7 @@ const docSections = [
     id: 'token',
     title: '代币系统',
     icon: Coins,
-    content: 'QLWY是生态系统的ERC-20治理和实用代币，用于铸造、升级、精炼等功能。',
+    content: '$潜龙勿用是生态系统的ERC-20治理和实用代币，用于铸造、升级、精炼等功能。',
     details: [
       '标准ERC-20代币',
       '用于NFT铸造和升级',
