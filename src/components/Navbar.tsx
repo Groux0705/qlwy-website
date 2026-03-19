@@ -213,7 +213,7 @@ export function Navbar() {
                 )
               })}
 
-              <div className="ml-4 flex items-center gap-2 pl-4" style={{ borderLeft: '1px solid rgba(196, 154, 108, 0.3)' }}>
+              <div className="ml-4 flex items-center gap-3 pl-4" style={{ borderLeft: '1px solid rgba(196, 154, 108, 0.3)' }}>
                 <div
                   className="relative"
                   onMouseEnter={() => {
