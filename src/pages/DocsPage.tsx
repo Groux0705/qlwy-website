@@ -767,12 +767,12 @@ function DocsPage() {
           <div className="grid lg:grid-cols-4 gap-6">
             {/* Left Navigation - Combined Sidebars */}
             <motion.div
-              className="lg:col-span-1"
+              className="lg:col-span-1 sticky top-24 self-start"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
               <div
-                className="rounded-2xl p-4"
+                className="rounded-2xl p-4 max-h-[calc(100vh-8rem)] overflow-y-auto"
                 style={{
                   background: '#fff',
                   border: '1px solid rgba(196, 154, 108, 0.3)',
