@@ -1,16 +1,18 @@
 import { PropsWithChildren, useState, useEffect } from 'react'
-import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp, ArrowUp, FileText, Zap, X } from 'lucide-react'
+import { Routes, Route, Link } from 'react-router-dom'
+import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp, ArrowUp, FileText, Zap, X, BookOpen, Coins, Shield, Zap as Zap2, BarChart3, Users as Users2, Twitter, MessageCircle, Github, ExternalLink, ChevronDown } from 'lucide-react'
 import { motion } from 'motion/react'
 import { BlurText } from '@/components/BlurText'
 import { VideoBackground } from '@/components/VideoBackground'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import DocsPage from './pages/DocsPage'
 
 const navLinks = [
-  { label: '首页', href: '#home' },
-  { label: '文档', href: '#docs' },
-  { label: '预测市场', href: '#market' },
-  { label: '联系', href: '#contact' },
+  { label: '首页', href: '/' },
+  { label: '文档', href: '/docs' },
+  { label: '预测市场', href: '#prediction' },
+  { label: 'NFT市场', href: '#nft' },
 ]
 
 const modules = [
@@ -98,25 +100,28 @@ function Navbar() {
         className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 rounded-full px-6 py-3"
         style={{ background: 'rgba(245, 243, 235, 0.95)', backdropFilter: 'blur(20px)', border: '1px solid rgba(196, 154, 108, 0.3)' }}
       >
-        <a href="#home" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <img src="/images/logo.png" alt="潜龙勿用" className="h-10 w-auto" />
-        </a>
+        </Link>
 
         <div className="hidden md:flex justify-center">
           <div className="flex items-center gap-12">
             {navLinks.map((link, index) => (
-              <motion.a
+              <motion.div
                 key={link.label}
-                href={link.href}
                 initial={{ y: -10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: index * 0.05, duration: 0.3 }}
-                className="relative font-body text-sm font-medium transition-all duration-200 hover:scale-105 group"
-                style={{ color: '#333333' }}
               >
-                {link.label}
-                <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-[#C49A6C] transition-all duration-300 group-hover:w-full" />
-              </motion.a>
+                <Link
+                  to={link.href}
+                  className="relative font-body text-sm font-medium transition-all duration-200 hover:scale-105 group"
+                  style={{ color: '#333333' }}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-[#C49A6C] transition-all duration-300 group-hover:w-full" />
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -147,6 +152,7 @@ const sideNavItems = [
   { id: 'battle', label: '签灵', icon: Sword },
   { id: 'prediction', label: '预测市场', icon: TrendingUp },
   { id: 'nft', label: 'NFT市场', icon: Gift },
+  { id: 'docs', label: '文档', icon: BookOpen },
   { id: 'stats', label: '用户量', icon: Users },
   { id: 'cta', label: '开始', icon: Zap },
 ]
@@ -1219,6 +1225,180 @@ function HowItWorksSection() {
   )
 }
 
+const docSections = [
+  {
+    id: 'core',
+    title: '核心NFT系统',
+    icon: Shield,
+    content: 'QLWYFortuneCore是整个生态系统的基础协议，负责生成和管理具有运势属性的NFT。每个NFT代表一条"龙"，拥有独特的六爻卦象和运气值。',
+    details: [
+      '基于易经六十四卦设计',
+      '5级稀有度：普通/稀有/史诗/传奇/神话',
+      '幸运值范围 0-100，影响战斗表现',
+      '使用Chainlink VRF确保随机性',
+    ],
+  },
+  {
+    id: 'casting',
+    title: '卜卦系统',
+    icon: Sparkles,
+    content: '卜卦系统是获取NFT的核心途径，用户通过占卜请求获得随机的六爻卦象和运势属性。',
+    details: [
+      '占卜费用：0.005 BNB',
+      '三阶段流程：请求→等待结果→铸造NFT',
+      '铸造费用：稀有50 / 史诗100 / 传奇500 / 神话2000 QLWY',
+      '占卜费用70%注入Jackpot奖池',
+    ],
+  },
+  {
+    id: 'spirit',
+    title: '灵魂代理',
+    icon: Users,
+    content: 'Spirit Agent是将FortuneCore NFT升级后的智能代理，可以自主执行操作，支持自动化交易和战斗。',
+    details: [
+      '符合BAP-578 NFT代理标准',
+      '等级系统：0-99级',
+      '支持自动战斗、自动下注、自动铸造',
+      '不可转让，确保资产安全',
+    ],
+  },
+  {
+    id: 'battle',
+    title: 'PVP战斗',
+    icon: Sword,
+    content: '3v3团队对战系统，玩家使用Spirit Agent NFT进行PVP战斗，胜者可获得代币奖励。',
+    details: [
+      '评分公式：score = effectiveLuck×70 + random×30',
+      '稀有度幸运加成：普通+0 / 稀有+5 / 史诗+10 / 传奇+15 / 神话+20',
+      '失败方NFT有概率被销毁',
+      '战斗可获得经验值用于升级',
+    ],
+  },
+  {
+    id: 'prediction',
+    title: '预测市场',
+    icon: TrendingUp,
+    content: '基于LMSR AMM的去中心化预测市场，用户可以对各种事件结果进行预测和投注。',
+    details: [
+      '支持YES/NO预测',
+      '24小时争议期',
+      '神话NFT持有者可参与仲裁',
+      '手续费：创建者1% / 协议1% / LP1%',
+    ],
+  },
+  {
+    id: 'refinery',
+    title: '精炼系统',
+    icon: Coins,
+    content: '将多个低稀有度NFT精炼为更高稀有度的系统，是获得稀有NFT的主要途径之一。',
+    details: [
+      '投入3个相同稀有度NFT',
+      '稀有→史诗：45%成功率',
+      '史诗→传奇：20%成功率',
+      '传奇→神话：8%成功率',
+    ],
+  },
+  {
+    id: 'token',
+    title: '代币系统',
+    icon: Coins,
+    content: 'QLWY是生态系统的ERC-20治理和实用代币，用于铸造、升级、精炼等功能。',
+    details: [
+      '标准ERC-20代币',
+      '用于NFT铸造和升级',
+      '精炼系统费用',
+      '质押奖励分配',
+    ],
+  },
+  {
+    id: 'architecture',
+    title: '系统架构',
+    icon: BarChart3,
+    content: '潜龙勿用是一个基于BNB链的Web3游戏化NFT生态系统，整合了多种DeFi和游戏机制。',
+    details: [
+      '主网部署：BSC (Chain ID 56)',
+      'Chainlink VRF随机数',
+      'BAP-578 NFT代理标准',
+      'Planner模式：SpiritLogic + SpiritAgent',
+    ],
+  },
+]
+
+function DocsSection() {
+  return (
+    <section id="docs" className="relative px-6 py-24 md:px-16 lg:px-24" style={{ background: '#F5F3EB' }}>
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <SectionBadge className="mb-4">技术文档</SectionBadge>
+          <SectionHeading>玩转潜龙勿用</SectionHeading>
+          <motion.p
+            className="mt-4 max-w-2xl mx-auto text-sm leading-relaxed"
+            style={{ color: '#333333', opacity: 0.7 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            基于易经智慧的Web3游戏化NFT生态系统，详细了解核心机制和玩法
+          </motion.p>
+        </div>
+
+        {/* Docs Teaser Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {docSections.slice(0, 4).map((section, i) => {
+            const Icon = section.icon
+            return (
+              <motion.div
+                key={section.id}
+                className="rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  background: '#fff',
+                  border: '1px solid rgba(196, 154, 108, 0.3)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <div
+                  className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl"
+                  style={{ background: 'rgba(196, 154, 108, 0.15)' }}
+                >
+                  <Icon className="h-7 w-7" style={{ color: '#C49A6C' }} />
+                </div>
+                <h3 className="font-heading text-lg italic mb-2" style={{ color: '#333333' }}>{section.title}</h3>
+                <p className="text-xs leading-relaxed" style={{ color: '#333333', opacity: 0.6 }}>
+                  {section.content.slice(0, 60)}...
+                </p>
+              </motion.div>
+            )
+          })}
+        </div>
+
+        {/* CTA */}
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <Link
+            to="/docs"
+            className="inline-flex items-center gap-2 rounded-full px-8 py-4 font-medium transition-all hover:scale-105"
+            style={{ background: '#C49A6C', color: '#F5F3EB' }}
+          >
+            <BookOpen className="h-5 w-5" />
+            查看完整文档
+            <ArrowUpRight className="h-5 w-5" />
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
 function CTASection() {
   return (
     <section id="cta" className="relative px-6 py-24 md:px-16 lg:px-24" style={{ background: '#333333' }}>
@@ -1262,32 +1442,116 @@ function CTASection() {
 }
 
 function Footer() {
+  const footerLinks = {
+    '产品': [
+      { label: '首页', href: '/' },
+      { label: '预测市场', href: '#prediction' },
+      { label: 'NFT市场', href: '#nft' },
+    ],
+    '文档': [
+      { label: '技术文档', href: '/docs' },
+      { label: '白皮书', href: '#' },
+      { label: '入门指南', href: '/docs' },
+    ],
+    '社区': [
+      { label: '关于我们', href: '#' },
+      { label: '加入社区', href: '#' },
+      { label: '联系方式', href: '#' },
+    ],
+  }
+
   return (
-    <footer className="px-6 py-12" style={{ background: '#F5F3EB', borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}>
+    <footer className="px-12 py-16 md:px-24" style={{ background: '#333333' }}>
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-          <div className="flex items-center gap-2">
-            <img src="/images/logo.png" alt="潜龙勿用" className="h-10 w-auto" />
-            <span className="font-heading italic text-lg" style={{ color: '#333333' }}>
-              潜龙勿用
-            </span>
-          </div>
-
-          <div className="flex gap-6">
-            {['关于我们', '白皮书', '社区', '联系方式'].map((link) => (
-              <button
-                key={link}
-                className="text-sm transition-colors hover:opacity-70"
-                style={{ color: '#333333', opacity: 0.6 }}
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          {/* Logo & Social */}
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
+              <img src="/images/logo.png" alt="潜龙勿用" className="h-10 w-auto" style={{ filter: 'brightness(0) invert(1)' }} />
+            </div>
+            <p className="text-sm mb-4" style={{ color: 'rgba(245, 243, 235, 0.6)' }}>
+              基于易经智慧的Web3游戏化NFT生态系统
+            </p>
+            {/* Social Icons */}
+            <div className="flex gap-3">
+              <a
+                href="https://twitter.com/qlwy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
+                style={{ background: 'rgba(196, 154, 108, 0.2)' }}
               >
-                {link}
-              </button>
-            ))}
+                <Twitter className="w-5 h-5" style={{ color: '#C49A6C' }} />
+              </a>
+              <a
+                href="https://t.me/qlwy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
+                style={{ background: 'rgba(196, 154, 108, 0.2)' }}
+              >
+                <MessageCircle className="w-5 h-5" style={{ color: '#C49A6C' }} />
+              </a>
+              <a
+                href="https://github.com/qlwy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
+                style={{ background: 'rgba(196, 154, 108, 0.2)' }}
+              >
+                <Github className="w-5 h-5" style={{ color: '#C49A6C' }} />
+              </a>
+              <a
+                href="https://four.meme/qlwy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
+                style={{ background: 'rgba(196, 154, 108, 0.2)' }}
+              >
+                <ExternalLink className="w-5 h-5" style={{ color: '#C49A6C' }} />
+              </a>
+            </div>
           </div>
 
-          <span className="text-xs" style={{ color: '#333333', opacity: 0.4 }}>
+          {/* Link Columns */}
+          {Object.entries(footerLinks).map(([title, links]) => (
+            <div key={title}>
+              <h4 className="font-heading text-sm italic mb-4" style={{ color: '#C49A6C' }}>
+                {title}
+              </h4>
+              <div className="space-y-2">
+                {links.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="block text-sm transition-colors hover:opacity-70"
+                    style={{ color: 'rgba(245, 243, 235, 0.6)' }}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Bar */}
+        <div
+          className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
+          style={{ borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}
+        >
+          <span className="text-sm" style={{ color: 'rgba(245, 243, 235, 0.4)' }}>
             © 2026 潜龙勿用. 保留所有权利.
           </span>
+          <div className="flex gap-6">
+            <a href="#" className="text-sm transition-colors hover:opacity-70" style={{ color: 'rgba(245, 243, 235, 0.4)' }}>
+              隐私政策
+            </a>
+            <a href="#" className="text-sm transition-colors hover:opacity-70" style={{ color: 'rgba(245, 243, 235, 0.4)' }}>
+              服务条款
+            </a>
+          </div>
         </div>
       </div>
     </footer>
@@ -1296,19 +1560,28 @@ function Footer() {
 
 function App() {
   return (
-    <div className="overflow-visible" style={{ background: '#F5F3EB' }}>
-      <Navbar />
-      <SideNav />
-      <HeroSection />
-      <DivinationSection />
-      <BattleSection />
-      <PredictionSection />
-      <FeaturedNFTSection />
-      <StatsSection />
-      <HowItWorksSection />
-      <CTASection />
-      <Footer />
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div className="overflow-visible" style={{ background: '#F5F3EB' }}>
+            <Navbar />
+            <SideNav />
+            <HeroSection />
+            <DivinationSection />
+            <BattleSection />
+            <PredictionSection />
+            <FeaturedNFTSection />
+            <DocsSection />
+            {/* <StatsSection /> */}
+            <HowItWorksSection />
+            {/* <CTASection /> */}
+            <Footer />
+          </div>
+        }
+      />
+      <Route path="/docs" element={<DocsPage />} />
+    </Routes>
   )
 }
 
