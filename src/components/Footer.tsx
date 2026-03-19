@@ -25,12 +25,12 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="px-12 py-16 md:px-24" style={{ background: '#333333' }}>
+    <footer className="px-6 py-16 md:px-12 lg:px-24" style={{ background: '#333333' }}>
       <div className="mx-auto max-w-7xl">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr] gap-8 mb-12">
           {/* Logo & Social */}
-          <div className="col-span-2 md:col-span-1">
+          <div className="flex flex-col items-start">
             <div className="flex items-center gap-2 mb-4">
               <img src="/images/logo.png" alt="潜龙勿用" className="h-10 w-auto" style={{ filter: 'brightness(0) invert(1)' }} />
             </div>
@@ -89,26 +89,28 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Link Columns */}
-          {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <h4 className="classical-footer-title text-sm mb-4" style={{ color: '#C49A6C' }}>
-                {title}
-              </h4>
-              <div className="space-y-2">
-                {links.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="classical-footer-link block text-sm transition-colors hover:opacity-70"
-                    style={{ color: 'rgba(245, 243, 235, 0.6)' }}
-                  >
-                    {link.label}
-                  </a>
-                ))}
+          {/* Link Columns - right aligned */}
+          <div className="flex justify-end gap-8">
+            {Object.entries(footerLinks).map(([title, links]) => (
+              <div key={title}>
+                <h4 className="classical-footer-title text-sm mb-4" style={{ color: '#C49A6C' }}>
+                  {title}
+                </h4>
+                <div className="space-y-2">
+                  {links.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="classical-footer-link block text-sm transition-colors hover:opacity-70"
+                      style={{ color: 'rgba(245, 243, 235, 0.6)' }}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Bottom Bar */}
