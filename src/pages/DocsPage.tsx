@@ -4,6 +4,7 @@ import { ArrowUpRight, FileText, Sparkles, Sword, Users, TrendingUp, Coins, Shie
 import { Link } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import { Navbar } from '@/components/Navbar'
+import { Footer } from '@/components/Footer'
 import communityTweetsData from '@/data/communityTweets.json'
 import officialTweetsData from '@/data/officialTweets.json'
 
@@ -1032,6 +1033,7 @@ function DocsPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   )
 }
