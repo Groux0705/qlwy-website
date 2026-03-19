@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { ArrowUpRight, FileText, Sparkles, Sword, Users, TrendingUp, Coins, Shield, BarChart3, Twitter, Clock, User, X, ChevronDown } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
@@ -706,6 +706,19 @@ function DocsPage() {
   const [selectedTweet, setSelectedTweet] = useState<Tweet | null>(null)
   const [selectedOfficialTweet, setSelectedOfficialTweet] = useState<OfficialTweet | null>(null)
   const [articlesExpanded, setArticlesExpanded] = useState(false)
+  const [searchParams] = useSearchParams()
+
+  // Handle section from URL query param
+  useEffect(() => {
+    const section = searchParams.get('section')
+    if (section && docSections.some(d => d.id === section)) {
+      setActiveSection(section)
+      // Expand community articles dropdown if community section
+      if (section === 'community') {
+        setArticlesExpanded(true)
+      }
+    }
+  }, [searchParams])
 
   const currentDoc = docSections.find(d => d.id === activeSection) || docSections[0]
   const CurrentIcon = currentDoc.icon
