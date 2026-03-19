@@ -1,0 +1,95 @@
+{
+  "authors": {
+    "@wwwqlwyxyz": {
+      "name": "潜龙勿用",
+      "handle": "@wwwqlwyxyz",
+      "avatar": "https://pbs.twimg.com/profile_images/2014677549637574657/W054fZLA_200x200.png"
+    }
+  },
+  "tweets": [
+    {
+      "id": "2027592732810875189",
+      "author": "潜龙勿用",
+      "authorHandle": "@wwwqlwyxyz",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2014677549637574657/W054fZLA_200x200.png",
+      "content": "一、核心特点\n• LMSR 自动做市 — 无需对手盘，随时可买可卖\n• USD1 稳定币计价 — 所有交易和结算均使用 USD1\n• 三层结算机制 — 创建者（AI）结算 → 争议期 → 仲裁员仲裁\n• 多方分润 — 创建者、协议、流动性提供者三方共享手续费\n二、做市机制 — LMSR（对数做市评分规则）\n什么是 LMSR？\n传统交易所需要买卖双方挂单，而 LMSR 是一种自动做市算法（AMM），不依赖订单簿。用户可以随时买入或卖出份额，价格由算法自动计算。\n定价公式\n其中\n• b（流动性参数）= 初始补贴 / ln(2)，决定价格敏感度\n• q_YES / q_NO = 已售出的 YES / NO 份额总量 \n\n价格计算 \n\n• 当 q_YES = q_NO 时，P_YES = P_NO= 0.50（50:50）\n• 买入 YES 份额 → q_YES 增加 → P_YES 上升\n• 买入 NO 份额 → q_NO 增加 → P_NO 上升\n流动性参数 b\nb 值越大：\n• 价格滑点越小，大额交易对价格影响更平滑\n• 做市商（创建者/LP）承受的最大亏损越大 b 值越小：\n• 少量交易即可大幅移动价格，更灵敏\n• 大额交易滑点高\n初始概率\n默认为 50:50（下一版本会支持创建者可自定义初始概率）。\n动态流动性\n市场创建后，任何人都可以追加流动性（addSubsidy），增大 b 值、降低滑点。追加者获得对应的 LP 份额，结算后按比例分配池中剩余资金。\n三、手续费结构\n每笔买入/卖出交易都收取 3% 手续费，按如下比例分配：\n手续费计算示例\n假设你买入价值 100 USD1 的 YES 份额：\n创建者收入\n创建者从每一笔交易中获得 1% 的费用分成。这意味着：\n• 市场越活跃，创建者赚越多\n• 创建者有动力创建高质量、高关注度的预测话题\n• 创建者费可随时通过 claimCreatorFee 提取\n四、市场生命周期\n1️⃣ PENDING — 创建与审核\n• 用户在平台提交或者推特发送预测话题（如：@wwwqlwyxyz BTC 会在 2026 年 Q1 突破 $150,000 吗？\"）\n• AI 自动分析话题的合理性、二元可判定性，推荐到期时间\n• 元数据上传至 IPFS，生成不可篡改的 metadataHash\n• 创建者注入初始补贴（最低 10 USD1），作为做市资金\n2️⃣ TRADING — 交易中\n• 调用 createMarket() 将市场上链激活\n• 用户可自由买卖 YES / NO 份额\n• 价格由 LMSR 算法实时计算\n• 每笔交易收取 3% 手续费\n• 到期前（expiresAt）任何人都可交易\n3️⃣ DISPUTE PERIOD — 24 小时争议期\n• 市场到期后，创建者有 24 小时提交结算结果\n• 创建者调用 settleMarket(marketId, outcome) 提交 YES / NO / INVALID\n• 如果创建者超过 24 小时未结算，任何人可以提交 INVALID 结果\n• 结果提交后进入 24 小时争议期，等待社区审核\n4️⃣ ARBITRATION — 仲裁（仅在争议时触发）\n• 如有人对结算结果有异议，可调用 dispute() 发起争议\n• 争议方需支付仲裁费，该费用将分配给投票者作为激励\n• 市场进入仲裁阶段，由 神话NFT 持有者投票决定最终结果\n5️⃣ RESOLVED — 已结算\n• 最终结果确定\n• 持有获胜方份额的用户可以 1:1 兑换 USD1（1 份额 = 1 USD1）\n• 如结果为 INVALID，所有份额按 0.5 USD1 退还\n• 创建者可提取累积的创建者费用\n• LP 可提取池中剩余资金的对应份额\n五、结算与仲裁机制\n三层保障\n第一层：创建者结算（下一版会增加 AI 自动结算）  →   创建者提交结果，社区有 24h 审核窗口\n第二层：争议机制      →   任何人可质疑结果，支付仲裁费发起争议\n第三层：仲裁   →   仲裁员投票，多数决，20% 法定人数\n仲裁详情\n仲裁员注册\n\n成为仲裁员需要：\n• 持有神话 NFT（质押至仲裁合约）\n• 质押 5,000,000 潜龙勿用 代币 退出需申请 → 等待 30 天冷却期 → 取回 NFT 和代币。\n早期为了安全性考虑，仲裁员门槛设置后的较高，后续等平台稳定后仲裁员门槛会逐步降低\n仲裁费激励\n• 争议方支付仲裁费（USD1），任何人可追加\n• 仲裁结束后，所有投票者均分仲裁费\n• 激励更多仲裁员参与投票，确保公正性\n六、分红与收益\n创建者收益\nLP（流动性提供者）收益\n仲裁员收益\n仲裁费分红每次投票结束后，均分争议方支付的仲裁费\n协议手续费\n\n平台会收取每笔交易的 1% 作为协议手续费，后续会兑换为 BNB 作为分红转到潜龙勿用质押池。\n\n七、赢家赔付机制\n结算结果赔付规则\n\nYES 胜出\n\n每个 YES 份额 = 1 USD1，NO 份额归零\n\nNO 胜出\n\n每个 NO 份额 = 1 USD1，YES 份额归零\n八、交易示例\n假设一个市场初始补贴 100 USD1，初始概率 50:50。 场景：你认为 YES 会赢\n• 当前 YES 价格：0.50 USD1\n• 你买入 10 个 YES 份额，LMSR 计算成本约 5.13 USD1\n• 加上 3% 手续费，实际支付约 5.28 USD1\n• 你的买入推高 YES 价格至约 0.55 \n如果最终结果为 YES：\n• 你的 10 个 YES 份额 × 1 USD1 = 10 USD1\n• 净利润 ≈ 10 - 5.28 = 4.72 USD1 \n如果最终结果为 NO：\n• 你的 YES 份额归零\n• 净亏损 = -5.28 USD1 \n> 潜龙勿用 · 预测市场 — 首个去中心化的中文预测市场",
+      "title": "潜龙勿用 · 预测市场 — 完全指南",
+      "publishTime": "2026-02-28T03:52:33.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/HCN0qAiaoAAHfdG.png",
+      "originalUrl": "https://x.com/wwwqlwyxyz/status/2027592732810875189",
+      "tags": [
+        "官方"
+      ]
+    },
+    {
+      "id": "2022577865183891717",
+      "author": "潜龙勿用",
+      "authorHandle": "@wwwqlwyxyz",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2014677549637574657/W054fZLA_200x200.png",
+      "content": "Hands-free battles, auto staking, and daily rewards — powered by Spirit Agents (BEP-578 NFA).\nQianLing introduces Spirit Agents — an AI-powered upgrade for your Fortune NFTs that can battle, bet, and run strategies automatically. If you’re new, this guide will walk you through everything step by step.\n> TL;DR:\n Manual mode = you click and play.\n Spirit mode (AI) = set a strategy once, then your Agent plays for you.\n1) Manual Battle & Betting (Everyone can play)\nStep 1 — Open Battle Page & Connect Wallet\nGo to: https://qlwy.xyz/battle\nConnect your wallet.\nStep 2 — Join a Battle or Create One\n\nOn the page you’ll see:\n• Open battles (waiting for players)\n• New battle (create your own)\nTo participate directly, you’ll need to approve your NFT (one-time approval). Then select NFTs and confirm in your wallet.\nStep 3 — Bet on a Side (No need to join as a fighter)\nIf you don’t want to fight, or the battle slots are full, you can still place a bet:\n\n• Click View Battle\n• Enter bet amount\n• Choose a side\n• Confirm in your wallet\n2) Spirit Agent (AI) Auto Battle (Rare+ NFTs only)\nSpirit mode upgrades your NFT into a BFA (Spirit Agent) with:\n• Levels & EXP growth\n• Strategy settings (risk levels)\n• Agent vault (for automation)\n• Optional auto battle / auto bet / auto cast\nStep 1 — Upgrade to Spirit\nGo to: https://qlwy.xyz/spirit\nConnect wallet → Click Upgrade to Spirit.\nYou’ll do:\n• Approve NFT (one-time)\n• Select the NFT\n• Confirm upgrade in wallet\n\nStep 2 — Enter Your Spirit Dashboard\nClick your Spirit NFT to open the dashboard.\nYou’ll see:\n• Chat / Commands: talk to your Agent and give instructions\n(We just launched Memory — your Agent can learn your preferences over time.)\n• Action Log: shows battles, bets, and rewards\n• Settings: configure strategy and automation\n\nStep 3 — EXP, Leveling & Rewards\nYour Spirit grows through battles:\n• Win: +50 EXP\n• Lose: +20 EXP\nWhen EXP reaches the requirement, you can level up using tokens.\nHigher level = higher cost, but also higher boosts.\nStep 4 — Vault (BNB) for Automation\nThe BNB vault is used for automation gas, especially for auto casting.\nYou can deposit / withdraw anytime in Settings.\nStep 5 — Configure AI Strategy\nIn Strategy Settings, choose your risk profile:\n• Conservative / Balanced / Aggressive (risk & reward differ)\nImportant:\n• Current battles require at least 500 tokens.\n• Set Max Bet Amount and Max Battle Stake to ≥ 500.\nThen:\n• Turn on Auto Battle\n• (Optional) Turn on Auto Bet / Auto Cast\n• Click Save Strategy\n• Confirm in wallet\nOnce saved, your Spirit Agent will start running automatically.\nStep 6 — Stop Automation\nTo stop auto battling:\n• Go to Settings → toggle Auto Battle OFF → save.\nStep 7 — Unwrap (Release Spirit) Back to Original NFT\nIf you want your original Fortune NFT back:\n• Go to Spirit page → click Release Spirit → confirm.\nNotes:\n• Your Spirit’s level & EXP are stored on-chain.\n• If you upgrade again later, your progress can be restored.\nWhy Spirits Matter\nQianLing isn’t just “another meme.” It’s a game loop with real progression:\n• More玩法, more utility\n• Strong builder momentum\n• Consistent shipping\nIf you want to judge whether a project is worth holding long-term, new gameplay that increases retention and on-chain activity is one of the most important signals.\n\nStart here: https://qlwy.xyz/battle",
+      "title": " 潜龙勿用·签灵 (QianLing) Official Guide",
+      "publishTime": "2026-02-14T07:45:15.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/HBGjpBIbQAAdWbp.jpg",
+      "originalUrl": "https://x.com/wwwqlwyxyz/status/2022577865183891717",
+      "tags": [
+        "官方"
+      ]
+    },
+    {
+      "id": "2016642427017449696",
+      "author": "潜龙勿用",
+      "authorHandle": "@wwwqlwyxyz",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2014677549637574657/W054fZLA_200x200.png",
+      "content": "这几天大家抽卡非常热情，但抽多了会遇到一个现实问题：\n 神话以下的签会越积越多，而“只靠继续抽”并不是每个人都喜欢的玩法。\n所以我们开启了 炼签 玩法：\n一方面希望让 神话以下的 NFT 能流通起来，另一方面也给不同类型的玩家一个新的选择——你可以继续抽，也可以走“合成路线”。\n炼签更像一条进阶路线：\n把三张同稀有度的签投入炼丹炉，尝试合成更高稀有度的签。\n失败也不会白费：会产出灰烬，灰烬可以用来“点火”，让下一次炼签更接近成功。\n下面是完整规则与参数。\n炼签规则\n将 3 张相同稀有度的签 投入炼丹炉，有机会合成 1 张更高稀有度的签。\n炼签结果由 链上随机数 决定。\n成功率\n• 稀有 → 史诗：45%\n• 史诗 → 传奇：20%\n• 传奇 → 神话：8%\n费用（$潜龙勿用）\n• 稀有 → 史诗：500\n• 史诗 → 传奇：1000\n• 传奇 → 神话：10000\n> 炼签所需的 $潜龙勿用 会被转入黑洞地址（通缩）。\n灰烬系统（点火）\n炼签失败会获得 灰烬。灰烬可以在炼签时燃烧，用来提高当次成功率：\n• 每 5 灰烬 +1.25%\n• 最高 +15%\n失败获得灰烬数量：\n• 稀有失败：+1 灰烬\n• 史诗失败：+2 灰烬\n• 传奇失败：+5 灰烬\n注意事项\n• 普通签不能炼签\n• 神话签不能炼签\n> 最后留个预告：接下来会上线一个新玩法，其中有个场景 只对神话签持有者开放。 如果你已经有神话签，建议先不要急着出手 ～\n\n",
+      "title": "潜龙勿用炼签指南：点火、升阶、成器",
+      "publishTime": "2026-01-28T22:39:56.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/G_yMjXhW0AABOIf.jpg",
+      "originalUrl": "https://x.com/wwwqlwyxyz/status/2016642427017449696",
+      "tags": [
+        "官方"
+      ]
+    },
+    {
+      "id": "2015697594870300747",
+      "author": "潜龙勿用",
+      "authorHandle": "@wwwqlwyxyz",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2014677549637574657/W054fZLA_200x200.png",
+      "content": "这里说的“最优”，不是指在所有市场机制里数学意义上的全局最优。\n而是指在一个更现实的约束集合下——\n市场创建是 permissionless 的，流动性是长尾的，做市商不一定存在，参与者随时离场，冷启动是常态。\n在这组约束下，预测市场最常见的失败不是“定价不够高效”，而是：\n市场根本不可交易。\n所以更需要关心的问题是：\n当你无法假设对手盘、无法假设做市商、无法假设深度时，什么机制能让市场从第一天就“可用”？\n一个理想的答案是：LMSR。\n订单簿在长尾里会变成协调博弈\n订单簿（CLOB）在热门市场里非常好用：做市商竞争、深度足、价差小、价格发现效率高。\n但 permissionless 预测市场大多数是长尾：小众、短命、参与者稀疏。\n这时订单簿会退化成一个协调问题：\n挂单对很多人来说像“免费期权”——你把报价摆出来，别人可以挑着最划算的吃，你承担被动风险；\n没有成交量时，做市商不愿意给紧价差；\n用户点进来看到薄簿甚至空簿，直接离开；\n用户离开导致更没成交量，进一步降低做市动机。\n最后形成经典的死循环：\n 没深度 → 没成交 → 没人来 → 更没深度。\n你可以用补贴打破循环，但那意味着系统越来越像“交易所运营”，而不是“协议默认能跑”。\nLMSR 把流动性写进机制：可交易是一条不变式\nLMSR（Logarithmic Market Scoring Rule）不是撮合机制，而是用成本函数直接定义价格。\n你不需要等待对手盘，你交易的对象是市场状态本身。\n对二元市场（YES/NO），常见的 LMSR 成本函数是：\n其中  qyes 、qno 表示累计份额，b 是流动性参数。\n对应的价格（也可视为概率）是状态的确定性函数：\n交易成本等于成本函数的增量，而不是“撮合成交”。\n这带来对 permissionless 极其关键的性质：\n市场创建后立刻可交易。\n不需要做市商入场、不需要等对手盘出现、不需要运营先把深度“养起来”。\n如果你把预测市场当成信息基础设施，那么“随时可表达观点”就是第一原则。LMSR 让这个原则变成机制层的不变式。\n操纵无法消失，但可以被定价\n在薄订单簿里，制造假价格通常很便宜：\n少量资金就能抬最后成交价、挂假深度、做出“看起来很确定”的走势。\nLMSR 的态度更现实：\n你当然可以把 YES 推到 0.9、0.95、0.99，但这是一件需要真金白银买出来的事，而且越接近 1 成本越高。\n这不是“LMSR 无操纵”的宣传，而是一个工程选择：\n在 permissionless 世界里，你很难靠规则禁止坏事；\n更有效的方式是把坏事变成一门昂贵的生意，让造假不划算。\n价格最终会更像“资本加权的意见”，而不是“嗓门最大的叙事”。\nb 是工程旋钮：把流动性从运营问题变成参数问题\npermissionless 市场的异质性很强：\n有的市场热，有的市场冷；有的市场持续几小时，有的持续几周。\nLMSR 给你一个明确的旋钮：b。\n• b 越大，价格越稳，不容易被小资金推飞\n• b 越小，价格越敏感，能更快反映新信息\n你可以把不同市场的“可用性”预先编译进参数里，而不是事后靠补贴、做市计划、运营活动去救。\n从开发者视角看，这意味着：你在做“协议”，而不是在做“交易所运营”。\nOracleless 的结算在 LMSR 上更自然\n传统预测市场往往要预测外部事实：事件是否发生、某个价格是否达标、比赛结果是什么。\n这通常需要预言机，并且会引入争议面：数据源、操纵、延迟、分叉处理。\nLMSR 的连续定价让另一种路径变得自然：\n把结算条件写在市场状态本身上。\n比如一种 proof market：\n当  pyes ≥ 0.95 且连续维持 24 小时，就结算 YES。\n不依赖外部事实，不需要外部预言机。\n规则完全链上可验证、可复现，也更适合长尾命题。\n这类设计在订单簿里会更别扭，因为订单簿下的“价格”往往是脆弱信号（薄深度、跳价、最后一笔成交价的偶然性）。而在 LMSR 中，价格是市场状态的确定性函数，阈值与持续时间的判定更稳。\n代价确实存在，但它和问题的主矛盾无关\nLMSR 的 tradeoff 也很明确：\n它不是最资本效率的机制；当市场规模非常大、流动性极强时，订单簿可能更高效。\n但 permissionless 预测市场的主矛盾通常不是“效率”，而是“存在”。\n大多数市场会死在不可交易、无人维护、冷启动失败。\n所以在这组约束下，我更愿意把 LMSR 叫做“最优解”：\n它用机制保证可用性，而不是用运营赌人性。",
+      "title": "LMSR：Permissionless 预测市场的最优解",
+      "publishTime": "2026-01-26T08:05:31.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/G_kyFtbWgAAqn17.jpg",
+      "originalUrl": "https://x.com/wwwqlwyxyz/status/2015697594870300747",
+      "tags": [
+        "官方"
+      ]
+    },
+    {
+      "id": "2015240566477672518",
+      "author": "潜龙勿用",
+      "authorHandle": "@wwwqlwyxyz",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2014677549637574657/W054fZLA_200x200.png",
+      "content": "很多人第一次听到《易经》，脑子里会自动跳出三个词：\n算命、玄学、封建迷信。\n但如果你真的翻开它，会发现它更像一本——\n古人写给后人的决策说明书。\n它关心的从来不是“你明天会不会暴富”，而是：\n• 你现在处在什么位置？\n• 你正在走一条怎样的势？\n• 你该顺势而为，还是止损收手？\n• 你该等，还是该动？\n《易经》的核心不是预测未来，而是把你从混乱里拎出来：\n让你看到“局”的结构，看到“变”的方向。\n“易”到底是什么意思？\n“易”常被解释成三层：\n• 变易：一切都在变\n• 不易：变中有不变的规律\n• 简易：规律可以被简化成可操作的原则\n所以它不是一套“神秘答案”，而是一套认知框架：\n你无法控制结果，但你可以识别趋势；\n你无法避免变化，但你可以选择应对方式。\n六十四卦：不是神话，是「64 种局面」\n《易经》用 64 卦描述世界的 64 种典型局面。\n每一卦都像一个“场景模板”，比如：\n• 乾：能量很强，适合开局、冲刺、立旗\n• 坤：顺势承载，适合合作、积累、厚德载物\n• 屯：万事起头难，资源不足、阻力多、但有成长空间\n• 否：上下不通、信息错配、沟通成本极高\n• 泰：通达顺畅，但也要防止“顺到发飘”\n• 既济：事情已成，最危险的反而是“以为结束了”\n• 未济：差一步，最考验耐心和分寸\n这些不是“神话”，而是人类社会永恒的结构：\n创业、交易、职场、人际、家庭，全都跑不掉。\n最重要的不是卦名，而是：你在第几爻\n易经的厉害之处在于：\n它不只告诉你“这是什么局”，还告诉你：\n你现在在这个局里的哪个阶段。\n每一卦有六爻，从初爻到上爻，像一个过程的六个阶段：\n• 刚开始：冲动、信息不足、容易误判\n• 中间：进退两难、容易焦虑\n• 接近完成：最容易松懈、翻车\n• 结束/过度：必须收束，准备进入下一卦\n所以易经的“准确”从来不是玄学准确，\n而是阶段感准确：\n你听到一句话，会突然意识到：\n原来我现在就是“该等”的那一步。\n它最像什么？最像一套“风险管理”\n如果你做过交易/创业，你会懂：\n• 大部分亏损来自：不识势\n• 大部分焦虑来自：不知道自己在哪\n• 大部分后悔来自：动错了时机\n易经的作用不是给你“必赢答案”，\n而是把你的行为从情绪里抽离出来：\n• 该动时：你敢动\n• 该止时：你能止\n• 该藏时：你能藏\n• 该收时：你能收\n用一句现代话说：\n易经不是让你“赢”，\n是让你少在不该输的时候乱输。\n为什么我想把易经做成一个游戏？\n因为传统文化最大的问题不是“没价值”，而是：\n• 门槛太高\n• 语言太古\n• 传播方式太旧\n但易经这种东西，本来就适合“互动式传播”：\n你抛出一个问题：\nAI 帮你拆局 → 给你一个“签” → 你用它照见自己。\n它像一种古老的“心理镜子”，\n用象来绕开你的防御机制，\n让你在不被说教的情况下，突然看清自己。\n最后：别把易经当答案，把它当一面镜子\n如果你把易经当“彩票号码”，它会变得可笑。\n如果你把它当“人生地图”，它会变得锋利。\n它不会替你做决定，\n但它会逼你回答一个问题：\n你到底想要什么？\n以及，你愿意为它承担什么后果？",
+      "title": "易经不是算命：它是中国人最早的「决策模型」",
+      "publishTime": "2026-01-25T01:49:27.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/G_ePtJIXcAAWvWi.jpg",
+      "originalUrl": "https://x.com/wwwqlwyxyz/status/2015240566477672518",
+      "tags": [
+        "官方"
+      ]
+    },
+    {
+      "id": "2014683683945619743",
+      "author": "潜龙勿用",
+      "authorHandle": "@wwwqlwyxyz",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2014677549637574657/W054fZLA_200x200.png",
+      "content": "中文 Meme 其实有一个天然优势：我们有自己的文化母体。 \n从《易经》到签文、卦象、占问，中国人对“命势”、“选择”、“因果”的叙事并不陌生——它不是迷信，更像一种把复杂现实压缩成可讨论符号的语言。\n潜龙勿用想做的，就是把这套传统符号变成一款链上小游戏： 卜卦抽卡 · AI 解卦 ·稀有铸签 NFT · 神话触发开奖。\n 一切由链上规则结算。你付费起卦（VRF 随机），抽到稀有以上才能铸签（NFT），而一旦有人铸出神话签，就会触发奖池分配。 \n 这篇文章只讲机制：怎么卜卦、怎么开奖、以及 AI 解卦。\n1）卜卦抽卡\n• 卦象由 VRF 随机开出（不可人为操控）\n• 卦象分多个等级：普通 / 稀有 / 史诗 / 传奇 / 神话\n你可以把它理解为：  链上抽卡，但抽到高等级才进入下一阶段。\n2）铸签 NFT\n当你抽到 稀有及以上（稀有/史诗/传奇/神话），你会获得一个选择：\n> 是否将本次卦象“铸造成签”（Mint NFT）\n• 铸签需要花费少量 $潜龙勿用\n• 铸出来的签是你的 NFT，可在 NFT 市场交易（NFT 后续可以参与炼签等玩法）\n铸签的意义不只是收藏： 因为“神话签”会触发奖池开奖。\n3）神话开奖\n潜龙勿用不是每天/每周定时开奖。 它的触发条件只有一个：\n> 每次铸出神话签时，触发一次奖池分配。\n这让开奖变成一个“事件”，而不是等待日期： 有人铸出神话，全场就会发生一次清晰的链上结算。\n4）奖池规则\n每次铸出神话签触发分配时：\n• 50% 给新铸出神话签的持有者\n• 30% 平均分给所有神话 NFT持有人\n• 20% 留在奖池滚存\n如果平均分时有余数，目标份额发完后剩下的零头会回到奖池。\n5）神话签上限\n当神话签达到上限（88 枚）时：\n• 奖池将全部平均分给所有持有者\n• 若仍有余数，则补给最后那位中奖者\n• 随后奖池清零，一个周期结束\n你可以把它理解为：  神话签是有限席位，88 是终局事件。\n6）奖金构成\n奖池由以下几部分构成：\n• 项目启动注入：注入总量 1% 的代币（dev 自己购买的 10.00M $潜龙勿用）\n• 起卦费用回购注入：每次起卦支付的 BNB，70% 会通过 Swap 路由回购并注入奖池\n• 铸签费用注入：用户铸签时支付的 $潜龙勿用 全额注入奖池\n• 用户捐赠：任何人都可以往奖池捐赠代币\n7）AI 解卦\n任意卦象都可以 AI 解卦，但有一个硬规则：\n• 只有卦象所有者可以输入问题并解卦\n这能避免“公共刷屏式解读”，让解卦真正成为一种带归属权的互动。\n8）一句话\n起卦（VRF 随机等级）→ AI 解卦 → 稀有以上可铸签 NFT → 铸出神话签触发奖池分配（50/30/20）→ 神话签封顶 88 后终局清算、奖池清零 → 开启新玩法\n中文不只 Meme。潜龙勿用不只把传统文化当皮肤，而是把《易经》的“问—象—择—验”，做成一套可反复参与、可被链上规则结算的互动仪式。\n我们也希望通过这款小游戏，让更多人用一种更轻、更现代的方式接触中国文化：从看懂一个卦象、读懂一句签文开始，在一次次起卦、铸签、开奖与解卦里，把“变易”的智慧变成可参与、可分享的体验。\n卜卦：https://qlwy.xyz\n发射：https://four.meme/token/0x2e59...5d0754444",
+      "title": "中文不只 Meme：潜龙勿用 ——卜卦抽卡 · AI 解卦 · 铸签 NFT · 神话开奖",
+      "publishTime": "2026-01-23T12:56:35.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/G_WW60ybAAcae_2.jpg",
+      "originalUrl": "https://x.com/wwwqlwyxyz/status/2014683683945619743",
+      "tags": [
+        "官方"
+      ]
+    }
+  ]
+}
