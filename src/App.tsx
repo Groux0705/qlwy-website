@@ -1,6 +1,6 @@
 import { PropsWithChildren, useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp, ArrowUp, FileText, Zap, X, BookOpen, Coins, Shield, Zap as Zap2, BarChart3, Users as Users2, Twitter, Send, Github, ExternalLink, ChevronDown } from 'lucide-react'
+import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp, ArrowUp, FileText, Zap, X, BookOpen, Coins, Shield, Zap as Zap2, BarChart3, Users as Users2, Twitter, Send, Github, ExternalLink, ChevronDown, Clock, User } from 'lucide-react'
 import { motion } from 'motion/react'
 import { BlurText } from '@/components/BlurText'
 import { VideoBackground } from '@/components/VideoBackground'
@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Navbar } from '@/components/Navbar'
 import DocsPage from './pages/DocsPage'
+import communityTweetsData from '@/data/communityTweets.json'
 
 const modules = [
   {
@@ -1270,17 +1271,182 @@ const docSections = [
   },
 ]
 
-function DocsSection() {
+// Get tagged tweets for featured articles section
+interface Tweet {
+  id: string
+  author: string
+  authorHandle: string
+  authorAvatar?: string
+  content: string
+  publishTime: string
+  mediaUrl?: string
+  originalUrl: string
+  tags?: string[]
+}
+
+interface TweetData {
+  authors: Record<string, unknown>
+  tweets: Tweet[]
+}
+
+const featuredTweets = (communityTweetsData as TweetData).tweets
+  .filter(t => t.tags && t.tags.length > 0)
+  .slice(0, 4)
+
+function FeaturedArticlesSection() {
+  if (featuredTweets.length === 0) return null
+
+  const formatTime = (isoString: string) => {
+    try {
+      const date = new Date(isoString)
+      return date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' })
+    } catch { return '' }
+  }
+
   return (
-    <section id="docs" className="relative px-6 py-24 md:px-16 lg:px-24" style={{ background: '#F5F3EB' }}>
+    <section className="relative px-6 py-24 md:px-16 lg:px-24" style={{ background: '#F5F3EB' }}>
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-12 text-center">
-          <SectionBadge className="mb-4">技术文档</SectionBadge>
-          <SectionHeading>玩转潜龙勿用</SectionHeading>
+          <SectionBadge className="mb-4">
+            精选文章
+          </SectionBadge>
+          <SectionHeading>社区精选</SectionHeading>
           <motion.p
             className="mt-4 max-w-2xl mx-auto text-sm leading-relaxed"
             style={{ color: '#333333', opacity: 0.7 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            社区成员深度解读，KOL 推荐
+          </motion.p>
+        </div>
+
+        {/* Featured Articles Grid */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {featuredTweets.map((tweet, index) => (
+            <motion.a
+              key={tweet.id}
+              href={tweet.originalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -4 }}
+            >
+              <div
+                className="h-full rounded-2xl p-6 transition-all duration-300"
+                style={{
+                  background: '#fff',
+                  border: '1px solid rgba(196, 154, 108, 0.3)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+                }}
+              >
+                {/* Author */}
+                <div className="flex items-center gap-3 mb-4">
+                  {tweet.authorAvatar ? (
+                    <img
+                      src={tweet.authorAvatar}
+                      alt={tweet.author}
+                      className="w-10 h-10 rounded-full object-cover"
+                      style={{ border: '2px solid rgba(196, 154, 108, 0.3)' }}
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'rgba(196, 154, 108, 0.15)' }}>
+                      <User className="w-5 h-5" style={{ color: '#C49A6C' }} />
+                    </div>
+                  )}
+                  <div>
+                    <p className="text-sm font-medium" style={{ color: '#333333' }}>{tweet.author}</p>
+                    <p className="text-xs" style={{ color: '#333333', opacity: 0.5 }}>{tweet.authorHandle}</p>
+                  </div>
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {tweet.tags?.map(tag => (
+                    <span
+                      key={tag}
+                      className="px-2 py-0.5 rounded-full text-xs font-medium"
+                      style={{ background: 'rgba(196, 154, 108, 0.15)', color: '#C49A6C' }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Content */}
+                <p className="text-sm leading-relaxed mb-4 line-clamp-3" style={{ color: '#333333', opacity: 0.8 }}>
+                  {tweet.content}
+                </p>
+
+                {/* Media */}
+                {tweet.mediaUrl && (
+                  <div className="mb-4 -mx-2">
+                    <img
+                      src={tweet.mediaUrl}
+                      alt=""
+                      className="w-full h-40 object-cover rounded-lg"
+                    />
+                  </div>
+                )}
+
+                {/* Footer */}
+                <div className="flex items-center justify-between pt-3" style={{ borderTop: '1px solid rgba(196, 154, 108, 0.15)' }}>
+                  <div className="flex items-center gap-1 text-xs" style={{ color: '#333333', opacity: 0.5 }}>
+                    <Clock className="w-3 h-3" />
+                    {formatTime(tweet.publishTime)}
+                  </div>
+                  <div className="flex items-center gap-1 text-xs transition-colors" style={{ color: '#C49A6C' }}>
+                    查看全文
+                    <ArrowUpRight className="w-3 h-3" />
+                  </div>
+                </div>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+
+        {/* View More */}
+        <motion.div
+          className="mt-12 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <Link
+            to="/docs"
+            className="inline-flex items-center gap-2 rounded-full px-8 py-4 font-medium transition-all hover:scale-105"
+            style={{ background: '#C49A6C', color: '#F5F3EB' }}
+          >
+            <BookOpen className="h-5 w-5" />
+            查看更多文章
+            <ArrowUpRight className="h-5 w-5" />
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+function DocsSection() {
+  return (
+    <section id="docs" className="relative px-6 py-24 md:px-16 lg:px-24" style={{ background: '#333333' }}>
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <SectionBadge style={{ background: 'rgba(196, 154, 108, 0.2)', color: '#C49A6C', border: '1px solid rgba(196, 154, 108, 0.4)' }}>
+            技术文档
+          </SectionBadge>
+          <SectionHeading style={{ color: '#F5F3EB' }}>玩转潜龙勿用</SectionHeading>
+          <motion.p
+            className="mt-4 max-w-2xl mx-auto text-sm leading-relaxed"
+            style={{ color: 'rgba(245, 243, 235, 0.7)' }}
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1299,9 +1465,8 @@ function DocsSection() {
                 key={section.id}
                 className="rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
                 style={{
-                  background: '#fff',
-                  border: '1px solid rgba(196, 154, 108, 0.3)',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+                  background: 'rgba(245, 243, 235, 0.05)',
+                  border: '1px solid rgba(196, 154, 108, 0.2)',
                 }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -1314,8 +1479,8 @@ function DocsSection() {
                 >
                   <Icon className="h-7 w-7" style={{ color: '#C49A6C' }} />
                 </div>
-                <h3 className="font-heading text-lg italic mb-2" style={{ color: '#333333' }}>{section.title}</h3>
-                <p className="text-xs leading-relaxed" style={{ color: '#333333', opacity: 0.6 }}>
+                <h3 className="font-heading text-lg italic mb-2" style={{ color: '#F5F3EB' }}>{section.title}</h3>
+                <p className="text-xs leading-relaxed" style={{ color: 'rgba(245, 243, 235, 0.6)' }}>
                   {section.content.slice(0, 60)}...
                 </p>
               </motion.div>
@@ -1533,6 +1698,7 @@ function App() {
             <BattleSection />
             <PredictionSection />
             <FeaturedNFTSection />
+            <FeaturedArticlesSection />
             <DocsSection />
             {/* <StatsSection /> */}
             <HowItWorksSection />

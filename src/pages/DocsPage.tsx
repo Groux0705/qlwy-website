@@ -489,17 +489,17 @@ function DocsPage() {
       <main className="px-6 py-12 md:px-16 lg:px-24" style={{ paddingTop: '6rem' }}>
         <div className="mx-auto max-w-7xl">
           {/* Page Header */}
-          <div className="mb-12 text-center">
-            <SectionBadge className="mb-4">技术文档</SectionBadge>
-            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl italic mb-4" style={{ color: '#333333' }}>
+          <div className="mb-8 text-center">
+            <SectionBadge className="mb-2">技术文档</SectionBadge>
+            <h1 className="font-heading text-2xl md:text-3xl italic mb-2" style={{ color: '#333333' }}>
               玩转潜龙勿用
             </h1>
-            <p className="max-w-2xl mx-auto text-sm leading-relaxed" style={{ color: '#333333', opacity: 0.7 }}>
+            <p className="max-w-xl mx-auto text-xs" style={{ color: '#333333', opacity: 0.6 }}>
               基于易经智慧的Web3游戏化NFT生态系统，详细了解核心机制和玩法
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-4 gap-8">
+          <div className="grid lg:grid-cols-4 gap-6">
             {/* Left Navigation */}
             <motion.div
               className="lg:col-span-1"
