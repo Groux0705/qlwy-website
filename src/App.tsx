@@ -1194,14 +1194,14 @@ const docSections = [
       '占卜费用：0.005 BNB',
       '三阶段流程：请求→等待结果→铸造NFT',
       '铸造费用：稀有50 / 史诗100 / 传奇500 / 神话2000 $潜龙勿用',
-      '占卜费用70%注入Jackpot奖池',
+      '占卜费用70%注入奖池',
     ],
   },
   {
     id: 'spirit',
-    title: '灵魂代理',
+    title: '签灵 Agent',
     icon: Users,
-    content: 'Spirit Agent是将FortuneCore NFT升级后的智能代理，可以自主执行操作，支持自动化交易和战斗。',
+    content: '签灵(Spirit Agent)是将FortuneCore NFT升级后的AI Agent，可以自主执行操作，支持自动化交易和战斗。',
     details: [
       '符合BAP-578 NFT代理标准',
       '等级系统：0-99级',
