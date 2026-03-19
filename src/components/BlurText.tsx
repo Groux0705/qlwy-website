@@ -11,6 +11,8 @@ interface BlurTextProps {
 export function BlurText({ text, className, delayBase = 0 }: BlurTextProps) {
   const [isVisible, setIsVisible] = useState(false)
   const elementRef = useRef<HTMLDivElement>(null)
+  const usesWordSplit = text.trim().includes(' ')
+  const segments = usesWordSplit ? text.split(' ') : Array.from(text)
 
   useEffect(() => {
     const node = elementRef.current
@@ -32,9 +34,16 @@ export function BlurText({ text, className, delayBase = 0 }: BlurTextProps) {
   }, [])
 
   return (
-    <div ref={elementRef} className={cn('section-heading flex flex-wrap justify-center', className)} aria-label={text}>
-      {text.split(' ').map((word, index) => (
-        <span key={`${word}-${index}`} className="overflow-hidden pr-[0.32em] last:pr-0">
+    <div
+      ref={elementRef}
+      className={cn('section-heading flex flex-wrap justify-center', !usesWordSplit && 'gap-x-[0.06em]', className)}
+      aria-label={text}
+    >
+      {segments.map((segment, index) => (
+        <span
+          key={`${segment}-${index}`}
+          className={cn('overflow-hidden', usesWordSplit && 'pr-[0.32em] last:pr-0')}
+        >
           <motion.span
             initial={{ filter: 'blur(10px)', opacity: 0, y: 50 }}
             animate={
@@ -54,7 +63,7 @@ export function BlurText({ text, className, delayBase = 0 }: BlurTextProps) {
             }}
             className="inline-block"
           >
-            {word}
+            {segment}
           </motion.span>
         </span>
       ))}

@@ -10,135 +10,135 @@ import officialTweetsData from '@/data/officialTweets.json'
 
 const docSections = [
   {
-    id: 'intro',
-    title: '项目简介',
+    id: 'overview',
+    title: '项目定位',
     icon: Sparkles,
-    content: '"潜龙勿用"取自《易经》，意指"隐藏的龙不应急于行动"。这是一个基于BNB链的Web3游戏化NFT生态系统，将传统易经智慧与区块链技术结合，创造独特的预测和战斗体验。',
+    content: '潜龙勿用不是单一的“算命工具”，而是一个以《易经》叙事为世界观、以卦象卡牌NFT为资产底座、以签灵为执行引擎，并由奖池、对战、预测市场与仲裁机制组成闭环的链上应用型 Meme / 游戏协议。',
     details: [
-      '2026年3月10日单日Chainlink VRF调用量达到BSC全年的90%',
-      '首个去中心化的中文预测市场',
-      '基于易经六十四卦的NFT系统',
-      '完整的游戏化经济体系',
+      '两条主线并行：卜卦-NFT-精炼/签灵/对战-奖池，与预测市场-争议-仲裁。',
+      '核心叙事不是给出答案，而是把“识势、择时、承担结果”做成可参与的链上仪式。',
+      '神话级 NFT 是顶层资产，同时承接奖池权益、仲裁资格和生态身份。',
+      '签灵让用户从手动点操作，升级到“设策略、让签灵长期执行”。',
     ],
   },
   {
-    id: 'getting-started',
-    title: '快速开始',
+    id: 'entry',
+    title: '入口机制',
     icon: Sparkles,
-    content: '新手指南：如何在潜龙勿用开始你的旅程。从获取NFT到参与战斗，一步步带你入门。',
+    content: '用户进入潜龙勿用的第一步不是直接拿到 NFT，而是先发起卜卦请求。BNB 触发 VRF 返回卦象与运势后，只有稀有及以上结果才进入铸签决策，这让“问卦”成为整个生态的流量入口与筛选器。',
     details: [
-      '第一步：准备钱包 - 安装MetaMask并获取BNB',
-      '第二步：铸造NFT - 通过卜卦系统获得你的第一条"龙"',
-      '第三步：升级签灵 - 将NFT升级为AI Agent解锁自动化功能',
-      '第四步：参与战斗或预测市场 - 使用你的NFT参与PVP或预测市场赚取奖励',
+      '卜卦请求使用 BNB 发起，结果由 Chainlink VRF 返回，保证随机性可验证。',
+      '返回结果包含六爻、卦象、幸运值、稀有度等关键属性，稀有及以上才可进入铸签流程。',
+      '免费额度与冷却时间不是附属功能，而是协议用来控节奏、做活动与防刷的运营阀门。',
+      '用户从这里分流到三条成长线：冲奖池、升级签灵、或进入精炼与战斗体系。',
     ],
   },
   {
-    id: 'core',
-    title: '核心NFT',
+    id: 'assets',
+    title: '资产层与稀有度',
     icon: Shield,
-    content: '潜龙勿用FortuneCore是整个生态系统的基础协议，负责生成和管理具有运势属性的NFT。每个NFT代表一条"龙"，拥有独特的六爻卦象和运气值。',
+    content: 'FortuneCore 定义了整个生态的资产底座。每个 NFT 都映射一组卦象和运势参数，而五级稀有度则决定了它在奖池、签灵、仲裁与精炼里的位置与上限。',
     details: [
-      '基于易经六十四卦设计，共64种卦象',
-      '5级稀有度：普通(85.9%)/稀有(10%)/史诗(3%)/传奇(1%)/神话(0.1%)',
-      '幸运值范围 0-100，影响战斗表现和预测准确率',
-      '使用Chainlink VRF确保随机性可验证、不可篡改',
-    ],
-  },
-  {
-    id: 'casting',
-    title: '卜卦',
-    icon: Sparkles,
-    content: '卜卦系统是获取NFT的核心途径，用户通过占卜请求获得随机的六爻卦象和运势属性。系统名称源自中国传统易经文化。',
-    details: [
-      '占卜费用：0.005 BNB（部分用户可使用免费额度）',
-      '三阶段流程：请求占卜(VRF随机) → 等待结果(约10秒) → 铸造NFT',
-      '铸造费用：稀有50 / 史诗100 / 传奇500 / 神话2000 $潜龙勿用',
-      '占卜费用70%通过PancakeSwap兑换成QLWY注入奖池',
+      '资产属性由六爻、卦象 ID、幸运值与稀有度组成，对应 64 卦的文化表达层。',
+      '稀有度从普通到神话共五级，既决定稀缺性，也决定后续玩法入口和收益权重。',
+      '稀有及以上才能铸造成正式 NFT，也是签灵升级、奖池竞争和战斗体系的基础门槛。',
+      '神话级具有顶层身份：数量稀缺、权益最重，并向奖池与仲裁机制延伸。',
     ],
   },
   {
     id: 'jackpot',
-    title: '奖池',
+    title: '奖池机制',
     icon: Coins,
-    content: '奖池是潜龙勿用独特的激励机制，当铸造神话(Mythic) NFT时，奖金池分配规则如下：',
+    content: '奖池不是固定时间开奖，而是在铸出神话级 NFT 时触发的全局分配事件。它把“抽到神话”从一次性稀有事件，变成整个生态共享的价值结算时刻。',
     details: [
-      '获奖者获得奖池的50%',
-      '30%按比例分配给现有神话NFT持有者',
-      '20%保留在合约中累积到下次分配',
-      '神话铸造上限88个，达到后平均分配给所有神话持有者',
+      '当前神话级铸造者获得 50%，把“抽中神话”直接转化为即时奖励。',
+      '现有神话持有者分享 30%，让顶层资产拥有持续的被动分配能力。',
+      '剩余 20% 留在合约中滚入下一轮，形成跨周期累积与更强的期待感。',
+      '神话级上限为 88 个，达到上限后奖池会进入终局式平均分配。',
     ],
   },
   {
     id: 'spirit',
-    title: '签灵 Agent',
+    title: '签灵',
     icon: Users,
-    content: '签灵(Spirit Agent)是将FortuneCore NFT升级后的AI Agent，可以自主执行操作，支持自动化交易和战斗。符合BAP-578 NFT代理标准。',
+    content: '稀有及以上 NFT 可以升级成符合 BAP-578 的签灵，获得独立身份、经验成长与自动执行能力。项目真正的差异化，不是“多一个升级形态”，而是把用户行为从手动操作推进到策略驱动。',
     details: [
-      '将NFT升级为可自动执行的AI Agent(_wrap)',
-      '等级系统：0-99级，通过经验值升级',
-      '支持自动战斗、自动下注预测市场、自动铸造',
-      '不可转让，确保资产安全，msg.sender始终代表签灵本身',
+      '签灵拥有链上身份与签灵金库，可以代表自身持有和执行指定资产与动作。',
+      '能力侧覆盖自动战斗、自动下注、自动卜卦、自动铸签与资产兑换等策略行为。',
+      '0-99 级成长系统让签灵可随使用累计经验，形成长期养成价值。',
+      '升级后的签灵不可自由转让，保证发送者身份与权限边界始终清晰。',
     ],
   },
   {
     id: 'battle',
-    title: 'PVP战斗',
+    title: '对战系统',
     icon: Sword,
-    content: '3v3团队对战系统，玩家使用Spirit Agent NFT进行PVP战斗，胜者可获得代币奖励。',
+    content: 'PVP 不是展示型小游戏，而是带真实资产风险的 3v3 对抗场。幸运值、等级与稀有度共同影响胜率，失败方还要承担被销毁的压力，因此它更像一个高风险的资源消耗与成长模块。',
     details: [
-      '评分公式：score = effectiveLuck×70 + random×30',
-      '稀有度幸运加成：普通+0 / 稀有+5 / 史诗+10 / 传奇+15 / 神话+20',
-      '失败方NFT有概率被销毁：普通30%/稀有20%/史诗15%/传奇10%/神话5%',
-      '战斗可获得经验值用于升级提升属性',
+      '核心评分由有效幸运值 × 70 + 随机值 × 30 构成，随机性存在但不会完全吞没资产差异。',
+      '稀有度与等级都会增加有效幸运值，高级资产的成长会实打实转化成战力优势。',
+      '失败方 NFT 存在销毁概率，形成战斗消耗、通缩和风险决策三重效果。',
+      '胜负之外还会沉淀经验值，为签灵升级与长期养成提供反馈循环。',
     ],
   },
   {
     id: 'prediction',
     title: '预测市场',
     icon: TrendingUp,
-    content: '基于LMSR AMM(对数市场评分规则)的去中心化预测市场，用户可以对各种事件结果进行预测和投注。',
+    content: '预测市场是潜龙勿用的第二条增长曲线。协议使用 LMSR AMM 而不是订单簿，目标不是做最像交易所的界面，而是让长尾、任何人都可创建的事件从创建那一刻起就具备可交易性。',
     details: [
-      '支持YES/NO预测类型',
-      'USD1稳定币计价，所有交易和结算使用USD1',
-      '24小时争议期 + 神话NFT持有者仲裁机制',
-      '手续费：创建者1% / 协议1% / LP流动性提供者1%',
+      '市场采用 YES/NO 结构，并使用 USD1 作为计价与结算资产，降低理解成本。',
+      'LMSR 适合没有深度订单簿支持的长尾市场，是无许可创建体验的关键。',
+      '市场状态会经历创建、交易、争议、仲裁到最终结算，完整闭环比“能下注”更重要。',
+      '创建者费、协议费与 LP 费共同组成经济激励，让市场创建与流动性供给有持续动力。',
+    ],
+  },
+  {
+    id: 'governance',
+    title: '仲裁与治理',
+    icon: Shield,
+    content: '神话级 NFT 的价值不只来自稀有度，也来自仲裁与治理权。预测市场发生争议后，符合条件的神话持有者可以通过质押 NFT 与潜龙勿用代币成为协议的裁决者。',
+    details: [
+      '市场在创建者提交结果后进入争议窗口，争议期结束前可以升级到仲裁流程。',
+      '仲裁员并非抽象治理代币投票，而是以神话级 NFT + 潜龙勿用代币质押为基础的高门槛角色。',
+      '争议处理完成后，仲裁费用会按参与情况分配给有效仲裁者，形成治理激励。',
+      '这让神话级从“稀有收藏品”升级为协议可信度与最终裁决权的承载体。',
     ],
   },
   {
     id: 'refinery',
-    title: '精炼',
+    title: '精炼系统',
     icon: Coins,
-    content: '将多个低稀有度NFT精炼为更高稀有度的系统，是获得稀有NFT的主要途径之一。失败可获得灰烬(ASH)补偿。',
+    content: '精炼系统解决的是低稀有 NFT 堆积的问题。通过 3 合 1 机制，协议把存量资产向更高等级压缩；失败时返还灰烬，又让玩家有机会用长期积累修正运气。',
     details: [
-      '投入3个相同稀有度NFT',
-      '稀有→史诗：45%成功率 | 史诗→传奇：20% | 传奇→神话：8%',
-      '精炼失败获得灰烬：稀有1/史诗2/传奇5',
-      '燃烧灰烬可提升成功率：每5灰烬+1.25%，最高+15%',
-    ],
-  },
-  {
-    id: 'staking',
-    title: '质押',
-    icon: Coins,
-    content: 'QLWY代币质押获取被动收入，质押者可以获得BNB奖励。',
-    details: [
-      '用户存入QLWY代币开始获得质押奖励',
-      '奖励以BNB形式发放',
-      '解质押时默认1%销毁比例',
-      '可一键退出解除全部质押并领取所有奖励',
+      '每次精炼投入 3 张同稀有度 NFT，用失败概率换更高一层的资产等级。',
+      '基础成功率从稀有→史诗、史诗→传奇到传奇→神话逐级下降。',
+      '失败会返还灰烬，灰烬又可用于提高后续成功率，形成带缓冲的长期通缩机制。',
+      '它是“非神话资产如何继续升维”的关键通道，也是库存管理工具。',
     ],
   },
   {
     id: 'token',
-    title: '代币',
+    title: '代币与质押',
     icon: Coins,
-    content: '$潜龙勿用是生态系统的ERC-20治理和实用代币，是整个生态经济的核心。',
+    content: '潜龙勿用是整个生态的实用型 / 治理型代币，承担铸签、升级、精炼、质押与部分治理场景；质押系统则把协议里的长期参与者和价值分配绑定在一起。',
     details: [
-      '标准ERC-20代币，用于NFT铸造、升级、精炼、质押等',
-      '质押池奖励分配机制',
-      '部分手续费收入用于回购和奖池注入',
-      '可在PancakeSwap等DEX交易',
+      '潜龙勿用代币参与稀有及以上铸签、签灵升级、精炼等高频行为，是所有模块之间的通用燃料。',
+      '质押系统以 BNB 形式发放收益，把协议活动与持币激励连接起来。',
+      '默认解质押会带有销毁或成本约束，鼓励更稳定的中长期参与行为。',
+      '代币不只是支付手段，也是用户进入高阶玩法与治理层的门票之一。',
+    ],
+  },
+  {
+    id: 'architecture',
+    title: '技术架构',
+    icon: BarChart3,
+    content: '技术上，潜龙勿用把可验证随机数、签灵标准、LMSR 市场和 BSC 低成本执行环境组合在一起，让叙事、资产与自动化三层都可以真正落到链上。',
+    details: [
+      '底层运行在 BSC 上，用低 gas 环境承接高频卜卦、精炼、战斗和市场交互。',
+      'FortuneCore、Casting、Renderer 与 Content Pack 组成 NFT 资产和文化表达的基础层。',
+      'Chainlink VRF 保证卦象与运势生成的可验证随机性，避免中心化发牌。',
+      'SpiritLogic + SpiritAgent + BAP-578 则把“链上自动执行”做成标准化的产品能力。',
     ],
   },
   {
@@ -151,7 +151,7 @@ const docSections = [
   },
   {
     id: 'official',
-    title: '官推 Blog',
+    title: '官方机制文章',
     icon: FileText,
     content: '官方发布的潜龙勿用深度文章，详细解读项目机制、玩法指南和技术解析。',
     details: [],
@@ -159,6 +159,23 @@ const docSections = [
     isOfficial: true,
   },
 ]
+
+const legacySectionMap: Record<string, string> = {
+  intro: 'overview',
+  'getting-started': 'entry',
+  core: 'assets',
+  casting: 'entry',
+  jackpot: 'jackpot',
+  spirit: 'spirit',
+  battle: 'battle',
+  prediction: 'prediction',
+  refinery: 'refinery',
+  staking: 'token',
+  token: 'token',
+  architecture: 'architecture',
+  community: 'community',
+  official: 'official',
+}
 
 function SectionBadge({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
@@ -701,7 +718,7 @@ function OfficialBlogArticles({ onTweetClick }: { onTweetClick?: (tweet: Officia
 }
 
 function DocsPage() {
-  const [activeSection, setActiveSection] = useState('core')
+  const [activeSection, setActiveSection] = useState('overview')
   const [activeAuthor, setActiveAuthor] = useState<string | null>(null)
   const [selectedTweet, setSelectedTweet] = useState<Tweet | null>(null)
   const [selectedOfficialTweet, setSelectedOfficialTweet] = useState<OfficialTweet | null>(null)
@@ -710,7 +727,8 @@ function DocsPage() {
 
   // Handle section from URL query param
   useEffect(() => {
-    const section = searchParams.get('section')
+    const rawSection = searchParams.get('section')
+    const section = rawSection ? (legacySectionMap[rawSection] ?? rawSection) : null
     if (section && docSections.some(d => d.id === section)) {
       setActiveSection(section)
       // Expand community articles dropdown if community section
@@ -774,7 +792,7 @@ function DocsPage() {
               玩转潜龙勿用
             </h1>
             <p className="max-w-xl mx-auto text-xs px-4" style={{ color: '#333333', opacity: 0.6 }}>
-              基于易经智慧的Web3游戏化NFT生态系统，详细了解核心机制和玩法
+              从入口机制、资产层到签灵、预测与仲裁，快速建立对潜龙勿用项目闭环的整体理解。
             </p>
           </div>
 
@@ -830,7 +848,7 @@ function DocsPage() {
                     }}
                   >
                     <FileText className="w-4 h-4 shrink-0" />
-                    <span className="text-sm font-medium">官推 Blog</span>
+                    <span className="text-sm font-medium">官方机制文章</span>
                   </button>
 
                   {/* 社区文章 */}
@@ -956,7 +974,7 @@ function DocsPage() {
                   style={activeSection === 'official' ? { background: '#C49A6C' } : {}}
                 >
                   <FileText className="w-3 h-3 shrink-0" />
-                  官推
+                  官方文章
                 </button>
                 <button
                   onClick={() => {

@@ -11,6 +11,7 @@
   --radius: 9999px;
   --font-heading: 'Ma Shan Zheng', 'ZCOOL XiaoWei', 'FangZheng QingKe', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
   --font-body: 'FangZheng QingKe', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-classical-ui: 'Songti SC', 'STSong', 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
 }
 
 @layer base {
@@ -123,5 +124,37 @@
     font-size: 0.875rem;
     font-weight: 300;
     color: rgba(255, 255, 255, 0.6);
+  }
+
+  .classical-nav-link {
+    font-family: var(--font-classical-ui);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+
+  .classical-nav-subtle {
+    font-family: var(--font-classical-ui);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+  }
+
+  .classical-footer-title {
+    font-family: var(--font-classical-ui);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+  }
+
+  .classical-footer-link {
+    font-family: var(--font-classical-ui);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+  }
+
+  .classical-footer-copy {
+    font-family: var(--font-classical-ui);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    line-height: 1.8;
   }
 }

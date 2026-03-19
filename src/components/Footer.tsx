@@ -1,4 +1,4 @@
-import { Twitter, X, Send, Github, ExternalLink } from 'lucide-react'
+import { Twitter, X, Send, Github } from 'lucide-react'
 
 const footerLinks = {
   '产品': [
@@ -17,9 +17,9 @@ const footerLinks = {
     { label: '白皮书', href: '/whitepaper' },
   ],
   '社区': [
-    { label: '关于我们', href: 'https://x.com/wwwqlwyxyz' },
+    { label: '官方推特', href: 'https://x.com/wwwqlwyxyz' },
     { label: '加入社区', href: 'https://t.me/qlwyxyz' },
-    { label: '联系方式', href: '#' },
+    { label: 'GitHub', href: 'https://github.com/qlwy' },
   ],
 }
 
@@ -34,7 +34,7 @@ export function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <img src="/images/logo.png" alt="潜龙勿用" className="h-10 w-auto" style={{ filter: 'brightness(0) invert(1)' }} />
             </div>
-            <p className="text-sm mb-4" style={{ color: 'rgba(245, 243, 235, 0.6)' }}>
+            <p className="classical-footer-copy text-sm mb-4" style={{ color: 'rgba(245, 243, 235, 0.6)' }}>
               基于易经智慧的Web3游戏化NFT生态系统
             </p>
             {/* Social Icons */}
@@ -92,7 +92,7 @@ export function Footer() {
           {/* Link Columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="font-heading text-sm italic mb-4" style={{ color: '#C49A6C' }}>
+              <h4 className="classical-footer-title text-sm mb-4" style={{ color: '#C49A6C' }}>
                 {title}
               </h4>
               <div className="space-y-2">
@@ -100,7 +100,7 @@ export function Footer() {
                   <a
                     key={link.label}
                     href={link.href}
-                    className="block text-sm transition-colors hover:opacity-70"
+                    className="classical-footer-link block text-sm transition-colors hover:opacity-70"
                     style={{ color: 'rgba(245, 243, 235, 0.6)' }}
                   >
                     {link.label}
@@ -116,15 +116,15 @@ export function Footer() {
           className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
           style={{ borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}
         >
-          <span className="text-sm" style={{ color: 'rgba(245, 243, 235, 0.4)' }}>
+          <span className="classical-footer-copy text-sm" style={{ color: 'rgba(245, 243, 235, 0.4)' }}>
             © 2026 潜龙勿用. 保留所有权利.
           </span>
           <div className="flex gap-6">
-            <a href="#" className="text-sm transition-colors hover:opacity-70" style={{ color: 'rgba(245, 243, 235, 0.4)' }}>
-              隐私政策
+            <a href="/whitepaper" className="classical-footer-link text-sm transition-colors hover:opacity-70" style={{ color: 'rgba(245, 243, 235, 0.4)' }}>
+              白皮书
             </a>
-            <a href="#" className="text-sm transition-colors hover:opacity-70" style={{ color: 'rgba(245, 243, 235, 0.4)' }}>
-              服务条款
+            <a href="/docs" className="classical-footer-link text-sm transition-colors hover:opacity-70" style={{ color: 'rgba(245, 243, 235, 0.4)' }}>
+              开发文档
             </a>
           </div>
         </div>
