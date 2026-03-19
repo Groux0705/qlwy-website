@@ -244,8 +244,8 @@ export function Navbar() {
               <a href="https://github.com/qlwy" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
                 <Github className="w-4 h-4" style={{ color: '#C49A6C' }} />
               </a>
-              <a href="https://four.meme/qlwy" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
-                <ExternalLink className="w-4 h-4" style={{ color: '#C49A6C' }} />
+              <a href="https://four.meme/zh-TW/token/0x2e591b13d3caf27adf1db47d75278315d0754444" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
+                <img src="/images/four.svg" alt="Four.meme" className="w-4 h-4" />
               </a>
             </div>
           </div>

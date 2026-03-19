@@ -1097,7 +1097,7 @@ function DocsPage() {
                   style={{ background: '#C49A6C', color: '#F5F3EB' }}
                 >
                   <FileText className="w-3 h-3 sm:w-4 sm:h-4" />
-                  下载完整白皮书
+                  查看白皮书
                   <ArrowUpRight className="w-3 h-3 sm:w-4 sm:h-4" />
                 </Link>
               </motion.div>

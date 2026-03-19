@@ -78,13 +78,13 @@ export function Footer() {
                 <Github className="w-5 h-5" style={{ color: '#C49A6C' }} />
               </a>
               <a
-                href="https://four.meme/qlwy"
+                href="https://four.meme/zh-TW/token/0x2e591b13d3caf27adf1db47d75278315d0754444"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
                 style={{ background: 'rgba(196, 154, 108, 0.2)' }}
               >
-                <ExternalLink className="w-5 h-5" style={{ color: '#C49A6C' }} />
+                <img src="/images/four.svg" alt="Four.meme" className="w-5 h-5" />
               </a>
             </div>
           </div>

@@ -12,14 +12,14 @@ export function WhitepaperPage() {
         <div className="max-w-4xl mx-auto text-center">
           <h1
             className="text-5xl md:text-6xl font-heading mb-6"
-            style={{ color: 'var(--primary-gold)', fontFamily: 'Noto Serif SC, serif' }}
+            style={{ color: '#FFFFFF', fontFamily: 'Noto Serif SC, serif' }}
           >
             白皮书
           </h1>
-          <p className="text-xl mb-4" style={{ color: 'rgba(245, 243, 235, 0.8)' }}>
+          <p className="text-xl mb-4" style={{ color: 'rgba(245, 243, 235, 0.9)' }}>
             潜龙勿用 (QLWY) 项目完整技术白皮书
           </p>
-          <p className="text-sm" style={{ color: 'var(--primary-gold)', opacity: 0.8 }}>
+          <p className="text-sm" style={{ color: 'rgba(245, 243, 235, 0.6)' }}>
             版本 1.0 | 2026年3月
           </p>
         </div>
