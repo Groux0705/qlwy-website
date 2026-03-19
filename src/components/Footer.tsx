@@ -25,8 +25,23 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="px-6 py-16 md:px-12 lg:px-24" style={{ background: '#333333' }}>
-      <div className="mx-auto max-w-7xl">
+    <footer className="relative px-6 py-16 md:px-12 lg:px-24 overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-40"
+        >
+          <source src="/video/dragon2.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(51, 51, 51, 0.85) 0%, rgba(51, 51, 51, 0.95) 100%)' }} />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-7xl">
         {/* Main Footer Content */}
         <div className="grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr] gap-8 mb-12">
           {/* Logo & Social */}
