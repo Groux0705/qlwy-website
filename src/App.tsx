@@ -133,7 +133,7 @@ function SideNav() {
 
   return (
     <motion.div
-      className="fixed left-4 z-50 flex flex-col gap-2"
+      className="hidden lg:flex fixed left-4 z-50 flex flex-col gap-2"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : -20 }}
       transition={{ duration: 0.3 }}

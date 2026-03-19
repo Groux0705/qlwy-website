@@ -752,23 +752,23 @@ function DocsPage() {
       <Navbar />
 
       {/* Main Content */}
-      <main className="px-6 py-12 md:px-16 lg:px-24" style={{ paddingTop: '6rem' }}>
+      <main className="px-4 sm:px-6 py-8 sm:py-12 lg:px-24" style={{ paddingTop: '6rem' }}>
         <div className="mx-auto max-w-7xl">
           {/* Page Header */}
-          <div className="mb-8 text-center">
-            <SectionBadge className="mb-2">技术文档</SectionBadge>
-            <h1 className="font-heading text-2xl md:text-3xl italic mb-2" style={{ color: '#333333' }}>
+          <div className="mb-6 sm:mb-8 text-center">
+            <SectionBadge className="mb-2 text-xs sm:text-sm">技术文档</SectionBadge>
+            <h1 className="font-heading text-xl sm:text-2xl md:text-3xl italic mb-2" style={{ color: '#333333' }}>
               玩转潜龙勿用
             </h1>
-            <p className="max-w-xl mx-auto text-xs" style={{ color: '#333333', opacity: 0.6 }}>
+            <p className="max-w-xl mx-auto text-xs px-4" style={{ color: '#333333', opacity: 0.6 }}>
               基于易经智慧的Web3游戏化NFT生态系统，详细了解核心机制和玩法
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-4 gap-6">
-            {/* Left Navigation - Combined Sidebars */}
+          <div className="grid lg:grid-cols-4 gap-4 lg:gap-6">
+            {/* Left Navigation - Desktop Sidebar */}
             <motion.div
-              className="lg:col-span-1 sticky top-24 self-start"
+              className="hidden lg:block lg:col-span-1 sticky top-24 self-start"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
@@ -905,6 +905,65 @@ function DocsPage() {
               </div>
             </motion.div>
 
+            {/* Mobile Navigation - Horizontal Scrollable Tabs */}
+            <motion.div
+              className="lg:hidden col-span-full -mx-6 px-4 mb-4 overflow-x-auto"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <div className="flex gap-2 pb-2" style={{ minWidth: 'max-content' }}>
+                {docSections.filter(s => !s.isArticles).map((section) => {
+                  const Icon = section.icon
+                  const isActive = activeSection === section.id
+                  return (
+                    <button
+                      key={section.id}
+                      onClick={() => setActiveSection(section.id)}
+                      className={cn(
+                        "flex items-center gap-2 px-3 py-2 rounded-full text-xs whitespace-nowrap transition-all duration-200",
+                        isActive
+                          ? "text-white"
+                          : "bg-white text-gray-600 border border-gray-200"
+                      )}
+                      style={isActive ? { background: '#C49A6C' } : {}}
+                    >
+                      <Icon className="w-3 h-3 shrink-0" />
+                      {section.title}
+                    </button>
+                  )
+                })}
+                <button
+                  onClick={() => setActiveSection('official')}
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-full text-xs whitespace-nowrap transition-all duration-200",
+                    activeSection === 'official'
+                      ? "text-white"
+                      : "bg-white text-gray-600 border border-gray-200"
+                  )}
+                  style={activeSection === 'official' ? { background: '#C49A6C' } : {}}
+                >
+                  <FileText className="w-3 h-3 shrink-0" />
+                  官推
+                </button>
+                <button
+                  onClick={() => {
+                    setActiveSection('community')
+                    setArticlesExpanded(!articlesExpanded)
+                  }}
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-full text-xs whitespace-nowrap transition-all duration-200",
+                    activeSection === 'community'
+                      ? "text-white"
+                      : "bg-white text-gray-600 border border-gray-200"
+                  )}
+                  style={activeSection === 'community' ? { background: '#C49A6C' } : {}}
+                >
+                  <Twitter className="w-3 h-3 shrink-0" />
+                  社区
+                </button>
+              </div>
+            </motion.div>
+
             {/* Right Content */}
             <motion.div
               className="lg:col-span-3"
@@ -914,29 +973,29 @@ function DocsPage() {
               transition={{ duration: 0.3 }}
             >
               <div
-                className="rounded-3xl p-8"
+                className="rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8"
                 style={{
                   background: '#fff',
                   border: '1px solid rgba(196, 154, 108, 0.3)',
-                  boxShadow: '0 8px 40px rgba(0,0,0,0.08)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
                 }}
               >
                 {/* Title Area */}
-                <div className="flex items-center gap-4 mb-6 pb-6" style={{ borderBottom: '1px solid rgba(196, 154, 108, 0.2)' }}>
+                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 pb-4 sm:pb-6" style={{ borderBottom: '1px solid rgba(196, 154, 108, 0.2)' }}>
                   <div
-                    className="flex items-center justify-center w-14 h-14 rounded-2xl"
+                    className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl"
                     style={{ background: 'rgba(196, 154, 108, 0.15)' }}
                   >
-                    <CurrentIcon className="w-7 h-7" style={{ color: '#C49A6C' }} />
+                    <CurrentIcon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" style={{ color: '#C49A6C' }} />
                   </div>
-                  <div>
-                    <h2 className="font-heading text-2xl italic" style={{ color: '#333333' }}>{currentDoc.title}</h2>
-                    <p className="text-sm mt-1" style={{ color: '#333333', opacity: 0.6 }}>潜龙勿用 {currentDoc.title}</p>
+                  <div className="min-w-0">
+                    <h2 className="font-heading text-lg sm:text-xl lg:text-2xl italic truncate" style={{ color: '#333333' }}>{currentDoc.title}</h2>
+                    <p className="text-xs sm:text-sm mt-0 sm:mt-1 truncate" style={{ color: '#333333', opacity: 0.6 }}>潜龙勿用 {currentDoc.title}</p>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-base leading-relaxed mb-8" style={{ color: '#333333', opacity: 0.8 }}>
+                <p className="text-sm sm:text-base leading-relaxed mb-6 sm:mb-8" style={{ color: '#333333', opacity: 0.8 }}>
                   {currentDoc.content}
                 </p>
 
@@ -977,14 +1036,14 @@ function DocsPage() {
                 )}
 
                 {/* Bottom Navigation */}
-                <div className="mt-8 pt-6 flex items-center justify-between" style={{ borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}>
+                <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}>
                   <button
                     onClick={() => {
                       const idx = docSections.findIndex(d => d.id === activeSection)
                       if (idx > 0) setActiveSection(docSections[idx - 1].id)
                     }}
                     disabled={activeSection === docSections[0].id}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all disabled:opacity-30"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all disabled:opacity-30 order-2 sm:order-1"
                     style={{ color: '#C49A6C' }}
                   >
                     <ArrowUpRight className="w-4 h-4 rotate-180" />
@@ -996,7 +1055,7 @@ function DocsPage() {
                       if (idx < docSections.length - 1) setActiveSection(docSections[idx + 1].id)
                     }}
                     disabled={activeSection === docSections[docSections.length - 1].id}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all disabled:opacity-30"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all disabled:opacity-30 order-1 sm:order-2"
                     style={{ color: '#C49A6C' }}
                   >
                     下一篇
@@ -1007,7 +1066,7 @@ function DocsPage() {
 
               {/* Whitepaper Download */}
               <motion.div
-                className="mt-6 rounded-2xl p-6 text-center"
+                className="mt-4 sm:mt-6 rounded-2xl p-4 sm:p-6 text-center"
                 style={{
                   background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.15), rgba(196, 154, 108, 0.05))',
                   border: '1px solid rgba(196, 154, 108, 0.3)',
@@ -1016,18 +1075,18 @@ function DocsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <p className="text-sm mb-4" style={{ color: '#333333', opacity: 0.7 }}>
+                <p className="text-xs sm:text-sm mb-3 sm:mb-4" style={{ color: '#333333', opacity: 0.7 }}>
                   想要了解更多技术细节？
                 </p>
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium"
+                <Link
+                  to="/whitepaper"
+                  className="inline-flex items-center gap-2 rounded-full px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-medium"
                   style={{ background: '#C49A6C', color: '#F5F3EB' }}
                 >
-                  <FileText className="w-4 h-4" />
+                  <FileText className="w-3 h-3 sm:w-4 sm:h-4" />
                   下载完整白皮书
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
+                  <ArrowUpRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                </Link>
               </motion.div>
             </motion.div>
           </div>
