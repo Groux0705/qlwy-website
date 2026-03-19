@@ -75,8 +75,8 @@ function SectionBadge({ children, className }: PropsWithChildren<{ className?: s
   return <span className={cn('section-badge liquid-glass', className)}>{children}</span>
 }
 
-function SectionHeading({ children, className }: PropsWithChildren<{ className?: string }>) {
-  return <h2 className={cn('section-heading text-4xl md:text-5xl lg:text-6xl', className)}>{children}</h2>
+function SectionHeading({ children, className, style }: PropsWithChildren<{ className?: string; style?: React.CSSProperties }>) {
+  return <h2 className={cn('section-heading text-4xl md:text-5xl lg:text-6xl', className)} style={style}>{children}</h2>
 }
 
 function VideoFades() {
@@ -729,21 +729,192 @@ function BattleSection() {
 }
 
 function PredictionSection() {
+  const features = [
+    { title: '创建市场', desc: '任何人都可创建预测市场，设置事件与到期时间', icon: '📊' },
+    { title: 'YES/NO 交易', desc: '买入YES或NO份额，实时价格由LMSR做市商模型计算', icon: '💰' },
+    { title: '24小时争议期', desc: '结果公布后进入争议期，可申请仲裁', icon: '⚖️' },
+    { title: '神话卦仲裁', desc: '神话NFT持有者投票决定争议结果', icon: '🔮' },
+  ]
+
+  const marketPhases = [
+    { label: '交易中', color: '#22c55e' },
+    { label: '争议期', color: '#eab308' },
+    { label: '仲裁中', color: '#f97316' },
+    { label: '已结算', color: '#6b7280' },
+  ]
+
   return (
-    <ModuleSection
-      id="prediction"
-      title="预测市场"
-      subtitle="预见未来"
-      description="预知未来，把握机遇。通过预测市场，用户可以对未来事件的结果进行投注。准确预判趋势的用户将获得丰厚奖励。"
-      modules={modules.filter(m => ['market'].includes(m.id))}
-    />
+    <section id="prediction" className="relative py-24 px-6 md:px-16 lg:px-24" style={{ background: '#F5F3EB' }}>
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-16 text-center">
+          <SectionBadge className="mb-4">预见未来</SectionBadge>
+          <SectionHeading style={{ color: '#333333' }}>预测市场</SectionHeading>
+          <motion.p
+            className="mt-4 max-w-xl mx-auto text-sm leading-relaxed"
+            style={{ color: 'rgba(51, 51, 51, 0.7)' }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            预测未来事件结果，通过LMSR做市商模型交易YES/NO份额，把握趋势赢取奖励。
+          </motion.p>
+        </div>
+
+        <div className="mb-12">
+          <h3 className="text-center font-heading text-xl italic mb-6" style={{ color: '#C49A6C' }}>市场生命周期</h3>
+          <div className="flex items-center justify-center gap-2">
+            {marketPhases.map((phase, i) => (
+              <motion.div
+                key={phase.label}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-center gap-2"
+              >
+                <div
+                  className="px-4 py-2 rounded-full text-sm font-medium"
+                  style={{ background: phase.color, color: '#fff' }}
+                >
+                  {phase.label}
+                </div>
+                {i < marketPhases.length - 1 && (
+                  <span className="text-lg" style={{ color: '#C49A6C' }}>→</span>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-10">
+          <motion.div
+            className="rounded-3xl p-6"
+            style={{
+              background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.15), rgba(196, 154, 108, 0.05))',
+              border: '1px solid rgba(196, 154, 108, 0.3)',
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="font-heading text-2xl italic mb-4" style={{ color: '#333333' }}>做市商机制</h4>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center py-2 border-b border-[rgba(196,154,108,0.2)]">
+                <span className="text-sm" style={{ color: '#333333', opacity: 0.8 }}>YES 价格</span>
+                <span className="font-medium" style={{ color: '#22c55e' }}>实时计算</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-[rgba(196,154,108,0.2)]">
+                <span className="text-sm" style={{ color: '#333333', opacity: 0.8 }}>NO 价格</span>
+                <span className="font-medium" style={{ color: '#ef4444' }}>实时计算</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-[rgba(196,154,108,0.2)]">
+                <span className="text-sm" style={{ color: '#333333', opacity: 0.8 }}>流动性深度</span>
+                <span className="font-medium" style={{ color: '#3b82f6' }}>动态增减</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="rounded-3xl p-6"
+            style={{
+              background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.15), rgba(196, 154, 108, 0.05))',
+              border: '1px solid rgba(196, 154, 108, 0.3)',
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <h4 className="font-heading text-2xl italic mb-4" style={{ color: '#333333' }}>手续费结构</h4>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center py-2 border-b border-[rgba(196,154,108,0.2)]">
+                <span className="text-sm" style={{ color: '#333333', opacity: 0.8 }}>创建者费用</span>
+                <span className="font-medium" style={{ color: '#C49A6C' }}>1%</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-[rgba(196,154,108,0.2)]">
+                <span className="text-sm" style={{ color: '#333333', opacity: 0.8 }}>协议费用</span>
+                <span className="font-medium" style={{ color: '#C49A6C' }}>1%</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-[rgba(196,154,108,0.2)]">
+                <span className="text-sm" style={{ color: '#333333', opacity: 0.8 }}>LP 奖励</span>
+                <span className="font-medium" style={{ color: '#C49A6C' }}>1%</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="grid md:grid-cols-4 gap-4">
+          {features.map((f, i) => (
+            <motion.div
+              key={f.title}
+              className="rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: '#fff',
+                border: '1px solid rgba(196, 154, 108, 0.3)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+            >
+              <div className="text-3xl mb-3">{f.icon}</div>
+              <h4 className="font-heading text-lg italic mb-2" style={{ color: '#333333' }}>{f.title}</h4>
+              <p className="text-xs leading-relaxed" style={{ color: '#333333', opacity: 0.6 }}>{f.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div className="mt-12 text-center">
+          <motion.a
+            href="#"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-2 rounded-full px-10 py-4 text-sm font-medium"
+            style={{ background: '#C49A6C', color: '#F5F3EB' }}
+          >
+            进入预测市场
+            <ArrowUpRight className="h-5 w-5" />
+          </motion.a>
+        </motion.div>
+      </div>
+    </section>
   )
 }
 
 function FeaturedNFTSection() {
+  const nftCards = [
+    { name: '乾卦', level: '神话', img: '/images/section2/rank/神话卦.avif', rare: '顶级' },
+    { name: '坤卦', level: '传奇', img: '/images/section2/rank/传奇卦.png', rare: '8%' },
+    { name: '震卦', level: '史诗', img: '/images/section2/rank/史诗卦.png', rare: '20%' },
+    { name: '巽卦', level: '稀有', img: '/images/section2/rank/稀有卦.png', rare: '45%' },
+    { name: '坎卦', level: '普通', img: '/images/section2/rank/普通卦.png', rare: '基础' },
+    { name: '离卦', level: '稀有', img: '/images/section2/rank/稀有卦.png', rare: '45%' },
+  ]
+
+  const rarityColors: Record<string, string> = {
+    '神话': '#f97316',
+    '传奇': '#a855f7',
+    '史诗': '#3b82f6',
+    '稀有': '#22c55e',
+    '普通': '#6b7280',
+  }
+
   return (
-    <section className="relative px-6 py-24 md:px-16 lg:px-24" style={{ background: '#333333' }}>
-      <div className="mx-auto max-w-7xl">
+    <section className="relative px-6 py-24 md:px-16 lg:px-24 overflow-hidden" style={{ background: '#333333' }}>
+      {/* 背景装饰 */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C49A6C' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+      </div>
+
+      {/* 光晕装饰 */}
+      <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full opacity-20 blur-3xl" style={{ background: 'radial-gradient(circle, rgba(196,154,108,0.4) 0%, transparent 70%)' }} />
+      <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full opacity-20 blur-3xl" style={{ background: 'radial-gradient(circle, rgba(196,154,108,0.3) 0%, transparent 70%)' }} />
+
+      <div className="mx-auto max-w-7xl relative z-10">
         <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
           <div className="space-y-8">
             <SectionBadge style={{ background: 'rgba(196, 154, 108, 0.2)', color: '#C49A6C', border: '1px solid rgba(196, 154, 108, 0.4)' }}>
@@ -758,7 +929,7 @@ function FeaturedNFTSection() {
             <div className="flex flex-col gap-4 sm:flex-row">
               <a
                 href="#market"
-                className="inline-flex items-center gap-2 rounded-full px-8 py-4 font-medium"
+                className="inline-flex items-center gap-2 rounded-full px-8 py-4 font-medium transition-all hover:scale-105"
                 style={{ background: '#C49A6C', color: '#F5F3EB' }}
               >
                 进入市场
@@ -766,7 +937,7 @@ function FeaturedNFTSection() {
               </a>
               <a
                 href="#docs"
-                className="inline-flex items-center gap-2 rounded-full border-2 px-8 py-4 font-medium"
+                className="inline-flex items-center gap-2 rounded-full border-2 px-8 py-4 font-medium transition-all hover:scale-105"
                 style={{ borderColor: 'rgba(196, 154, 108, 0.6)', color: '#C49A6C' }}
               >
                 查看详情
@@ -774,33 +945,87 @@ function FeaturedNFTSection() {
             </div>
           </div>
 
+          {/* NFT 卡片展示 */}
           <div className="relative">
             <div
-              className="flex aspect-square items-center justify-center rounded-3xl"
+              className="rounded-3xl p-6"
               style={{
-                background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.2), rgba(196, 154, 108, 0.05))',
+                background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.15), rgba(196, 154, 108, 0.05))',
                 border: '1px solid rgba(196, 154, 108, 0.3)',
               }}
             >
-              <div className="text-center space-y-4">
-                <div
-                  className="mx-auto flex h-32 w-32 items-center justify-center overflow-hidden rounded-2xl"
-                  style={{ background: 'rgba(196, 154, 108, 0.2)' }}
-                >
-                  <img src="/images/logo.png" alt="NFT" className="h-full w-full object-contain" />
+              {/* 头部统计 */}
+              <div className="flex items-center justify-between mb-6 pb-4" style={{ borderBottom: '1px solid rgba(196, 154, 108, 0.2)' }}>
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5" style={{ color: '#C49A6C' }} />
+                  <span className="font-medium" style={{ color: '#F5F3EB' }}>热门灵兽</span>
                 </div>
-                <p className="text-sm" style={{ color: '#F5F3EB', opacity: 0.6 }}>
-                  NFT 配图占位符
-                </p>
+                <span className="text-sm" style={{ color: 'rgba(245, 243, 235, 0.5)' }}>查看全部</span>
+              </div>
+
+              {/* NFT 网格 */}
+              <div className="grid grid-cols-3 gap-3">
+                {nftCards.map((nft, i) => (
+                  <motion.div
+                    key={nft.name}
+                    className="relative group cursor-pointer"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                    whileHover={{ y: -4, scale: 1.05 }}
+                  >
+                    <div
+                      className="rounded-xl p-3 transition-all duration-300 group-hover:shadow-lg"
+                      style={{
+                        background: 'rgba(0,0,0,0.3)',
+                        border: `1px solid ${rarityColors[nft.level]}40`,
+                        boxShadow: `0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05)`,
+                      }}
+                    >
+                      <div className="aspect-square mb-2 overflow-hidden rounded-lg" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
+                        <img
+                          src={nft.img}
+                          alt={nft.name}
+                          className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-110"
+                        />
+                      </div>
+                      <div className="text-center">
+                        <p className="font-heading text-sm italic" style={{ color: '#F5F3EB' }}>{nft.name}</p>
+                        <p className="text-xs mt-0.5" style={{ color: rarityColors[nft.level] }}>{nft.level}</p>
+                      </div>
+                    </div>
+
+                    {/* 稀有度标识 */}
+                    <div
+                      className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center"
+                      style={{ background: rarityColors[nft.level] }}
+                    >
+                      <span className="text-[10px] font-bold text-white">{nft.rare === '顶级' ? '★' : '%'}</span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* 底部价格信息 */}
+              <div className="mt-6 pt-4 flex items-center justify-between" style={{ borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs" style={{ color: 'rgba(245, 243, 235, 0.5)' }}>当前地板价</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="font-heading italic text-lg" style={{ color: '#C49A6C' }}>0.08 ETH</span>
+                </div>
               </div>
             </div>
+
+            {/* 装饰元素 */}
             <div
-              className="absolute -right-4 -top-4 h-24 w-24 rounded-xl"
-              style={{ background: 'rgba(196, 154, 108, 0.3)' }}
+              className="absolute -right-6 -top-6 h-28 w-28 rounded-2xl rotate-12 opacity-60"
+              style={{ background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.3), rgba(196, 154, 108, 0.1))', border: '1px solid rgba(196, 154, 108, 0.2)' }}
             />
             <div
-              className="absolute -bottom-4 -left-4 h-16 w-16 rounded-full"
-              style={{ background: 'rgba(196, 154, 108, 0.2)' }}
+              className="absolute -left-6 -bottom-6 h-20 w-20 rounded-full opacity-40"
+              style={{ background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.4), rgba(196, 154, 108, 0.1))' }}
             />
           </div>
         </div>
@@ -896,10 +1121,10 @@ function CTASection() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-3xl text-center space-y-8">
-        <SectionHeading className="text-foreground">
+        <SectionHeading style={{ color: '#F5F3EB' }}>
           潜龙在渊<br />待时而动
         </SectionHeading>
-        <p className="text-lg" style={{ color: '#F5F3EB', opacity: 0.7 }}>
+        <p className="text-lg" style={{ color: '#F5F3EB', opacity: 0.8 }}>
           立即加入，与万千易道爱好者一同探索千年智慧与前沿科技的完美融合
         </p>
         <div className="flex flex-col gap-4 justify-center sm:flex-row">
