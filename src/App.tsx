@@ -100,8 +100,6 @@ const sideNavItems = [
   { id: 'prediction', label: '预测市场', icon: TrendingUp },
   { id: 'nft', label: 'NFT市场', icon: Gift },
   { id: 'docs', label: '文档', icon: BookOpen },
-  { id: 'stats', label: '用户量', icon: Users },
-  { id: 'cta', label: '开始', icon: Zap },
 ]
 
 function SideNav() {
