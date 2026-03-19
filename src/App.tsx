@@ -1,5 +1,5 @@
-import { PropsWithChildren, useState } from 'react'
-import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp } from 'lucide-react'
+import { PropsWithChildren, useState, useEffect } from 'react'
+import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp, ArrowUp, FileText, Zap, X } from 'lucide-react'
 import { motion } from 'motion/react'
 import { BlurText } from '@/components/BlurText'
 import { VideoBackground } from '@/components/VideoBackground'
@@ -71,8 +71,8 @@ const stats = [
   { value: '99.9%', label: '服务可用性' },
 ]
 
-function SectionBadge({ children, className }: PropsWithChildren<{ className?: string }>) {
-  return <span className={cn('section-badge liquid-glass', className)}>{children}</span>
+function SectionBadge({ children, className, style }: PropsWithChildren<{ className?: string; style?: React.CSSProperties }>) {
+  return <span className={cn('section-badge liquid-glass', className)} style={style}>{children}</span>
 }
 
 function SectionHeading({ children, className, style }: PropsWithChildren<{ className?: string; style?: React.CSSProperties }>) {
@@ -138,6 +138,118 @@ function Navbar() {
         </motion.a>
       </motion.div>
     </nav>
+  )
+}
+
+const sideNavItems = [
+  { id: 'home', label: '顶部', icon: ArrowUp },
+  { id: 'divination', label: '占卦', icon: Sparkles },
+  { id: 'battle', label: '签灵', icon: Sword },
+  { id: 'prediction', label: '预测市场', icon: TrendingUp },
+  { id: 'nft', label: 'NFT市场', icon: Gift },
+  { id: 'stats', label: '用户量', icon: Users },
+  { id: 'cta', label: '开始', icon: Zap },
+]
+
+function SideNav() {
+  const [activeId, setActiveId] = useState('home')
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      setVisible(scrollY > 300)
+
+      const sectionIds = sideNavItems.map(item => item.id)
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sectionIds[i])
+        if (element && element.offsetTop <= scrollY + 150) {
+          setActiveId(sectionIds[i])
+          break
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  return (
+    <motion.div
+      className="fixed left-4 z-50 flex flex-col gap-2"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : -20 }}
+      transition={{ duration: 0.3 }}
+      style={{ top: '30%', transform: 'translateY(-45%)' }}
+    >
+      {sideNavItems.map(({ id, label, icon: Icon }) => (
+        <motion.a
+          key={id}
+          href={`#${id}`}
+          className="relative group flex items-center"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={(e) => {
+            e.preventDefault()
+            const element = document.getElementById(id)
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' })
+              setActiveId(id)
+            }
+          }}
+        >
+          <div
+            className="flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300"
+            style={{
+              background: activeId === id ? '#C49A6C' : 'rgba(245, 243, 235, 0.9)',
+              backdropFilter: 'blur(10px)',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              border: activeId === id ? 'none' : '1px solid rgba(196, 154, 108, 0.3)',
+            }}
+          >
+            <Icon
+              className="w-4 h-4"
+              style={{ color: activeId === id ? '#F5F3EB' : '#C49A6C' }}
+            />
+          </div>
+
+          {/* 标签 */}
+          <div
+            className="absolute left-full ml-3 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 -translate-x-2 group-hover:translate-x-0"
+            style={{
+              background: '#F5F3EB',
+              color: '#333333',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            }}
+          >
+            {label}
+            <div
+              className="absolute right-full top-1/2 -translate-y-1/2 border-8 border-transparent"
+              style={{ borderRightColor: '#F5F3EB' }}
+            />
+          </div>
+        </motion.a>
+      ))}
+
+      {/* 回到顶部按钮 */}
+      <motion.button
+        className="mt-4 flex items-center justify-center w-10 h-10 rounded-full"
+        style={{
+          background: 'rgba(196, 154, 108, 0.2)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(196, 154, 108, 0.4)',
+        }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={scrollToTop}
+      >
+        <ArrowUp className="w-4 h-4" style={{ color: '#C49A6C' }} />
+      </motion.button>
+    </motion.div>
   )
 }
 
@@ -902,7 +1014,7 @@ function FeaturedNFTSection() {
   }
 
   return (
-    <section className="relative px-6 py-24 md:px-16 lg:px-24 overflow-hidden" style={{ background: '#333333' }}>
+    <section id="nft" className="relative px-6 py-24 md:px-16 lg:px-24 overflow-hidden" style={{ background: '#333333' }}>
       {/* 背景装饰 */}
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{
@@ -1036,7 +1148,7 @@ function FeaturedNFTSection() {
 
 function StatsSection() {
   return (
-    <section className="px-6 py-20" style={{ background: 'rgba(196, 154, 108, 0.08)' }}>
+    <section id="stats" className="px-6 py-20" style={{ background: 'rgba(196, 154, 108, 0.08)' }}>
       <div className="mx-auto max-w-5xl">
         <div
           className="rounded-3xl p-12 md:p-16"
@@ -1109,7 +1221,7 @@ function HowItWorksSection() {
 
 function CTASection() {
   return (
-    <section className="relative px-6 py-24 md:px-16 lg:px-24" style={{ background: '#333333' }}>
+    <section id="cta" className="relative px-6 py-24 md:px-16 lg:px-24" style={{ background: '#333333' }}>
       <div className="absolute inset-0 opacity-10">
         <div
           className="h-full w-full"
@@ -1186,6 +1298,7 @@ function App() {
   return (
     <div className="overflow-visible" style={{ background: '#F5F3EB' }}>
       <Navbar />
+      <SideNav />
       <HeroSection />
       <DivinationSection />
       <BattleSection />
