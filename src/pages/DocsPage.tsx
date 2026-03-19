@@ -765,14 +765,14 @@ function DocsPage() {
           </div>
 
           <div className="grid lg:grid-cols-4 gap-6">
-            {/* Left Navigation */}
+            {/* Left Navigation - Combined Sidebars */}
             <motion.div
               className="lg:col-span-1"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
               <div
-                className="rounded-2xl p-4 sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto"
+                className="rounded-2xl p-4"
                 style={{
                   background: '#fff',
                   border: '1px solid rgba(196, 154, 108, 0.3)',
@@ -801,19 +801,11 @@ function DocsPage() {
                     )
                   })}
                 </nav>
-              </div>
 
-              {/* Articles Navigation - Separate div */}
-              <div
-                className="rounded-2xl p-4 sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto mt-6"
-                style={{
-                  background: '#fff',
-                  border: '1px solid rgba(196, 154, 108, 0.3)',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
-                }}
-              >
-                <h3 className="font-heading text-sm italic mb-4 px-3" style={{ color: '#333333' }}>文章导航</h3>
-                <nav className="space-y-1">
+                {/* Articles Navigation - Separate section */}
+                <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}>
+                  <h3 className="font-heading text-sm italic mb-4 px-3" style={{ color: '#333333' }}>文章导航</h3>
+                  <nav className="space-y-1">
                   {/* 官推 Blog */}
                   <button
                     onClick={() => setActiveSection('official')}
@@ -908,6 +900,7 @@ function DocsPage() {
                     )}
                   </AnimatePresence>
                 </nav>
+                </div>
               </div>
             </motion.div>
 

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Navbar } from '@/components/Navbar'
 import DocsPage from './pages/DocsPage'
+import { WhitepaperPage } from './pages/WhitepaperPage'
 import communityTweetsData from '@/data/communityTweets.json'
 
 const modules = [
@@ -1531,16 +1532,18 @@ function CTASection() {
           立即加入，与万千易道爱好者一同探索千年智慧与前沿科技的完美融合
         </p>
         <div className="flex flex-col gap-4 justify-center sm:flex-row">
-          <a
-            href="#docs"
+          <Link
+            to="/whitepaper"
             className="inline-flex items-center gap-2 rounded-full px-8 py-4 font-medium"
             style={{ background: '#C49A6C', color: '#F5F3EB' }}
           >
             下载白皮书
             <ArrowUpRight className="h-5 w-5" />
-          </a>
+          </Link>
           <a
-            href="#contact"
+            href="https://t.me/qlwyxyz"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border-2 px-8 py-4 font-medium"
             style={{ borderColor: 'rgba(196, 154, 108, 0.6)', color: '#C49A6C' }}
           >
@@ -1567,6 +1570,7 @@ function Footer() {
     '文档': [
       { label: '技术文档', href: '/docs' },
       { label: '入门指南', href: '/docs' },
+      { label: '白皮书', href: '/whitepaper' },
     ],
     '社区': [
       { label: '关于我们', href: 'https://x.com/wwwqlwyxyz' },
@@ -1708,6 +1712,7 @@ function App() {
         }
       />
       <Route path="/docs" element={<DocsPage />} />
+      <Route path="/whitepaper" element={<WhitepaperPage />} />
     </Routes>
   )
 }
