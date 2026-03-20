@@ -43,7 +43,7 @@ export function Footer() {
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr] gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 mb-12">
           {/* Logo & Social */}
           <div className="flex flex-col items-start">
             <div className="flex items-center gap-2 mb-4">
@@ -105,7 +105,7 @@ export function Footer() {
           </div>
 
           {/* Link Columns - right aligned */}
-          <div className="flex justify-end gap-8">
+          <div className="flex flex-col sm:flex-row sm:justify-end gap-6 sm:gap-8">
             {Object.entries(footerLinks).map(([title, links]) => (
               <div key={title}>
                 <h4 className="classical-footer-title text-sm mb-4" style={{ color: '#C49A6C' }}>

@@ -675,10 +675,10 @@ function DivinationSection() {
             <img src="/images/section1/pool.png" alt="质押" className="mb-5 h-16 w-16" />
             <h4 className="mb-2 font-heading text-2xl italic" style={{ color: '#333333' }}>质押生息，绑定长期价值</h4>
             <p className="mb-4 text-sm leading-relaxed" style={{ color: '#333333', opacity: 0.68 }}>
-              质押潜龙勿用代币参与协议治理与收益分配，收益以 BNB 形式发放。解质押设有销毁约束，鼓励中长期持币与持续参与，让价值分配与长期绑定。
+              质押潜龙勿用代币参与协议治理与收益分配，收益以 BNB 形式发放。解质押时自动销毁 1% 代币，鼓励中长期持币与持续参与，让价值分配与长期绑定。
             </p>
             <div className="flex flex-wrap gap-2 text-xs">
-              {['BNB 收益分发', '解质押销毁约束', '治理参与权'].map((tag) => (
+              {['BNB 收益分发', '解质押销毁 1%', '治理参与权'].map((tag) => (
                 <span key={tag} className="rounded-full px-3 py-1" style={{ background: 'rgba(196,154,108,0.14)', color: '#8D6B45' }}>
                   {tag}
                 </span>
@@ -1555,7 +1555,7 @@ function FeaturedNFTSection() {
             </div>
             <div className="flex-1">
               <h3 className="font-heading text-2xl italic mb-3" style={{ color: '#F5F3EB' }}>
-                炼签 · 三合一合成
+                炼签 · 合成
               </h3>
               <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(245,243,235,0.7)' }}>
                 集齐 3 张同稀有度卦象卡牌，可投入炼签炉尝试合成更高稀有度。成功则获得目标稀有度 NFT（投入的 3 张燃烧）；失败则获得灰烬作为补偿，灰烬可提高下次合成成功率。每 1 灰烬增加 1.25% 成功概率，最高 +15%。
