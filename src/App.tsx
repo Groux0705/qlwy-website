@@ -1419,7 +1419,7 @@ function FeaturedNFTSection() {
       img: '/images/section2/rank/传奇卦.png',
       probability: '1%',
       mintFee: '500 潜龙勿用',
-      rights: ['高阶战斗单位', '更低战败销毁概率', '冲击神话前置'],
+      rights: ['高阶战斗单位', '冲击神话前置'],
     },
     {
       label: '神话',
