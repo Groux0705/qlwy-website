@@ -65,6 +65,7 @@ export function Navbar() {
     navigate(`/docs?section=${sectionId}`)
     setDropdownOpen(false)
     setMobileMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   const clearCloseTimer = () => {
@@ -100,7 +101,7 @@ export function Navbar() {
           className="grid grid-cols-[auto_1fr_auto] items-center gap-4 rounded-full px-4 py-3 sm:px-6"
           style={{ background: 'rgba(245, 243, 235, 0.95)', backdropFilter: 'blur(20px)', border: '1px solid rgba(196, 154, 108, 0.3)' }}
         >
-          <Link to="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
+          <Link to="/" className="flex items-center gap-2" onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'instant' }) }}>
             <img src="/images/logo.png" alt="潜龙勿用" className="h-10 w-auto" />
           </Link>
 
@@ -122,7 +123,7 @@ export function Navbar() {
                   >
                     {link.hasDropdown ? (
                       <button
-                        onClick={() => navigate(link.href)}
+                        onClick={() => { navigate(link.href); window.scrollTo({ top: 0, behavior: 'instant' }) }}
                         className="classical-nav-link relative flex items-center gap-1 text-sm transition-all duration-200 hover:scale-105 group"
                         style={{ color: '#333333' }}
                       >
@@ -328,7 +329,7 @@ export function Navbar() {
                       <Link
                         key={link.label}
                         to={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
+                        onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'instant' }) }}
                         className={classes}
                         style={{ color: '#333333' }}
                       >
@@ -344,7 +345,7 @@ export function Navbar() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'instant' }) }}
                       className={classes}
                       style={{ color: '#333333' }}
                     >
@@ -355,7 +356,7 @@ export function Navbar() {
                     <Link
                       key={link.label}
                       to={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'instant' }) }}
                       className={classes}
                       style={{ color: '#333333' }}
                     >
@@ -383,7 +384,7 @@ export function Navbar() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => setMobileMenuOpen(false)}
+                        onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'instant' }) }}
                         className="classical-nav-link rounded-2xl px-4 py-3 text-sm transition-colors hover:bg-white/40"
                         style={{ color: '#333333', background: 'rgba(245, 243, 235, 0.72)' }}
                       >
@@ -393,7 +394,7 @@ export function Navbar() {
                       <Link
                         key={link.label}
                         to={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
+                        onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'instant' }) }}
                         className="classical-nav-link rounded-2xl px-4 py-3 text-sm transition-colors hover:bg-white/40"
                         style={{ color: '#333333', background: 'rgba(245, 243, 235, 0.72)' }}
                       >

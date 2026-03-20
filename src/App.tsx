@@ -1,7 +1,7 @@
 import { PropsWithChildren, useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp, ArrowUp, Zap, X, BookOpen, Coins, Shield, Zap as Zap2, BarChart3, Users as Users2, Twitter, Send, Github, ExternalLink, ChevronDown, Clock, User } from 'lucide-react'
-import { motion } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
@@ -505,7 +505,7 @@ function DivinationSection() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            潜龙勿用的真正入口不是直接买 NFT，而是先卜一卦。用户支付 BNB 请求链上随机，若结果达到稀有及以上，再用潜龙勿用代币铸造成卦象卡牌NFT；而神话级结果的诞生，会把一次抽签变成全局奖池事件。
+            潜龙勿用的真正入口不是直接买 NFT，而是先卜一卦。用户支付 BNB 请求链上随机，卜卦费用按 70% 进入奖池、30% 用于协议运营；若结果达到稀有及以上，再用潜龙勿用代币铸造成卦象卡牌NFT；而神话级结果的诞生，会把一次抽签变成全局奖池事件。
           </motion.p>
         </div>
 
@@ -672,13 +672,13 @@ function DivinationSection() {
             transition={{ delay: 0.2 }}
             whileHover={{ y: -4 }}
           >
-            <img src="/images/section1/pool.png" alt="系统规则" className="mb-5 h-16 w-16" />
-            <h4 className="mb-2 font-heading text-2xl italic" style={{ color: '#333333' }}>可运营、可扩展的入口系统</h4>
+            <img src="/images/section1/pool.png" alt="质押" className="mb-5 h-16 w-16" />
+            <h4 className="mb-2 font-heading text-2xl italic" style={{ color: '#333333' }}>质押生息，绑定长期价值</h4>
             <p className="mb-4 text-sm leading-relaxed" style={{ color: '#333333', opacity: 0.68 }}>
-              占卜默认有冷却保护，管理员还能发放免费卜卦额度做活动和拉新。卜卦不是一次性噱头，而是整个生态长期拉新和资产生成的发动机。
+              质押潜龙勿用代币参与协议治理与收益分配，收益以 BNB 形式发放。解质押设有销毁约束，鼓励中长期持币与持续参与，让价值分配与长期绑定。
             </p>
             <div className="flex flex-wrap gap-2 text-xs">
-              {['默认 10 秒冷却', '支持免费额度', 'VRF 可验证随机'].map((tag) => (
+              {['BNB 收益分发', '解质押销毁约束', '治理参与权'].map((tag) => (
                 <span key={tag} className="rounded-full px-3 py-1" style={{ background: 'rgba(196,154,108,0.14)', color: '#8D6B45' }}>
                   {tag}
                 </span>
@@ -1088,9 +1088,9 @@ function BattleSection() {
       tags: ['胜 +50 EXP', '败 +20 EXP', '0-99 级'],
     },
     {
-      title: '失败会承担真实损耗',
-      desc: '战败方 NFT 不是只输掉一场记录，而是有概率被链上烧毁。稀有度越高，烧毁风险越低。',
-      tags: ['普通 30%', '稀有 20%', '史诗 15%', '传奇 10%', '神话 5%'],
+      title: '幸运加权评分机制',
+      desc: '每回合得分 = (幸运值 + 稀有度加成 + 签灵等级加成) × 70% + 随机因素 × 30%，稀有度越高、签灵等级越高，优势越明显。',
+      tags: ['稀有 +5', '史诗 +10', '传奇 +15', '神话 +20'],
     },
   ]
 
@@ -1359,7 +1359,39 @@ function PredictionSection() {
   )
 }
 
+function ImageModal({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.85)' }}
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.85, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.85, opacity: 0 }}
+        className="relative max-w-2xl w-full"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute -top-10 right-0 p-2 rounded-full transition-colors hover:bg-white/10"
+          style={{ color: '#F5F3EB' }}
+        >
+          <X className="h-6 w-6" />
+        </button>
+        <img src={src} alt={alt} className="w-full h-auto max-h-[85vh] object-contain rounded-2xl" />
+      </motion.div>
+    </motion.div>
+  )
+}
+
 function FeaturedNFTSection() {
+  const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null)
+
   const rarityTiers = [
     {
       label: '普通',
@@ -1430,7 +1462,7 @@ function FeaturedNFTSection() {
           <SectionBadge style={{ background: 'rgba(196, 154, 108, 0.2)', color: '#C49A6C', border: '1px solid rgba(196, 154, 108, 0.4)' }}>
             资产层结构
           </SectionBadge>
-          <SectionHeading className="mt-4 text-foreground">
+          <SectionHeading className="mt-4" style={{ color: '#F5F3EB' }}>
             五级稀有度，对应五层权益
           </SectionHeading>
           <p className="mt-5 text-base leading-relaxed" style={{ color: '#F5F3EB', opacity: 0.72 }}>
@@ -1462,10 +1494,12 @@ function FeaturedNFTSection() {
                 </span>
               </div>
 
-              <div className="mb-4 rounded-[22px] p-3" style={{ background: 'rgba(0,0,0,0.18)' }}>
-                <div className="aspect-square overflow-hidden rounded-[18px]" style={{ background: 'rgba(245,243,235,0.06)' }}>
-                  <img src={tier.img} alt={tier.label} className="h-full w-full object-contain" />
-                </div>
+              <div
+                className="mb-4 overflow-hidden rounded-2xl cursor-pointer transition-transform hover:scale-105"
+                style={{ background: 'rgba(245,243,235,0.06)' }}
+                onClick={() => setSelectedImage({ src: tier.img, alt: tier.label })}
+              >
+                <img src={tier.img} alt={tier.label} className="h-full w-full object-contain" />
               </div>
 
               <h3 className="font-heading text-2xl italic" style={{ color: '#F5F3EB' }}>
@@ -1507,7 +1541,54 @@ function FeaturedNFTSection() {
             <BookOpen className="h-5 w-5" />
           </Link>
         </div>
+
+        {/* 炼签合成区域 */}
+        <div className="mt-16 rounded-3xl p-8" style={{ background: 'rgba(245,243,235,0.05)', border: '1px solid rgba(196,154,108,0.2)' }}>
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            <div className="flex-shrink-0">
+              <img
+                src="/images/section2/炼签炉.png"
+                alt="炼签炉"
+                className="h-32 w-auto object-contain cursor-pointer transition-transform hover:scale-105"
+                onClick={() => setSelectedImage({ src: '/images/section2/炼签炉.png', alt: '炼签炉' })}
+              />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-heading text-2xl italic mb-3" style={{ color: '#F5F3EB' }}>
+                炼签 · 三合一合成
+              </h3>
+              <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(245,243,235,0.7)' }}>
+                集齐 3 张同稀有度卦象卡牌，可投入炼签炉尝试合成更高稀有度。成功则获得目标稀有度 NFT（投入的 3 张燃烧）；失败则获得灰烬作为补偿，灰烬可提高下次合成成功率。每 1 灰烬增加 1.25% 成功概率，最高 +15%。
+              </p>
+              <div className="flex flex-wrap gap-3 text-xs">
+                {[
+                  { from: '稀有', to: '史诗', rate: '60%', fee: '200 QLWY' },
+                  { from: '史诗', to: '传奇', rate: '30%', fee: '800 QLWY' },
+                  { from: '传奇', to: '神话', rate: '15%', fee: '5000 QLWY' },
+                ].map((item) => (
+                  <div
+                    key={item.from}
+                    className="rounded-full px-4 py-2"
+                    style={{ background: 'rgba(196,154,108,0.15)', color: '#C49A6C', border: '1px solid rgba(196,154,108,0.25)' }}
+                  >
+                    {item.from} → {item.to}：基础 {item.rate} · 费用 {item.fee}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <AnimatePresence>
+        {selectedImage && (
+          <ImageModal
+            src={selectedImage.src}
+            alt={selectedImage.alt}
+            onClose={() => setSelectedImage(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   )
 }
