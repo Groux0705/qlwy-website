@@ -19,7 +19,7 @@ const footerLinks = {
   '社区': [
     { label: '官方推特', href: 'https://x.com/wwwqlwyxyz' },
     { label: '加入社区', href: 'https://t.me/qlwyxyz' },
-    { label: 'GitHub', href: 'https://github.com/qlwy' },
+    { label: 'GitHub', href: 'https://github.com/qlwy-xyz' },
   ],
 }
 
@@ -84,7 +84,7 @@ export function Footer() {
                 <Send className="w-5 h-5" style={{ color: '#C49A6C' }} />
               </a>
               <a
-                href="https://github.com/qlwy"
+                href="https://github.com/qlwy-xyz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"

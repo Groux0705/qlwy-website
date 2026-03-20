@@ -67,7 +67,7 @@
 | 预测市场 | https://yc.qlwy.xyz |
 | Twitter | https://x.com/wwwqlwyxyz |
 | Telegram | https://t.me/qlwyxyz |
-| GitHub | https://github.com/qlwy |
+| GitHub | https://github.com/qlwy-xyz |
 
 ---
 

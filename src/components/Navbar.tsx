@@ -38,7 +38,7 @@ const mobileQuickLinks = [
 const socialLinks = [
   { label: '官推', href: 'https://x.com/wwwqlwyxyz', icon: Twitter },
   { label: 'Telegram', href: 'https://t.me/qlwyxyz', icon: Send },
-  { label: 'GitHub', href: 'https://github.com/qlwy', icon: Github },
+  { label: 'GitHub', href: 'https://github.com/qlwy-xyz', icon: Github },
 ]
 
 export function Navbar() {
@@ -268,7 +268,7 @@ export function Navbar() {
                 <a href="https://t.me/qlwyxyz" target="_blank" rel="noopener noreferrer" className="rounded-full p-2 transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
                   <Send className="h-4 w-4" style={{ color: '#C49A6C' }} />
                 </a>
-                <a href="https://github.com/qlwy" target="_blank" rel="noopener noreferrer" className="rounded-full p-2 transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
+                <a href="https://github.com/qlwy-xyz" target="_blank" rel="noopener noreferrer" className="rounded-full p-2 transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
                   <Github className="h-4 w-4" style={{ color: '#C49A6C' }} />
                 </a>
                 <a href="https://four.meme/zh-TW/token/0x2e591b13d3caf27adf1db47d75278315d0754444" target="_blank" rel="noopener noreferrer" className="rounded-full p-2 transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
