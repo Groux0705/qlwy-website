@@ -1,6 +1,6 @@
 import { PropsWithChildren, useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp, ArrowUp, Zap, X, BookOpen, Coins, Shield, Zap as Zap2, BarChart3, Users as Users2, Twitter, Send, Github, ExternalLink, ChevronDown, Clock, User } from 'lucide-react'
+import { ArrowUpRight, Sparkles, Sword, Gift, Users, Lock, TrendingUp, ArrowUp, Zap, X, BookOpen, Coins, Shield, Zap as Zap2, BarChart3, Users as Users2, Twitter, Send, Github, ExternalLink, ChevronDown, Clock, User, Compass, LogIn, Trophy, Scale, FlaskConical } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { Navbar } from '@/components/Navbar'
@@ -1726,7 +1726,7 @@ const docSections = [
   {
     id: 'overview',
     title: '项目定位',
-    icon: Sparkles,
+    icon: Compass,
     content: '以易经叙事为世界观、以卦象卡牌NFT为资产底座、以签灵为执行引擎的链上应用型 Meme / 游戏协议。',
     details: [
       '两条主线并行：卜卦-NFT 与 预测-仲裁',
@@ -1738,7 +1738,7 @@ const docSections = [
   {
     id: 'entry',
     title: '入口机制',
-    icon: Sparkles,
+    icon: LogIn,
     content: '用户先发起卜卦请求，由 VRF 返回卦象与运势；只有稀有及以上结果才进入铸签决策，这也是整个生态的真实入口。',
     details: [
       'BNB 请求 + VRF 返回结果',
@@ -1762,7 +1762,7 @@ const docSections = [
   {
     id: 'jackpot',
     title: '奖池机制',
-    icon: Coins,
+    icon: Trophy,
     content: '奖池在神话级铸造时触发，而不是按日开奖。它把稀有事件转化为全生态共享的价值结算时刻。',
     details: [
       '50% 给当前神话级铸造者',
@@ -1810,7 +1810,7 @@ const docSections = [
   {
     id: 'governance',
     title: '仲裁与治理',
-    icon: Shield,
+    icon: Scale,
     content: '神话级不只是稀有收藏品，也是协议可信度与最终裁决权的承载体。预测市场的争议，最终依赖这一层来完成结算。',
     details: [
       '争议市场进入专门仲裁流程',
@@ -1822,7 +1822,7 @@ const docSections = [
   {
     id: 'refinery',
     title: '精炼系统',
-    icon: Coins,
+    icon: FlaskConical,
     content: '精炼负责消化低稀有 NFT 库存，通过 3 合 1 的方式把资产向更高等级压缩，并用灰烬做失败缓冲。',
     details: [
       '3 张同稀有度 NFT 才能精炼',
@@ -1834,7 +1834,7 @@ const docSections = [
   {
     id: 'token',
     title: '代币与质押',
-    icon: Coins,
+    icon: Lock,
     content: '潜龙勿用是生态的实用型 / 治理型代币，参与铸签、升级、精炼、质押与部分治理；质押又把协议活动和长期持有者绑定在一起。',
     details: [
       '用于铸签、升级、精炼等高频行为',

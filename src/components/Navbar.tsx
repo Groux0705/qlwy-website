@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
-import { ArrowUpRight, Twitter, Send, Github, ChevronDown, Sparkles, Shield, Coins, Users, Sword, TrendingUp, Lock, FileText, Menu, X, BarChart3 } from 'lucide-react'
+import { ArrowUpRight, Twitter, Send, Github, ChevronDown, Shield, Users, Sword, TrendingUp, Lock, FileText, Menu, X, BarChart3, Compass, LogIn, Trophy, Scale, FlaskConical } from 'lucide-react'
 
 const docNavItems = [
-  { id: 'overview', label: '项目定位', icon: Sparkles },
-  { id: 'entry', label: '入口机制', icon: Sparkles },
+  { id: 'overview', label: '项目定位', icon: Compass },
+  { id: 'entry', label: '入口机制', icon: LogIn },
   { id: 'assets', label: '资产层与稀有度', icon: Shield },
-  { id: 'jackpot', label: '奖池机制', icon: Coins },
+  { id: 'jackpot', label: '奖池机制', icon: Trophy },
   { id: 'spirit', label: '签灵', icon: Users },
   { id: 'battle', label: '对战系统', icon: Sword },
   { id: 'prediction', label: '预测市场', icon: TrendingUp },
-  { id: 'governance', label: '仲裁与治理', icon: Shield },
-  { id: 'refinery', label: '精炼系统', icon: Coins },
+  { id: 'governance', label: '仲裁与治理', icon: Scale },
+  { id: 'refinery', label: '精炼系统', icon: FlaskConical },
   { id: 'token', label: '代币与质押', icon: Lock },
   { id: 'architecture', label: '技术架构', icon: BarChart3 },
-  { id: 'community', label: '社区文章', icon: FileText },
+  { id: 'community', label: '社区文章', icon: Twitter },
   { id: 'official', label: '官方机制文章', icon: FileText },
 ]
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { ArrowUpRight, FileText, Sparkles, Sword, Users, TrendingUp, Coins, Shield, BarChart3, Twitter, Clock, User, X, ChevronDown } from 'lucide-react'
+import { ArrowUpRight, FileText, Sword, Users, TrendingUp, Shield, BarChart3, Twitter, Clock, User, X, ChevronDown, Compass, LogIn, Trophy, Scale, FlaskConical, Lock, RefreshCw } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import { Navbar } from '@/components/Navbar'
@@ -12,7 +12,7 @@ const docSections = [
   {
     id: 'overview',
     title: '项目定位',
-    icon: Sparkles,
+    icon: Compass,
     content: '潜龙勿用不是单一的“算命工具”，而是一个以《易经》叙事为世界观、以卦象卡牌NFT为资产底座、以签灵为执行引擎，并由奖池、对战、预测市场与仲裁机制组成闭环的链上应用型 Meme / 游戏协议。',
     details: [
       '两条主线并行：卜卦-NFT-精炼/签灵/对战-奖池，与预测市场-争议-仲裁。',
@@ -24,7 +24,7 @@ const docSections = [
   {
     id: 'entry',
     title: '入口机制',
-    icon: Sparkles,
+    icon: LogIn,
     content: '用户进入潜龙勿用的第一步不是直接拿到 NFT，而是先发起卜卦请求。BNB 触发 VRF 返回卦象与运势后，只有稀有及以上结果才进入铸签决策，这让“问卦”成为整个生态的流量入口与筛选器。',
     details: [
       '卜卦请求使用 BNB 发起，结果由 Chainlink VRF 返回，保证随机性可验证。',
@@ -48,7 +48,7 @@ const docSections = [
   {
     id: 'jackpot',
     title: '奖池机制',
-    icon: Coins,
+    icon: Trophy,
     content: '奖池不是固定时间开奖，而是在铸出神话级 NFT 时触发的全局分配事件。它把“抽到神话”从一次性稀有事件，变成整个生态共享的价值结算时刻。',
     details: [
       '当前神话级铸造者获得 50%，把“抽中神话”直接转化为即时奖励。',
@@ -95,7 +95,7 @@ const docSections = [
   {
     id: 'governance',
     title: '仲裁与治理',
-    icon: Shield,
+    icon: Scale,
     content: '神话级 NFT 的价值不只来自稀有度，也来自仲裁与治理权。预测市场发生争议后，符合条件的神话持有者可以通过质押 NFT 与潜龙勿用代币成为协议的裁决者。',
     details: [
       '市场在创建者提交结果后进入争议窗口，争议期结束前可以升级到仲裁流程。',
@@ -107,7 +107,7 @@ const docSections = [
   {
     id: 'refinery',
     title: '精炼系统',
-    icon: Coins,
+    icon: FlaskConical,
     content: '精炼系统解决的是低稀有 NFT 堆积的问题。通过 3 合 1 机制，协议把存量资产向更高等级压缩；失败时返还灰烬，又让玩家有机会用长期积累修正运气。',
     details: [
       '每次精炼投入 3 张同稀有度 NFT，用失败概率换更高一层的资产等级。',
@@ -119,7 +119,7 @@ const docSections = [
   {
     id: 'token',
     title: '代币与质押',
-    icon: Coins,
+    icon: Lock,
     content: '潜龙勿用是整个生态的实用型 / 治理型代币，承担铸签、升级、精炼、质押与部分治理场景；质押系统则把协议里的长期参与者和价值分配绑定在一起。',
     details: [
       '潜龙勿用代币参与稀有及以上铸签、签灵升级、精炼等高频行为，是所有模块之间的通用燃料。',
@@ -143,7 +143,7 @@ const docSections = [
   {
     id: 'ecocycle',
     title: '生态闭环',
-    icon: Coins,
+    icon: RefreshCw,
     content: '潜龙勿用的各个模块并非孤立存在，而是通过价值流与权益绑定形成闭环。代币在模块间流转，资产在不同玩法间循环，而神话 NFT 则成为整个生态权益的锚点。',
     details: [
       '卜卦费用 60% 回购$潜龙勿用 注入奖池 20% 进入质押分红池、20% 用于运营维护；铸签费用全额注入奖池，形成奖池的初始积累。',
