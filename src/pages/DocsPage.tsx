@@ -146,7 +146,7 @@ const docSections = [
     icon: Coins,
     content: '潜龙勿用的各个模块并非孤立存在，而是通过价值流与权益绑定形成闭环。代币在模块间流转，资产在不同玩法间循环，而神话 NFT 则成为整个生态权益的锚点。',
     details: [
-      '卜卦费用 70% 进入奖池，30% 用于协议运营；铸签费用全额注入奖池，形成奖池的初始积累。',
+      '卜卦费用 60% 回购$潜龙勿用 注入奖池 20% 进入质押分红池、20% 用于运营维护；铸签费用全额注入奖池，形成奖池的初始积累。',
       '神话 NFT 触发奖池分配：50% 给新神话持有者，30% 给现有神话持有者，20% 滚存。',
       '签灵自动化驱动战斗、质押与预测市场参与，持续产生手续费收入并转化为质押收益。',
       '精炼系统让低稀有 NFT 通过灰烬机制向高稀有度转化，形成资产循环与通缩效应。',
@@ -287,7 +287,7 @@ function TweetCard({ tweet, onClick }: { tweet: Tweet; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="block w-full text-left p-4 rounded-xl transition-all hover:scale-[1.01] hover:shadow-md"
+      className="block w-full min-w-0 overflow-hidden rounded-xl p-4 text-left transition-all hover:scale-[1.01] hover:shadow-md"
       style={{
         background: hasTags ? 'linear-gradient(135deg, rgba(196, 154, 108, 0.12), rgba(196, 154, 108, 0.05))' : '#fff',
         border: hasTags ? '2px solid #C49A6C' : '1px solid rgba(196, 154, 108, 0.2)',
@@ -302,7 +302,7 @@ function TweetCard({ tweet, onClick }: { tweet: Tweet; onClick: () => void }) {
       )}
 
       {/* Header */}
-      <div className="flex items-center gap-3 mb-3">
+      <div className="mb-3 flex min-w-0 items-start gap-3">
         {tweet.authorAvatar ? (
           <img
             src={tweet.authorAvatar}
@@ -319,10 +319,10 @@ function TweetCard({ tweet, onClick }: { tweet: Tweet; onClick: () => void }) {
           </div>
         )}
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium" style={{ color: '#333333' }}>
+          <p className="truncate text-sm font-medium" style={{ color: '#333333' }}>
             {tweet.author}
           </p>
-          <p className="text-xs" style={{ color: '#333333', opacity: 0.5 }}>
+          <p className="break-all text-xs leading-relaxed" style={{ color: '#333333', opacity: 0.5 }}>
             {tweet.authorHandle}
           </p>
         </div>
@@ -345,7 +345,10 @@ function TweetCard({ tweet, onClick }: { tweet: Tweet; onClick: () => void }) {
       )}
 
       {/* Content */}
-      <p className="text-sm leading-relaxed mb-3 line-clamp-4" style={{ color: '#333333' }}>
+      <p
+        className="mb-3 min-w-0 break-words text-sm leading-relaxed line-clamp-4 [overflow-wrap:anywhere]"
+        style={{ color: '#333333' }}
+      >
         {tweet.content}
       </p>
 
@@ -361,7 +364,10 @@ function TweetCard({ tweet, onClick }: { tweet: Tweet; onClick: () => void }) {
       )}
 
       {/* Footer */}
-      <div className="flex items-center justify-between pt-3" style={{ borderTop: '1px solid rgba(196, 154, 108, 0.15)' }}>
+      <div
+        className="flex flex-col items-start gap-2 pt-3 sm:flex-row sm:items-center sm:justify-between"
+        style={{ borderTop: '1px solid rgba(196, 154, 108, 0.15)' }}
+      >
         <div className="flex items-center gap-1 text-xs" style={{ color: '#333333', opacity: 0.5 }}>
           <Clock className="w-3 h-3" />
           {formatTime(tweet.publishTime)}
@@ -389,13 +395,13 @@ function TweetModal({ tweet, onClose }: { tweet: Tweet; onClose: () => void }) {
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl"
+        className="max-h-[85vh] w-full max-w-2xl overflow-x-hidden overflow-y-auto rounded-2xl"
         style={{ background: '#fff' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between p-4" style={{ background: '#fff', borderBottom: '1px solid rgba(196, 154, 108, 0.2)' }}>
-          <div className="flex items-center gap-3">
+          <div className="flex min-w-0 items-center gap-3">
             {tweet.authorAvatar ? (
               <img
                 src={tweet.authorAvatar}
@@ -411,11 +417,11 @@ function TweetModal({ tweet, onClose }: { tweet: Tweet; onClose: () => void }) {
                 <User className="w-6 h-6" style={{ color: '#C49A6C' }} />
               </div>
             )}
-            <div>
-              <p className="font-medium" style={{ color: '#333333' }}>
+            <div className="min-w-0">
+              <p className="truncate font-medium" style={{ color: '#333333' }}>
                 {tweet.author}
               </p>
-              <p className="text-sm" style={{ color: '#333333', opacity: 0.5 }}>
+              <p className="break-all text-sm leading-relaxed" style={{ color: '#333333', opacity: 0.5 }}>
                 {tweet.authorHandle}
               </p>
             </div>
@@ -459,13 +465,19 @@ function TweetModal({ tweet, onClose }: { tweet: Tweet; onClose: () => void }) {
 
         {/* Content */}
         <div className="p-6">
-          <p className="text-base leading-relaxed whitespace-pre-wrap" style={{ color: '#333333' }}>
+          <p
+            className="break-words whitespace-pre-wrap text-base leading-relaxed [overflow-wrap:anywhere]"
+            style={{ color: '#333333' }}
+          >
             {tweet.content}
           </p>
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 flex items-center justify-between p-4" style={{ background: '#fff', borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}>
+        <div
+          className="sticky bottom-0 flex flex-col items-stretch gap-3 p-4 sm:flex-row sm:items-center sm:justify-between"
+          style={{ background: '#fff', borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}
+        >
           <div className="flex items-center gap-1 text-sm" style={{ color: '#333333', opacity: 0.5 }}>
             <Clock className="w-4 h-4" />
             {formatTime(tweet.publishTime)}
@@ -474,7 +486,7 @@ function TweetModal({ tweet, onClose }: { tweet: Tweet; onClose: () => void }) {
             href={tweet.originalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105"
+            className="flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all hover:scale-105 sm:justify-start"
             style={{ background: '#C49A6C', color: '#fff' }}
           >
             查看原文
@@ -500,13 +512,13 @@ function OfficialTweetModal({ tweet, onClose }: { tweet: OfficialTweet; onClose:
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl"
+        className="max-h-[85vh] w-full max-w-2xl overflow-x-hidden overflow-y-auto rounded-2xl"
         style={{ background: '#fff' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between p-4" style={{ background: '#fff', borderBottom: '1px solid rgba(196, 154, 108, 0.2)' }}>
-          <div className="flex items-center gap-3">
+          <div className="flex min-w-0 items-center gap-3">
             {tweet.authorAvatar ? (
               <img
                 src={tweet.authorAvatar}
@@ -522,11 +534,11 @@ function OfficialTweetModal({ tweet, onClose }: { tweet: OfficialTweet; onClose:
                 <User className="w-6 h-6" style={{ color: '#C49A6C' }} />
               </div>
             )}
-            <div>
-              <p className="font-medium" style={{ color: '#333333' }}>
+            <div className="min-w-0">
+              <p className="truncate font-medium" style={{ color: '#333333' }}>
                 {tweet.author}
               </p>
-              <p className="text-sm" style={{ color: '#333333', opacity: 0.5 }}>
+              <p className="break-all text-sm leading-relaxed" style={{ color: '#333333', opacity: 0.5 }}>
                 {tweet.authorHandle}
               </p>
             </div>
@@ -554,7 +566,7 @@ function OfficialTweetModal({ tweet, onClose }: { tweet: OfficialTweet; onClose:
         {/* Title */}
         {tweet.title && (
           <div className="px-6 pt-4">
-            <h3 className="font-heading text-xl italic" style={{ color: '#333333' }}>
+            <h3 className="break-words font-heading text-xl italic [overflow-wrap:anywhere]" style={{ color: '#333333' }}>
               {tweet.title}
             </h3>
           </div>
@@ -562,13 +574,19 @@ function OfficialTweetModal({ tweet, onClose }: { tweet: OfficialTweet; onClose:
 
         {/* Content */}
         <div className="p-6">
-          <p className="text-base leading-relaxed whitespace-pre-wrap" style={{ color: '#333333' }}>
+          <p
+            className="break-words whitespace-pre-wrap text-base leading-relaxed [overflow-wrap:anywhere]"
+            style={{ color: '#333333' }}
+          >
             {tweet.content}
           </p>
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 flex items-center justify-between p-4" style={{ background: '#fff', borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}>
+        <div
+          className="sticky bottom-0 flex flex-col items-stretch gap-3 p-4 sm:flex-row sm:items-center sm:justify-between"
+          style={{ background: '#fff', borderTop: '1px solid rgba(196, 154, 108, 0.2)' }}
+        >
           <div className="flex items-center gap-1 text-sm" style={{ color: '#333333', opacity: 0.5 }}>
             <Clock className="w-4 h-4" />
             {formatTime(tweet.publishTime)}
@@ -577,7 +595,7 @@ function OfficialTweetModal({ tweet, onClose }: { tweet: OfficialTweet; onClose:
             href={tweet.originalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105"
+            className="flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all hover:scale-105 sm:justify-start"
             style={{ background: '#C49A6C', color: '#fff' }}
           >
             查看原文
@@ -613,12 +631,16 @@ function CommunityArticles({ onAuthorClick, onTweetClick }: { onAuthorClick?: (a
         const hasTaggedTweets = tweets.some(t => t.tags && t.tags.length > 0)
 
         return (
-          <div key={authorHandle} id={`author-${authorHandle.replace('@', '')}`} className="space-y-3">
-            <div className="flex items-center gap-3">
-              <h4 className="font-heading text-sm italic" style={{ color: '#C49A6C' }}>社区成员文章</h4>
+          <div
+            key={authorHandle}
+            id={`author-${authorHandle.replace('@', '')}`}
+            className="space-y-3 scroll-mt-28"
+          >
+            <div className="flex min-w-0 flex-wrap items-center gap-2 sm:gap-3">
+              <h4 className="shrink-0 font-heading text-sm italic" style={{ color: '#C49A6C' }}>社区成员文章</h4>
               <button
                 onClick={() => onAuthorClick?.(authorHandle)}
-                className="px-2 py-1 rounded-full text-xs font-medium transition-all hover:scale-105"
+                className="max-w-full rounded-full px-2 py-1 text-left text-xs font-medium transition-all hover:scale-105 break-words [overflow-wrap:anywhere]"
                 style={{ background: hasTaggedTweets ? '#C49A6C' : 'rgba(196, 154, 108, 0.2)', color: hasTaggedTweets ? '#fff' : '#C49A6C' }}
               >
                 {sortedTweets[0]?.author || authorHandle.replace('@', '')}
@@ -657,14 +679,14 @@ function OfficialBlogArticles({ onTweetClick }: { onTweetClick?: (tweet: Officia
           <button
             key={tweet.id}
             onClick={() => onTweetClick?.(tweet)}
-            className="w-full text-left p-4 rounded-xl transition-all hover:scale-[1.01] hover:shadow-md"
+            className="w-full min-w-0 overflow-hidden rounded-xl p-4 text-left transition-all hover:scale-[1.01] hover:shadow-md"
             style={{
               background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.08), rgba(196, 154, 108, 0.03))',
               border: '1px solid rgba(196, 154, 108, 0.25)',
             }}
           >
             {/* Header */}
-            <div className="flex items-center gap-3 mb-3">
+            <div className="mb-3 flex min-w-0 items-start gap-3">
               {tweet.authorAvatar ? (
                 <img
                   src={tweet.authorAvatar}
@@ -680,7 +702,7 @@ function OfficialBlogArticles({ onTweetClick }: { onTweetClick?: (tweet: Officia
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium" style={{ color: '#333333' }}>
+                <p className="truncate text-xs font-medium" style={{ color: '#333333' }}>
                   {tweet.author}
                 </p>
               </div>
@@ -689,13 +711,16 @@ function OfficialBlogArticles({ onTweetClick }: { onTweetClick?: (tweet: Officia
 
             {/* Title */}
             {tweet.title && (
-              <h4 className="font-heading text-base italic mb-2" style={{ color: '#333333' }}>
+              <h4 className="mb-2 break-words font-heading text-base italic [overflow-wrap:anywhere]" style={{ color: '#333333' }}>
                 {tweet.title}
               </h4>
             )}
 
             {/* Preview */}
-            <p className="text-sm leading-relaxed line-clamp-2 mb-3" style={{ color: '#333333', opacity: 0.7 }}>
+            <p
+              className="mb-3 min-w-0 break-words text-sm leading-relaxed line-clamp-2 [overflow-wrap:anywhere]"
+              style={{ color: '#333333', opacity: 0.7 }}
+            >
               {tweet.content}
             </p>
 
@@ -711,7 +736,10 @@ function OfficialBlogArticles({ onTweetClick }: { onTweetClick?: (tweet: Officia
             )}
 
             {/* Footer */}
-            <div className="flex items-center justify-between pt-2" style={{ borderTop: '1px solid rgba(196, 154, 108, 0.15)' }}>
+            <div
+              className="flex flex-col items-start gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between"
+              style={{ borderTop: '1px solid rgba(196, 154, 108, 0.15)' }}
+            >
               <div className="flex items-center gap-1 text-xs" style={{ color: '#333333', opacity: 0.5 }}>
                 <Clock className="w-3 h-3" />
                 {formatTime(tweet.publishTime)}
@@ -737,6 +765,8 @@ function DocsPage() {
   const [selectedTweet, setSelectedTweet] = useState<Tweet | null>(null)
   const [selectedOfficialTweet, setSelectedOfficialTweet] = useState<OfficialTweet | null>(null)
   const [articlesExpanded, setArticlesExpanded] = useState(false)
+  const [mobileTopicsExpanded, setMobileTopicsExpanded] = useState(false)
+  const [selectedDocThemeId, setSelectedDocThemeId] = useState('overview')
   const [searchParams] = useSearchParams()
 
   // Handle section from URL query param
@@ -752,8 +782,18 @@ function DocsPage() {
     }
   }, [searchParams])
 
+  useEffect(() => {
+    const activeDocTheme = docSections.find((section) => section.id === activeSection && !section.isArticles)
+    if (activeDocTheme) {
+      setSelectedDocThemeId(activeDocTheme.id)
+    }
+  }, [activeSection])
+
   const currentDoc = docSections.find(d => d.id === activeSection) || docSections[0]
   const CurrentIcon = currentDoc.icon
+  const docThemeSections = docSections.filter((section) => !section.isArticles)
+  const selectedDocTheme = docThemeSections.find((section) => section.id === selectedDocThemeId) || docThemeSections[0]
+  const SelectedDocThemeIcon = selectedDocTheme.icon
 
   // Sort authors: those with tagged tweets first, then alphabetically
   const authorHandles = Object.keys(tweetsByAuthor).sort((a, b) => {
@@ -766,11 +806,17 @@ function DocsPage() {
     return a.localeCompare(b)
   })
 
+  const getAuthorScrollOffset = () => (window.innerWidth >= 1024 ? 112 : 96)
+
   const scrollToAuthor = (authorHandle: string) => {
     setActiveAuthor(authorHandle)
     const element = document.getElementById(`author-${authorHandle.replace('@', '')}`)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const targetTop = element.getBoundingClientRect().top + window.scrollY - getAuthorScrollOffset()
+      window.scrollTo({
+        top: Math.max(targetTop, 0),
+        behavior: 'smooth',
+      })
     }
   }
 
@@ -950,62 +996,149 @@ function DocsPage() {
               </div>
             </motion.div>
 
-            {/* Mobile Navigation - Horizontal Scrollable Tabs */}
+            {/* Mobile Navigation - Grouped Panels */}
             <motion.div
-              className="lg:hidden col-span-full -mx-6 px-4 mb-4 overflow-x-auto"
+              className="lg:hidden col-span-full mb-4"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <div className="flex gap-2 pb-2" style={{ minWidth: 'max-content' }}>
-                {docSections.filter(s => !s.isArticles).map((section) => {
-                  const Icon = section.icon
-                  const isActive = activeSection === section.id
-                  return (
-                    <button
-                      key={section.id}
-                      onClick={() => setActiveSection(section.id)}
-                      className={cn(
-                        "flex items-center gap-2 px-3 py-2 rounded-full text-xs whitespace-nowrap transition-all duration-200",
-                        isActive
-                          ? "text-white"
-                          : "bg-white text-gray-600 border border-gray-200"
-                      )}
-                      style={isActive ? { background: '#C49A6C' } : {}}
-                    >
-                      <Icon className="w-3 h-3 shrink-0" />
-                      {section.title}
-                    </button>
-                  )
-                })}
-                <button
-                  onClick={() => setActiveSection('official')}
-                  className={cn(
-                    "flex items-center gap-2 px-3 py-2 rounded-full text-xs whitespace-nowrap transition-all duration-200",
-                    activeSection === 'official'
-                      ? "text-white"
-                      : "bg-white text-gray-600 border border-gray-200"
-                  )}
-                  style={activeSection === 'official' ? { background: '#C49A6C' } : {}}
-                >
-                  <FileText className="w-3 h-3 shrink-0" />
-                  官方文章
-                </button>
-                <button
-                  onClick={() => {
-                    setActiveSection('community')
-                    setArticlesExpanded(!articlesExpanded)
+              <div className="space-y-3">
+                <div
+                  className="rounded-2xl p-3"
+                  style={{
+                    background: '#fff',
+                    border: '1px solid rgba(196, 154, 108, 0.22)',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
                   }}
-                  className={cn(
-                    "flex items-center gap-2 px-3 py-2 rounded-full text-xs whitespace-nowrap transition-all duration-200",
-                    activeSection === 'community'
-                      ? "text-white"
-                      : "bg-white text-gray-600 border border-gray-200"
-                  )}
-                  style={activeSection === 'community' ? { background: '#C49A6C' } : {}}
                 >
-                  <Twitter className="w-3 h-3 shrink-0" />
-                  社区
-                </button>
+                  <p
+                    className="mb-2 px-1 text-[11px] font-medium tracking-[0.16em]"
+                    style={{ color: '#C49A6C' }}
+                  >
+                    文档主题
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setMobileTopicsExpanded((prev) => !prev)}
+                    className="flex w-full items-center justify-between gap-3 rounded-2xl px-1 py-1 text-left"
+                  >
+                    <div className="flex min-w-0 items-center gap-3">
+                      <div
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl"
+                        style={{ background: 'rgba(196, 154, 108, 0.12)' }}
+                      >
+                        <SelectedDocThemeIcon className="h-4 w-4" style={{ color: '#C49A6C' }} />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[11px] tracking-[0.14em]" style={{ color: '#C49A6C', opacity: 0.8 }}>
+                          已选主题
+                        </p>
+                        <p className="truncate text-sm font-medium" style={{ color: '#333333' }}>
+                          {selectedDocTheme.title}
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+                      style={{ background: 'rgba(196, 154, 108, 0.08)' }}
+                    >
+                      <ChevronDown
+                        className={cn("h-4 w-4 transition-transform duration-200", mobileTopicsExpanded && "rotate-180")}
+                        style={{ color: '#C49A6C' }}
+                      />
+                    </div>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {mobileTopicsExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mt-3 grid grid-cols-2 gap-2">
+                          {docThemeSections.map((section) => {
+                            const Icon = section.icon
+                            const isSelected = selectedDocThemeId === section.id
+                            return (
+                              <button
+                                key={section.id}
+                                onClick={() => {
+                                  setActiveSection(section.id)
+                                  setSelectedDocThemeId(section.id)
+                                  setMobileTopicsExpanded(false)
+                                }}
+                                className={cn(
+                                  "flex min-h-[44px] items-center justify-center gap-2 rounded-2xl px-3 py-2 text-center text-xs transition-all duration-200",
+                                  isSelected
+                                    ? "text-white"
+                                    : "bg-[rgba(196,154,108,0.06)] text-gray-600 border border-[rgba(196,154,108,0.16)]"
+                                )}
+                                style={isSelected ? { background: '#C49A6C' } : {}}
+                              >
+                                <Icon className="h-3 w-3 shrink-0" />
+                                <span className="leading-snug">{section.title}</span>
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                <div
+                  className="rounded-2xl p-3"
+                  style={{
+                    background: '#fff',
+                    border: '1px solid rgba(196, 154, 108, 0.22)',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
+                  }}
+                >
+                  <p
+                    className="mb-2 px-1 text-[11px] font-medium tracking-[0.16em]"
+                    style={{ color: '#C49A6C' }}
+                  >
+                    文章内容
+                  </p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => {
+                        setActiveSection('official')
+                        setArticlesExpanded(false)
+                        setMobileTopicsExpanded(false)
+                      }}
+                      className={cn(
+                        "flex min-h-[44px] items-center justify-center gap-2 rounded-2xl px-3 py-2 text-center text-xs transition-all duration-200",
+                        activeSection === 'official'
+                          ? "text-white"
+                          : "bg-[rgba(196,154,108,0.06)] text-gray-600 border border-[rgba(196,154,108,0.16)]"
+                      )}
+                      style={activeSection === 'official' ? { background: '#C49A6C' } : {}}
+                    >
+                      <FileText className="h-3 w-3 shrink-0" />
+                      <span className="leading-snug">官方文章</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setActiveSection('community')
+                        setArticlesExpanded(true)
+                        setMobileTopicsExpanded(false)
+                      }}
+                      className={cn(
+                        "flex min-h-[44px] items-center justify-center gap-2 rounded-2xl px-3 py-2 text-center text-xs transition-all duration-200",
+                        activeSection === 'community'
+                          ? "text-white"
+                          : "bg-[rgba(196,154,108,0.06)] text-gray-600 border border-[rgba(196,154,108,0.16)]"
+                      )}
+                      style={activeSection === 'community' ? { background: '#C49A6C' } : {}}
+                    >
+                      <Twitter className="h-3 w-3 shrink-0" />
+                      <span className="leading-snug">社区文章</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </motion.div>
 

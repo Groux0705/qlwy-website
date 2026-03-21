@@ -505,7 +505,7 @@ function DivinationSection() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            潜龙勿用的真正入口不是直接买 NFT，而是先卜一卦。用户支付 BNB 请求链上随机，卜卦费用按 70% 进入奖池、30% 用于协议运营；若结果达到稀有及以上，再用潜龙勿用代币铸造成卦象卡牌NFT；而神话级结果的诞生，会把一次抽签变成全局奖池事件。
+            潜龙勿用的真正入口不是直接买 NFT，而是先卜一卦。用户支付 BNB 请求链上随机，卜卦费用按 60%  回购$潜龙勿用 注入奖池 20% 进入质押分红池、20% 用于运营维护；若结果达到稀有及以上，再用潜龙勿用代币铸造成卦象卡牌NFT；而神话级结果的诞生，会把一次抽签变成全局奖池事件。
           </motion.p>
         </div>
 
@@ -1620,6 +1620,8 @@ function StatsSection() {
 }
 
 function HowItWorksSection() {
+  const tutorialVideoUrl = '/video/qlwy-tutorial.mp4'
+
   return (
     <section className="relative min-h-[600px] px-6 py-24 md:px-16 lg:px-24" style={{ background: '#F5F3EB' }}>
       <div className="mx-auto max-w-4xl text-center">
@@ -1627,6 +1629,60 @@ function HowItWorksSection() {
           <SectionBadge className="mb-6" style={{ color: '#C49A6C' }}>新手路径</SectionBadge>
           <SectionHeading>三步进入潜龙生态</SectionHeading>
         </div>
+
+        <motion.div
+          className="mb-12 overflow-hidden rounded-[28px] p-4 md:p-5"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45 }}
+          style={{
+            background: 'linear-gradient(135deg, rgba(196, 154, 108, 0.12), rgba(255, 255, 255, 0.82))',
+            border: '1px solid rgba(196, 154, 108, 0.25)',
+            boxShadow: '0 10px 28px rgba(0,0,0,0.06)',
+          }}
+        >
+          <div className="mb-4 flex flex-col gap-3 text-left md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-xs tracking-[0.24em]" style={{ color: '#C49A6C' }}>
+                入门教学视频
+              </p>
+              <h3 className="mt-2 font-heading text-2xl italic" style={{ color: '#333333' }}>
+                先看一遍完整新手流程
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed" style={{ color: '#333333', opacity: 0.68 }}>
+                如果你第一次接触潜龙勿用，建议先看这段教学视频，再回来看下面的三步路径，会更容易把入口、铸签和成长路线串起来。
+              </p>
+            </div>
+            <a
+              href={tutorialVideoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 self-start rounded-full px-4 py-2 text-sm font-medium transition-all hover:scale-105"
+              style={{ background: 'rgba(196, 154, 108, 0.15)', color: '#C49A6C' }}
+            >
+              单独打开视频
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
+
+          <div
+            className="overflow-hidden rounded-[22px]"
+            style={{
+              background: '#111111',
+              border: '1px solid rgba(196, 154, 108, 0.18)',
+            }}
+          >
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              className="aspect-video w-full bg-black object-cover"
+            >
+              <source src={tutorialVideoUrl} type="video/mp4" />
+            </video>
+          </div>
+        </motion.div>
 
         <div className="grid gap-8 md:grid-cols-3">
           {[
