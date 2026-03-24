@@ -275,6 +275,9 @@ export function Navbar() {
                 <a href="https://four.meme/zh-TW/token/0x2e591b13d3caf27adf1db47d75278315d0754444" target="_blank" rel="noopener noreferrer" className="rounded-full p-2 transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }}>
                   <img src="/images/four.svg" alt="Four.meme" className="h-4 w-4" />
                 </a>
+                <a href="https://docs.bnbchain.org/bnb-smart-chain/" target="_blank" rel="noopener noreferrer" className="rounded-full p-2 transition-all hover:scale-110" style={{ background: 'rgba(196, 154, 108, 0.1)' }} title="BNB Chain Docs">
+                  <img src="/images/bnb.svg" alt="BNB Chain" className="h-4 w-4" />
+                </a>
               </div>
             </div>
           </div>

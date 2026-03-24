@@ -287,16 +287,17 @@ function TweetCard({ tweet, onClick }: { tweet: Tweet; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="block w-full min-w-0 overflow-hidden rounded-xl p-4 text-left transition-all hover:scale-[1.01] hover:shadow-md"
+      className="block w-full min-w-0 rounded-xl p-4 text-left transition-all hover:scale-[1.01] hover:shadow-md"
       style={{
         background: hasTags ? 'linear-gradient(135deg, rgba(196, 154, 108, 0.12), rgba(196, 154, 108, 0.05))' : '#fff',
         border: hasTags ? '2px solid #C49A6C' : '1px solid rgba(196, 154, 108, 0.2)',
         position: 'relative',
+        overflow: 'visible',
       }}
     >
       {/* Tags indicator for pinned articles */}
       {hasTags && (
-        <div className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full text-xs font-medium" style={{ background: '#C49A6C', color: '#fff' }}>
+        <div className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full text-xs font-medium z-10" style={{ background: '#C49A6C', color: '#fff' }}>
           置顶
         </div>
       )}

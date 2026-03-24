@@ -101,6 +101,16 @@ export function Footer() {
               >
                 <img src="/images/four.svg" alt="Four.meme" className="w-5 h-5" />
               </a>
+              <a
+                href="https://docs.bnbchain.org/bnb-smart-chain/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
+                style={{ background: 'rgba(196, 154, 108, 0.2)' }}
+                title="BNB Chain Docs"
+              >
+                <img src="/images/bnb.svg" alt="BNB Chain" className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
