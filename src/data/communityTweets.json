@@ -157,9 +157,109 @@
       "name": "CZ 🔶 BNB",
       "handle": "@cz_binance",
       "avatar": "https://pbs.twimg.com/profile_images/1961440580279336960/PiiIs8Lh_200x200.jpg"
+    },
+    "@ICEDNOCAP": {
+      "name": "無糖冰有事",
+      "handle": "@icednocap",
+      "avatar": "https://pbs.twimg.com/profile_images/1985714606736883712/fxwMuY8e_200x200.jpg"
+    },
+    "@WTMLAILE168": {
+      "name": "憤怒",
+      "handle": "@wtmlaile168",
+      "avatar": "https://pbs.twimg.com/profile_images/2015443767684149248/6ybtG_cA_200x200.jpg"
+    },
+    "@LUCASZERO123": {
+      "name": "Luca",
+      "handle": "@lucaszero123",
+      "avatar": "https://pbs.twimg.com/profile_images/2025972793289109504/H1BlvVMP_200x200.jpg"
+    },
+    "@BINANCE_LIFES": {
+      "name": "屌毛",
+      "handle": "@binance_lifes",
+      "avatar": "https://pbs.twimg.com/profile_images/2015439037302181888/lE2bAxQf_200x200.jpg"
     }
   },
   "tweets": [
+    {
+      "id": "2031630388226044278",
+      "author": "無糖冰有事",
+      "authorHandle": "@icednocap",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/1985714606736883712/fxwMuY8e_200x200.jpg",
+      "content": "刚刚玩了会 #潜龙勿用 的卜卦\n确实蛮好玩的，抽出神话好像可以平分50%奖池？\n这个项目出来这么久 确实一直没有去了解过\n今天一看 可玩性真的很多 @wwwqlwyxyz \n是个做事的人 👍",
+      "publishTime": "2026-03-11T07:16:45.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/HDHNEXlbUAABpax.jpg?name=orig",
+      "originalUrl": "https://x.com/icednocap/status/2031630388226044278"
+    },
+    {
+      "id": "2028354015302762567",
+      "author": "憤怒",
+      "authorHandle": "@wtmlaile168",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2015443767684149248/6ybtG_cA_200x200.jpg",
+      "content": "没有一颗种子会在第二天变成麦田，成功也是如此；只要每天向前一步，时间自会替你证明坚持的意义  Keep Building @nina_rong @heyibinance",
+      "publishTime": "2026-03-02T06:17:36.000Z",
+      "mediaUrl": null,
+      "originalUrl": "https://x.com/wtmlaile168/status/2028354015302762567"
+    },
+    {
+      "id": "2027673440438915435",
+      "author": "Luca",
+      "authorHandle": "@lucaszero123",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2025972793289109504/H1BlvVMP_200x200.jpg",
+      "content": "社区想要社区得到！这就是bsc上顶级开发者的工作效率，事情是昨晚凌晨1.30space反馈的，没到一天就更新了，DEV 的研发能力没得说！！！我们仍在着惨淡的市场中，勇敢前行！keep building！",
+      "publishTime": "2026-02-28T09:13:15.000Z",
+      "mediaUrl": null,
+      "originalUrl": "https://x.com/lucaszero123/status/2027673440438915435"
+    },
+    {
+      "id": "2025872612472287343",
+      "author": "屌毛",
+      "authorHandle": "@binance_lifes",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2015439037302181888/lE2bAxQf_200x200.jpg",
+      "content": "潜龙勿用的预测市场\n上线了电报的小程序\n可以丝滑打开操作\n没有眼花缭乱的机器人指令\n傻瓜式的操作，无需学习就能上手\n流畅、简洁、任何人都可以创建预测话题\n中文简易版的Polymarket\n让中文预测变得更简单",
+      "publishTime": "2026-02-23T09:57:24.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/HB1YKsPasAASniS.jpg?name=orig",
+      "originalUrl": "https://x.com/binance_lifes/status/2025872612472287343"
+    },
+    {
+      "id": "2025499547758461078",
+      "author": "屌毛",
+      "authorHandle": "@binance_lifes",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2015439037302181888/lE2bAxQf_200x200.jpg",
+      "content": "潜龙勿用的预测市场\n看了一下话题都算当前比较热门的\n操作和页面看着挺舒服的\n第一个BSC上的中文预测市场\n流动性和话题还有很大的衍生空间\n马上世界杯了\n预测市场会是一个巨大的蛋糕\nfour在昨日关注了官推\n更多的官方扶持会给予到真正有东西的地方\n社区想要，社区得到\n币安已经开始关注这些真正能落地的社区",
+      "publishTime": "2026-02-22T09:14:58.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/HBwFGdjacAAyJ7S.jpg?name=orig",
+      "originalUrl": "https://x.com/binance_lifes/status/2025499547758461078"
+    },
+    {
+      "id": "2022666763562029086",
+      "author": "屌毛",
+      "authorHandle": "@binance_lifes",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2015439037302181888/lE2bAxQf_200x200.jpg",
+      "content": "连续霸榜BNB agents\n数据真实可查https://bnbagents.army\n潜龙勿用是怎么做到的？\n答案就是把agents接入到了应用内\n并且跟应用的其他生态形成了闭环\n从卜卦到NFT，让agents存在于里面变成NFA\n这些听着高大上的名词，都被最简单的呈现\n不需要复杂的操作，没有看不懂的东西\n一切都发生在BSC里\n生态革命",
+      "publishTime": "2026-02-14T13:38:30.000Z",
+      "mediaUrl": null,
+      "originalUrl": "https://x.com/binance_lifes/status/2022666763562029086"
+    },
+    {
+      "id": "2022030641597120725",
+      "author": "屌毛",
+      "authorHandle": "@binance_lifes",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2015439037302181888/lE2bAxQf_200x200.jpg",
+      "content": "最近行情很枯\n但是自从接触到潜龙勿用后越来越喜欢建设\n第一次在币圈感觉到复购率这个概念\n我可以在里面训练机器人自动帮我赚币\n没有任何复杂的操作，不需要看教程\n只要告诉我的机器人他该用多少钱去做\n@cz_binance  开始理解建设的意思了\n币价只是一时的，好的东西会被发现\n@heyibinance @nina_rong",
+      "publishTime": "2026-02-12T19:30:47.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/HA-yJiOaQAA3M2I.jpg?name=orig",
+      "originalUrl": "https://x.com/binance_lifes/status/2022030641597120725"
+    },
+    {
+      "id": "2021915005080494254",
+      "author": "屌毛",
+      "authorHandle": "@binance_lifes",
+      "authorAvatar": "https://pbs.twimg.com/profile_images/2015439037302181888/lE2bAxQf_200x200.jpg",
+      "content": "中文赛道的AI+玄学\n潜龙勿用目前登顶BNB agents第一\n币安给的舞台让建设者被看见\n@nina_rong 应用币一定会给BSC带来增长的\n从中文赛道让老外学中文\n到AI时代让全民参与建设\n@heyibinance 一姐还是眼光毒辣的一姐\n在同行忙着诋毁币安的时候\nBSC悄悄在诞生新的希望",
+      "publishTime": "2026-02-12T11:51:17.000Z",
+      "mediaUrl": "https://pbs.twimg.com/media/HA9I-bfbMAAdTPG.jpg?name=orig",
+      "originalUrl": "https://x.com/binance_lifes/status/2021915005080494254"
+    },
     {
       "id": "2028700936202592355",
       "author": "FUKUYAFUNJI·Max",
